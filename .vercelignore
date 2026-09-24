@@ -1,0 +1,54 @@
+# =========================================================
+# CIX — Vercel Production Deployment
+# =========================================================
+
+# RAW Olist datasets — never needed by runtime
+data/raw/
+
+# Training / experimentation datasets
+data/processed/customer_purchase_behavior.csv
+data/processed/customer_rfm.csv
+data/processed/customer_clv.csv
+data/processed/customer_repeat_purchase_dataset.csv
+data/processed/repeat_purchase_train.csv
+data/processed/repeat_purchase_test.csv
+data/processed/customer_churn_dataset.csv
+
+# DO NOT exclude these — app.py loads them at runtime
+# data/processed/customer_intelligence_master.csv
+# data/processed/customer_recommendations.csv
+# data/processed/repeat_purchase_predictions.csv
+
+# Old / experimental ML artifacts
+artifacts/
+
+# Re-include production artifacts
+!artifacts_production/
+!artifacts_production/models/
+!artifacts_production/reports/
+
+# Training reports
+reports/
+
+# Notebooks
+notebooks/
+
+# Tests
+tests/
+
+# Local uploads
+data/uploads/
+
+# Python development
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Development dependencies
+requirements-dev.txt
+
+# Local Vercel files
+.vercel/
