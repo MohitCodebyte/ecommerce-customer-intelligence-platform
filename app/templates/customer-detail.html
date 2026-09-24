@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+{% block title %}CIX — Customer 360{% if customer %} · {{ customer.get('customer_unique_id', customer.get('customer_id', ''))[:12] }}{% endif %}{% endblock %}
+{% block breadcrumb %}Customer 360{% endblock %}
+
+{% block content %}
+<div class="px-gutter-lg py-space-lg max-w-[1280px] mx-auto space-y-space-lg page-fade-in">
+
+  <!-- Back nav -->
+  <div class="flex items-center gap-2 stagger-item stagger-1">
+    <a href="/customers" class="flex items-center gap-1.5 text-on-surface-variant hover:text-on-surface text-sm transition-colors group">
+      <span class="material-symbols-outlined text-[18px] group-hover:-translate-x-0.5 transition-transform">arrow_back</span>
+      Back to Customer Intelligence
+    </a>
+  </div>
+
+  {% if not customer %}
+  <div class="flex flex-col items-center justify-center py-24 text-center space-y-4 stagger-item stagger-2">
+    <div class="w-20 h-20 rounded-2xl bg-surface-container flex items-center justify-center">
+      <span class="material-symbols-outlined text-[40px] text-primary">account_circle</span>
+    </div>
+    <h2 class="font-headline-lg text-headline-lg text-on-surface">Select a customer to view Customer 360</h2>
+    <p class="text-on-surface-variant text-sm max-w-md">Search or select any customer record from the Customer Intelligence table or Explorer to inspect their 360 degree profile.</p>
+    <a href="{{ url_for('customers') }}" class="px-6 py-3 rounded-xl bg-primary text-on-primary font-semibold text-sm hover:bg-primary-fixed-dim transition-all shadow-[0_0_20px_rgba(76,215,246,0.3)]">Go to Customers</a>
+  </div>
+
+  {% elif not data_loaded %}
+  <div class="flex flex-col items-center justify-center py-24 text-center space-y-4 stagger-item stagger-2">
+    <span class="material-symbols-outlined text-[48px] text-on-surface-variant">person_off</span>
+    <h2 class="font-headline-lg text-headline-lg text-on-surface">No Customer Data Loaded</h2>
+    <p class="text-on-surface-variant text-sm">Upload a dataset to view customer intelligence profiles.</p>
+    <a href="{{ url_for('upload') }}" class="px-6 py-3 rounded-xl bg-primary text-on-primary font-semibold text-sm hover:bg-primary-fixed-dim transition-all">Upload Dataset</a>
+  </div>
+
+  {% else %}
+  {% set cid = customer.get('customer_unique_id', customer.get('customer_id', '')) %}
+  {% set segment = customer.get('rfm_segment', customer.get('value_segment', '—')) %}
+  {% set tier = customer.get('clv_value_tier', '—') %}
+  {% set retention = customer.get('retention_status', '—') %}
+  {% set priority = customer.get('value_priority', customer.get('business_priority', '—')) %}
+  {% set action = customer.get('recommendation_action', customer.get('business_recommendation', '—')) %}
+  {% set probability = customer.get('repeat_purchase_probability', None) %}
+  {% set prediction = customer.get('repeat_purchase_prediction', None) %}
+
+  <!-- Profile Header -->
+  <div class="relative rounded-xl p-space-lg bg-surface-container-low/90 backdrop-blur-xl shadow-xl overflow-hidden stagger-item stagger-1">
+    <div class="absolute -right-20 -top-20 w-80 h-80 bg-primary/8 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="relative z-10 flex flex-col md:flex-row md:items-start justify-between gap-6">
+      <div class="flex items-start gap-4">
+        <!-- Avatar -->
+        <div class="w-14 h-14 rounded-2xl bg-primary/20 border border-primary/40 flex items-center justify-center flex-shrink-0">
+          <span class="material-symbols-outlined text-[28px] text-primary">person</span>
+        </div>
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <h1 class="font-data-md text-data-md text-on-surface font-mono">{{ cid[:24] if cid else '—' }}</h1>
+            {% if segment and segment != '—' %}
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold {{ segment | replace(' ', '') | replace('/', '') | replace('-', '') | lower | replace('champions','badge-Champions') | replace('loyal','badge-Loyal') | replace('potential','badge-Potential') | replace('atrisk','badge-AtRisk') | replace('needs','badge-Needs') | replace('hibernat','badge-Hibernating') | replace('new','badge-New') | default('bg-surface-container text-on-surface-variant') }}">
+              {{ segment }}
+            </span>
+            {% endif %}
+            {% if tier and tier != '—' %}
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-secondary/15 text-secondary border border-secondary/30">{{ tier }}</span>
+            {% endif %}
+          </div>
+          <p class="text-xs text-on-surface-variant mt-1">
+            {{ customer.get('customer_city', '') }}{% if customer.get('customer_state') %}, {{ customer.get('customer_state') }}{% endif %}
+          </p>
+          {% if customer.get('customer_type') %}
+          <p class="text-xs text-on-surface-variant">{{ customer.get('customer_type') }}</p>
+          {% endif %}
+        </div>
+      </div>
+      <!-- Priority Badge -->
+      <div class="flex flex-col items-end gap-2">
+        {% if priority and priority != '—' %}
+        <div class="px-3 py-1.5 rounded-lg text-sm font-semibold
+          {% if priority == 'High' %}bg-primary/15 text-primary border border-primary/30
+          {% elif priority == 'Medium' %}bg-secondary/15 text-secondary border border-secondary/30
+          {% else %}bg-surface-container-high text-on-surface-variant border border-outline-variant/30{% endif %}">
+          {{ priority }} Priority
+        </div>
+        {% endif %}
+        {% if retention and retention != '—' %}
+        <span class="text-xs text-on-surface-variant">{{ retention }}</span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- KPI Grid -->
+  <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3 stagger-item stagger-2">
+    {% set kpis = [
+      ('Orders', customer.get('completed_orders', customer.get('total_orders')), 'shopping_bag', 'primary', False),
+      ('CLV Revenue', customer.get('historical_clv', customer.get('total_revenue', customer.get('monetary'))), 'paid', 'tertiary', True),
+      ('Avg Order Value', customer.get('average_completed_order_value', customer.get('average_order_value')), 'receipt', 'secondary', True),
+      ('Recency (days)', customer.get('recency', customer.get('recency_days')), 'schedule', 'primary', False),
+      ('Frequency', customer.get('frequency', customer.get('purchase_frequency')), 'repeat', 'secondary', False),
+      ('Lifetime (days)', customer.get('customer_lifetime_days'), 'calendar_today', 'tertiary', False),
+    ] %}
+    {% for label, val, icon, color, currency in kpis %}
+    <div class="rounded-xl p-4 bg-surface-container/70 backdrop-blur-md border border-outline-variant/20 flex flex-col gap-2">
+      <div class="flex items-center justify-between">
+        <span class="text-[11px] text-on-surface-variant uppercase tracking-wide">{{ label }}</span>
+        <span class="material-symbols-outlined text-[16px] text-{{ color }}">{{ icon }}</span>
+      </div>
+      <div class="font-data-md text-data-md text-on-surface">
+        {% if val is not none and val != '—' and val != None %}
+          {% if currency %}${{ '{:,.2f}'.format(val | float) }}{% else %}{{ '{:,.0f}'.format(val | float) }}{% endif %}
+        {% else %}—{% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- RFM Scores + Propensity -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg stagger-item stagger-3">
+    <!-- RFM Scores -->
+    <div class="rounded-xl bg-surface-container-low/80 backdrop-blur-md border border-outline-variant/20 p-space-lg">
+      <h2 class="font-headline-md text-headline-md text-on-surface mb-4">RFM Analysis</h2>
+      {% for dim, label, val_key in [
+        ('R', 'Recency Score', 'r_score'),
+        ('F', 'Frequency Score', 'f_score'),
+        ('M', 'Monetary Score', 'm_score'),
+      ] %}
+      {% set val = customer.get(val_key) %}
+      <div class="mb-3">
+        <div class="flex items-center justify-between mb-1">
+          <span class="text-xs text-on-surface-variant">{{ label }}</span>
+          <span class="font-mono font-bold text-sm {% if val and (val|float) >= 4 %}text-tertiary{% elif val and (val|float) >= 3 %}text-primary{% else %}text-on-surface-variant{% endif %}">
+            {{ val if val else '—' }}/5
+          </span>
+        </div>
+        <div class="prob-bar-track">
+          <div class="prob-bar-fill {% if val and (val|float) >= 4 %}bg-tertiary{% elif val and (val|float) >= 3 %}bg-primary{% else %}bg-secondary{% endif %}"
+               style="width: {{ ((val|float) / 5 * 100)|int if val else 0 }}%"></div>
+        </div>
+      </div>
+      {% endfor %}
+      <div class="mt-4 pt-4 border-t border-outline-variant/20">
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-on-surface-variant">Composite RFM Score</span>
+          <span class="font-mono font-bold text-primary">{{ customer.get('rfm_score', '—') }}</span>
+        </div>
+        <div class="flex items-center justify-between mt-1">
+          <span class="text-xs text-on-surface-variant">RFM Total</span>
+          <span class="font-mono text-sm text-on-surface">{{ customer.get('rfm_score_total', '—') }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Propensity & Recommendation -->
+    <div class="rounded-xl bg-surface-container-low/80 backdrop-blur-md border border-outline-variant/20 p-space-lg">
+      <h2 class="font-headline-md text-headline-md text-on-surface mb-4">Repeat Purchase Propensity</h2>
+      {% if probability is not none and probability != None %}
+      {% set pct = (probability | float * 100) | round(1) %}
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-sm text-on-surface-variant">Model Probability</span>
+        <span class="font-mono font-bold text-lg {% if probability | float >= 0.4965 %}text-primary{% else %}text-on-surface-variant{% endif %}">{{ pct }}%</span>
+      </div>
+      <div class="w-full h-3 rounded-full bg-surface-container-highest overflow-hidden mb-3">
+        <div class="h-full rounded-full transition-all duration-700 {% if probability | float >= 0.4965 %}bg-primary{% else %}bg-on-surface-variant{% endif %}" style="width:{{ pct }}%"></div>
+      </div>
+      <div class="flex items-center gap-2 mb-4">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-semibold
+          {% if probability | float >= 0.4965 %}bg-primary/15 text-primary border border-primary/30{% else %}bg-surface-container-high text-on-surface-variant border border-outline-variant/30{% endif %}">
+          <span class="w-1.5 h-1.5 rounded-full {% if probability | float >= 0.4965 %}bg-primary{% else %}bg-on-surface-variant{% endif %}"></span>
+          {% if probability | float >= 0.4965 %}High Repeat-Purchase Propensity{% else %}Lower Propensity Signal{% endif %}
+        </span>
+      </div>
+      <p class="text-[11px] text-on-surface-variant italic">Model output is decision-support, not a guarantee of future purchase.</p>
+      {% else %}
+      <div class="py-8 text-center text-on-surface-variant">
+        <span class="material-symbols-outlined text-[32px] mb-2">analytics</span>
+        <p class="text-sm">Propensity score not available for this customer.</p>
+        <a href="/predictions" class="text-primary text-xs underline mt-1 inline-block">Run Predictions</a>
+      </div>
+      {% endif %}
+
+      <!-- Recommended Action -->
+      {% if action and action != '—' %}
+      <div class="mt-4 pt-4 border-t border-outline-variant/20">
+        <div class="text-xs text-on-surface-variant uppercase tracking-wider mb-2">Recommended Action</div>
+        <div class="flex items-start gap-2 p-3 rounded-lg bg-surface-container border border-outline-variant/20 hover:border-secondary/40 transition-colors">
+          <span class="material-symbols-outlined text-[18px] text-secondary flex-shrink-0 mt-0.5">bolt</span>
+          <span class="text-sm text-on-surface">{{ action }}</span>
+        </div>
+        {% if customer.get('recommendation_campaign') %}
+        <p class="text-xs text-on-surface-variant mt-2">Campaign: <span class="text-secondary font-medium">{{ customer.get('recommendation_campaign') }}</span></p>
+        {% endif %}
+        {% if customer.get('recommendation_channel') %}
+        <p class="text-xs text-on-surface-variant">Channel: {{ customer.get('recommendation_channel') }}</p>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Additional Details -->
+  <div class="rounded-xl bg-surface-container-low/60 backdrop-blur-md border border-outline-variant/20 p-space-lg stagger-item stagger-4">
+    <h2 class="font-headline-md text-headline-md text-on-surface mb-4">Purchase History Details</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      {% for label, val_key in [
+        ('First Purchase', 'first_purchase_date'),
+        ('Last Purchase', 'last_purchase_date'),
+        ('Repeat Customer', 'repeat_customer'),
+        ('Data Quality', 'data_quality_flag'),
+        ('Annualized Revenue', 'annualized_revenue'),
+        ('Orders / Month', 'orders_per_month'),
+        ('Revenue / Month', 'revenue_per_month'),
+        ('Lifetime Months', 'customer_lifetime_months'),
+      ] %}
+      {% set val = customer.get(val_key) %}
+      <div>
+        <dt class="text-[11px] text-on-surface-variant uppercase tracking-wide">{{ label }}</dt>
+        <dd class="text-sm text-on-surface font-mono mt-0.5">{{ val if val else '—' }}</dd>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% endif %}
+</div>
+{% endblock %}

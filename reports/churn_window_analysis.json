@@ -1,0 +1,48 @@
+{
+    "analysis": {
+        "analysis_date": "2018-08-29",
+        "dataset": "Olist Brazilian E-Commerce Public Dataset",
+        "order_filter": "delivered",
+        "customer_identity": "customer_unique_id",
+        "churn_windows_tested": [
+            90,
+            120,
+            180,
+            240
+        ]
+    },
+    "results": [
+        {
+            "churn_window_days": 90,
+            "analysis_date": "2018-08-29",
+            "total_customers": 93358,
+            "churned_customers": 74899,
+            "active_customers": 18459,
+            "churn_rate_percent": 80.23
+        },
+        {
+            "churn_window_days": 120,
+            "analysis_date": "2018-08-29",
+            "total_customers": 93358,
+            "churned_customers": 68438,
+            "active_customers": 24920,
+            "churn_rate_percent": 73.31
+        },
+        {
+            "churn_window_days": 180,
+            "analysis_date": "2018-08-29",
+            "total_customers": 93358,
+            "churned_customers": 55252,
+            "active_customers": 38106,
+            "churn_rate_percent": 59.18
+        },
+        {
+            "churn_window_days": 240,
+            "analysis_date": "2018-08-29",
+            "total_customers": 93358,
+            "churned_customers": 41766,
+            "active_customers": 51592,
+            "churn_rate_percent": 44.74
+        }
+    ]
+}

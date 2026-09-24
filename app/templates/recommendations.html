@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+{% block title %}CIX — Retention Recommendations{% endblock %}
+{% block breadcrumb %}Recommendations{% endblock %}
+
+{% block content %}
+<div class="px-gutter-lg py-space-lg max-w-[1720px] mx-auto space-y-space-xl relative">
+
+  <!-- Glow effect -->
+  <div class="absolute -top-12 -left-10 w-96 h-40 bg-gradient-to-r from-primary/10 via-secondary-container/20 to-transparent blur-3xl pointer-events-none -z-10"></div>
+
+  <!-- Header Section -->
+  <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-lg">
+    <div class="space-y-space-xs">
+      <div class="flex items-center gap-space-sm">
+        <span class="inline-flex items-center px-space-sm py-0.5 rounded-full bg-surface-container-high text-primary font-data-sm text-data-sm uppercase tracking-widest">
+          Decision Support Engine
+        </span>
+        <span class="text-outline-variant font-data-sm text-data-sm">•</span>
+        <span class="font-data-sm text-data-sm text-on-surface-variant flex items-center gap-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+          Automated Playbook Dispatch
+        </span>
+      </div>
+      <h1 class="font-display-lg text-display-lg text-on-surface tracking-tight">Recommendations</h1>
+      <p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">
+        Convert customer intelligence and repeat purchase signals into prioritized, explainable retention workflows.
+      </p>
+    </div>
+    <div class="flex items-center gap-space-md shrink-0">
+      <button onclick="exportCSV('recommendations')" class="flex items-center gap-space-xs px-space-lg py-2.5 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-all shadow-sm" type="button">
+        <span class="material-symbols-outlined text-[18px] text-tertiary">download</span>
+        <span class="font-label-md text-label-md">Export Recommendations CSV</span>
+      </button>
+      <button onclick="exportExcel('full')" class="flex items-center gap-space-xs px-space-lg py-2.5 rounded-lg bg-primary-container text-on-primary font-semibold shadow-[0_0_20px_rgba(6,182,212,0.35)] hover:shadow-[0_0_24px_rgba(76,215,246,0.5)] transition-all" type="button">
+        <span class="material-symbols-outlined text-[20px]">bolt</span>
+        <span class="font-label-md text-label-md">Export Full Report</span>
+      </button>
+    </div>
+  </div>
+
+  {% if data_loaded %}
+  <!-- Top KPI Row (5 Floating Glass Tiles) -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-space-md">
+    <div class="relative overflow-hidden rounded-xl bg-surface-container-low/70 backdrop-blur-md p-space-lg shadow-md border border-outline-variant/20">
+      <div class="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
+      <div class="flex justify-between items-start mb-space-sm">
+        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Actionable Customers</span>
+        <span class="material-symbols-outlined text-primary text-[20px]">group</span>
+      </div>
+      <div class="font-data-lg text-data-lg text-on-surface mb-1">{{ '{:,}'.format(total_customers) }}</div>
+      <div class="flex items-center gap-1.5 font-label-sm text-label-sm text-on-surface-variant">
+        <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+        <span>Scored & Categorized</span>
+      </div>
+    </div>
+
+    <div class="relative overflow-hidden rounded-xl bg-surface-container-low/70 backdrop-blur-md p-space-lg shadow-md border border-outline-variant/20">
+      <div class="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-error/60 to-transparent"></div>
+      <div class="flex justify-between items-start mb-space-sm">
+        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">High Priority Actions</span>
+        <span class="material-symbols-outlined text-error text-[20px]">emergency</span>
+      </div>
+      <div class="font-data-lg text-data-lg text-error mb-1">
+        {% set high_count = actions | selectattr('priority', 'equalto', 'High') | map(attribute='count') | sum %}
+        {{ '{:,}'.format(high_count) }}
+      </div>
+      <div class="flex items-center gap-1.5 font-label-sm text-label-sm text-on-surface-variant">
+        <span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+        <span>Immediate Outreach</span>
+      </div>
+    </div>
+
+    <div class="relative overflow-hidden rounded-xl bg-surface-container-low/70 backdrop-blur-md p-space-lg shadow-md border border-outline-variant/20">
+      <div class="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-secondary to-transparent"></div>
+      <div class="flex justify-between items-start mb-space-sm">
+        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Action Types</span>
+        <span class="material-symbols-outlined text-secondary text-[20px]">category</span>
+      </div>
+      <div class="font-data-lg text-data-lg text-on-surface mb-1">{{ actions | length }} Playbooks</div>
+      <div class="flex items-center gap-1.5 font-label-sm text-label-sm text-on-surface-variant">
+        <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+        <span>Automated Rules</span>
+      </div>
+    </div>
+
+    <div class="relative overflow-hidden rounded-xl bg-surface-container-low/70 backdrop-blur-md p-space-lg shadow-md border border-outline-variant/20">
+      <div class="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-tertiary to-transparent"></div>
+      <div class="flex justify-between items-start mb-space-sm">
+        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Targeted Revenue</span>
+        <span class="material-symbols-outlined text-tertiary text-[20px]">paid</span>
+      </div>
+      <div class="font-data-lg text-data-lg text-tertiary mb-1">
+        {% set tot_rev = actions | map(attribute='total_revenue') | sum %}
+        ${{ '{:,.0f}'.format(tot_rev) }}
+      </div>
+      <div class="flex items-center gap-1.5 font-label-sm text-label-sm text-on-surface-variant">
+        <span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+        <span>Active Retention Exposure</span>
+      </div>
+    </div>
+
+    <div class="relative overflow-hidden rounded-xl bg-surface-container-low/70 backdrop-blur-md p-space-lg shadow-md border border-outline-variant/20">
+      <div class="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-primary-container to-transparent"></div>
+      <div class="flex justify-between items-start mb-space-sm">
+        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Data Source</span>
+        <span class="material-symbols-outlined text-primary-container text-[20px]">database</span>
+      </div>
+      <div class="font-data-md text-data-md text-on-surface truncate mb-1">{{ source }}</div>
+      <div class="flex items-center gap-1.5 font-label-sm text-label-sm text-on-surface-variant">
+        <span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+        <span>Live Engine Active</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Priority Action Queue Cards -->
+  <div class="space-y-space-md">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-space-sm">
+        <span class="w-2.5 h-2.5 rounded-full bg-primary shadow-[0_0_8px_#4cd7f6]"></span>
+        <h2 class="font-headline-lg text-headline-lg text-on-surface font-semibold">Recommended Action Breakdown</h2>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter-lg">
+      {% for a in actions %}
+      <div class="relative flex flex-col justify-between rounded-xl bg-surface-container-low/80 backdrop-blur-lg p-space-lg shadow-xl border border-outline-variant/20 hover:translate-y-[-2px] transition-all">
+        <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r {% if a.priority == 'High' %}from-error to-error/30{% elif a.priority == 'Medium' %}from-secondary to-secondary/30{% else %}from-primary to-primary/30{% endif %} rounded-t-xl"></div>
+        <div class="space-y-space-md">
+          <div class="flex items-center justify-between">
+            <span class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded-full text-xs font-semibold
+              {% if a.priority == 'High' %}bg-error/15 text-error border border-error/30
+              {% elif a.priority == 'Medium' %}bg-secondary/15 text-secondary border border-secondary/30
+              {% else %}bg-primary/15 text-primary border border-primary/30{% endif %}">
+              <span class="w-1.5 h-1.5 rounded-full {% if a.priority == 'High' %}bg-error{% elif a.priority == 'Medium' %}bg-secondary{% else %}bg-primary{% endif %}"></span>
+              {{ a.priority }} Priority
+            </span>
+            <span class="font-mono text-xs text-primary font-bold">{{ a.pct }}% base</span>
+          </div>
+
+          <div>
+            <h3 class="font-headline-md text-headline-md text-on-surface font-semibold">{{ a.action }}</h3>
+            {% if a.campaign %}<p class="mt-1 font-body-sm text-body-sm text-secondary">Campaign: {{ a.campaign }}</p>{% endif %}
+            {% if a.channel %}<p class="font-body-sm text-body-sm text-on-surface-variant">Channel: {{ a.channel }}</p>{% endif %}
+          </div>
+
+          <div class="grid grid-cols-2 gap-space-sm p-space-md rounded-lg bg-surface-container-high/60">
+            <div>
+              <div class="font-label-sm text-label-sm text-on-surface-variant uppercase">Target Cohort</div>
+              <div class="font-data-md text-data-md text-on-surface mt-0.5 font-bold">{{ '{:,}'.format(a.count) }} cust</div>
+            </div>
+            <div>
+              <div class="font-label-sm text-label-sm text-on-surface-variant uppercase">Avg Revenue</div>
+              <div class="font-data-md text-data-md text-tertiary mt-0.5 font-bold">${{ '{:,.2f}'.format(a.avg_revenue) }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-space-md mt-space-md border-t border-outline-variant/20 flex items-center justify-between">
+          <span class="text-xs text-on-surface-variant">Actionable immediately</span>
+          <a href="/customers?q={{ a.action | urlencode }}" class="text-primary hover:underline text-xs font-semibold flex items-center gap-1">
+            Browse Target List <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Detailed Table -->
+  <div class="space-y-space-md">
+    <h2 class="font-headline-lg text-headline-lg text-on-surface font-semibold">Action Summary Table</h2>
+    <div class="rounded-xl overflow-hidden border border-outline-variant/20 shadow-lg">
+      <div class="overflow-x-auto">
+        <table class="cix-table w-full">
+          <thead>
+            <tr class="bg-surface-container-lowest/80 text-left font-label-sm text-label-sm text-on-surface-variant uppercase">
+              <th class="px-4 py-3">Recommended Action</th>
+              <th class="px-4 py-3">Priority</th>
+              <th class="px-4 py-3">Customer Count</th>
+              <th class="px-4 py-3">% Base</th>
+              <th class="px-4 py-3">Avg Customer Revenue</th>
+              <th class="px-4 py-3">Total Pool Revenue</th>
+              <th class="px-4 py-3 text-right">Action</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-outline-variant/15 font-body-sm">
+            {% for a in actions %}
+            <tr class="hover:bg-surface-container/40">
+              <td class="px-4 py-3 font-semibold text-on-surface">{{ a.action }}</td>
+              <td class="px-4 py-3">
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold
+                  {% if a.priority == 'High' %}bg-error/15 text-error
+                  {% elif a.priority == 'Medium' %}bg-secondary/15 text-secondary
+                  {% else %}bg-primary/15 text-primary{% endif %}">
+                  {{ a.priority }}
+                </span>
+              </td>
+              <td class="px-4 py-3 font-mono text-primary font-bold">{{ '{:,}'.format(a.count) }}</td>
+              <td class="px-4 py-3 font-mono text-on-surface-variant">{{ a.pct }}%</td>
+              <td class="px-4 py-3 font-mono text-tertiary">${{ '{:,.2f}'.format(a.avg_revenue) }}</td>
+              <td class="px-4 py-3 font-mono text-tertiary font-bold">${{ '{:,.0f}'.format(a.total_revenue) }}</td>
+              <td class="px-4 py-3 text-right">
+                <a href="/customers?q={{ a.action | urlencode }}" class="text-xs text-primary hover:underline">View Customers →</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  {% else %}
+  <div class="flex flex-col items-center justify-center py-24 text-center space-y-4">
+    <span class="material-symbols-outlined text-[48px] text-on-surface-variant">bolt</span>
+    <h2 class="font-headline-lg text-headline-lg text-on-surface">No Recommendations Available</h2>
+    <p class="text-on-surface-variant">Upload a customer dataset to generate retention recommendations.</p>
+    <a href="/upload" class="px-6 py-3 rounded-xl bg-primary text-on-primary font-semibold hover:bg-primary-fixed-dim transition-all">Upload Dataset</a>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}

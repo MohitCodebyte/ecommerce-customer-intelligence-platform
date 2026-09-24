@@ -1,0 +1,131 @@
+{
+    "dataset": "Olist Brazilian E-Commerce Public Dataset",
+    "order_filter": "delivered",
+    "customer_identity": "customer_unique_id",
+    "analysis_windows": [
+        {
+            "window_days": 90,
+            "snapshot_date": "2018-05-31",
+            "dataset_end_date": "2018-08-29",
+            "results": [
+                {
+                    "group": "All customers",
+                    "customers": 75320,
+                    "future_purchase_customers": 421,
+                    "no_future_purchase_customers": 74899,
+                    "future_purchase_rate_percent": 0.56,
+                    "churn_rate_percent": 99.44
+                },
+                {
+                    "group": "Single-purchase",
+                    "customers": 73092,
+                    "future_purchase_customers": 380,
+                    "no_future_purchase_customers": 72712,
+                    "future_purchase_rate_percent": 0.52,
+                    "churn_rate_percent": 99.48
+                },
+                {
+                    "group": "Repeat customers",
+                    "customers": 2228,
+                    "future_purchase_customers": 41,
+                    "no_future_purchase_customers": 2187,
+                    "future_purchase_rate_percent": 1.84,
+                    "churn_rate_percent": 98.16
+                }
+            ]
+        },
+        {
+            "window_days": 120,
+            "snapshot_date": "2018-05-01",
+            "dataset_end_date": "2018-08-29",
+            "results": [
+                {
+                    "group": "All customers",
+                    "customers": 68977,
+                    "future_purchase_customers": 539,
+                    "no_future_purchase_customers": 68438,
+                    "future_purchase_rate_percent": 0.78,
+                    "churn_rate_percent": 99.22
+                },
+                {
+                    "group": "Single-purchase",
+                    "customers": 66958,
+                    "future_purchase_customers": 484,
+                    "no_future_purchase_customers": 66474,
+                    "future_purchase_rate_percent": 0.72,
+                    "churn_rate_percent": 99.28
+                },
+                {
+                    "group": "Repeat customers",
+                    "customers": 2019,
+                    "future_purchase_customers": 55,
+                    "no_future_purchase_customers": 1964,
+                    "future_purchase_rate_percent": 2.72,
+                    "churn_rate_percent": 97.28
+                }
+            ]
+        },
+        {
+            "window_days": 180,
+            "snapshot_date": "2018-03-02",
+            "dataset_end_date": "2018-08-29",
+            "results": [
+                {
+                    "group": "All customers",
+                    "customers": 55907,
+                    "future_purchase_customers": 655,
+                    "no_future_purchase_customers": 55252,
+                    "future_purchase_rate_percent": 1.17,
+                    "churn_rate_percent": 98.83
+                },
+                {
+                    "group": "Single-purchase",
+                    "customers": 54271,
+                    "future_purchase_customers": 585,
+                    "no_future_purchase_customers": 53686,
+                    "future_purchase_rate_percent": 1.08,
+                    "churn_rate_percent": 98.92
+                },
+                {
+                    "group": "Repeat customers",
+                    "customers": 1636,
+                    "future_purchase_customers": 70,
+                    "no_future_purchase_customers": 1566,
+                    "future_purchase_rate_percent": 4.28,
+                    "churn_rate_percent": 95.72
+                }
+            ]
+        },
+        {
+            "window_days": 240,
+            "snapshot_date": "2018-01-01",
+            "dataset_end_date": "2018-08-29",
+            "results": [
+                {
+                    "group": "All customers",
+                    "customers": 42415,
+                    "future_purchase_customers": 649,
+                    "no_future_purchase_customers": 41766,
+                    "future_purchase_rate_percent": 1.53,
+                    "churn_rate_percent": 98.47
+                },
+                {
+                    "group": "Single-purchase",
+                    "customers": 41237,
+                    "future_purchase_customers": 587,
+                    "no_future_purchase_customers": 40650,
+                    "future_purchase_rate_percent": 1.42,
+                    "churn_rate_percent": 98.58
+                },
+                {
+                    "group": "Repeat customers",
+                    "customers": 1178,
+                    "future_purchase_customers": 62,
+                    "no_future_purchase_customers": 1116,
+                    "future_purchase_rate_percent": 5.26,
+                    "churn_rate_percent": 94.74
+                }
+            ]
+        }
+    ]
+}

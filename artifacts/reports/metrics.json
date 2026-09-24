@@ -1,0 +1,58 @@
+{
+  "config": {
+    "train_file": "data/processed/repeat_purchase_train.csv",
+    "test_file": "data/processed/repeat_purchase_test.csv",
+    "output_dir": "artifacts",
+    "optimization_mode": "precision_floor",
+    "target_recall": 0.4,
+    "target_precision": 0.1,
+    "n_iter": 40,
+    "cv_folds": 5,
+    "random_state": 42,
+    "validation_size": 0.2,
+    "calibrate": true,
+    "n_ensemble_seeds": 3,
+    "threshold": null,
+    "threshold_start": 0.05,
+    "threshold_end": 0.5,
+    "threshold_step": 0.05,
+    "bootstrap_iterations": 2000,
+    "bootstrap_confidence": 0.95
+  },
+  "selected_threshold": 0.033468081512384944,
+  "validation_precision": 0.1,
+  "validation_recall": 0.059880239520958084,
+  "final_test_metrics": {
+    "threshold": 0.033468081512384944,
+    "accuracy": 0.9803602411147083,
+    "balanced_accuracy": 0.5276720873079513,
+    "precision": 0.07969639468690702,
+    "recall": 0.06412213740458016,
+    "f1": 0.07106598984771574,
+    "f2": 0.0667302192564347,
+    "roc_auc": 0.6027834438517096,
+    "pr_auc": 0.029813116497513864,
+    "test_prevalence": 0.0117158853095319,
+    "cv_best_pr_auc": 0.0347610418207868,
+    "best_params": {
+      "subsample": 1.0,
+      "scale_pos_weight": 67.9,
+      "reg_lambda": 3,
+      "reg_alpha": 1,
+      "n_estimators": 600,
+      "min_child_weight": 1,
+      "max_depth": 3,
+      "learning_rate": 0.02,
+      "gamma": 0.5,
+      "colsample_bytree": 0.9
+    },
+    "confusion_matrix": {
+      "tn": 54767,
+      "fp": 485,
+      "fn": 613,
+      "tp": 42
+    },
+    "test_positive_count": 655,
+    "test_negative_count": 55252
+  }
+}

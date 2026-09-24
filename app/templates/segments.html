@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+{% block title %}CIX — Customer Segments{% endblock %}
+{% block breadcrumb %}Customer Segments{% endblock %}
+
+{% block content %}
+<div class="px-gutter-lg py-space-lg max-w-[1720px] mx-auto space-y-space-xl relative">
+
+  <!-- Ambient background glow -->
+  <div class="absolute -top-32 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+  <div class="absolute top-1/2 right-12 w-[30rem] h-[30rem] bg-secondary-container/20 rounded-full blur-[180px] pointer-events-none -z-10"></div>
+
+  <!-- Header Section -->
+  <header class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-lg">
+    <div class="flex flex-col gap-space-xs max-w-3xl">
+      <div class="flex items-center gap-space-sm">
+        <span class="inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm tracking-wider uppercase">
+          <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+          RFM Cohort Partitioning · Multi-Dimensional Segmentation
+        </span>
+      </div>
+      <h1 class="font-display-lg text-display-lg text-on-surface font-bold tracking-tight">Customer Segments</h1>
+      <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+        Understand customer value, purchasing behavior, recency status, and repeat customer retention potential across distinct cohorts.
+      </p>
+    </div>
+    <div class="flex flex-wrap items-center gap-space-sm">
+      <button onclick="exportCSV('intelligence')" class="inline-flex items-center gap-2 px-space-md py-2 rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-md text-label-md transition-all shadow-sm">
+        <span class="material-symbols-outlined text-[18px] text-tertiary">download</span>
+        Export CSV
+      </button>
+      <button onclick="exportExcel('intelligence')" class="inline-flex items-center gap-2 px-space-lg py-2 rounded-lg bg-primary hover:bg-primary-fixed text-on-primary font-label-md text-label-md font-semibold transition-all shadow-[0_0_24px_rgba(76,215,246,0.35)]">
+        <span class="material-symbols-outlined text-[18px]">table_chart</span>
+        Export Full Report
+      </button>
+    </div>
+  </header>
+
+  {% if data_loaded %}
+  <!-- Top KPI Cards -->
+  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+    <div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-lg shadow-md border border-outline-variant/20">
+      <div class="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
+      <div class="flex items-center justify-between mb-space-sm">
+        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Active Segments</span>
+        <span class="material-symbols-outlined text-primary text-[18px]">pie_chart</span>
+      </div>
+      <div class="font-data-lg text-data-lg text-on-surface mb-space-xs">{{ segments | length }} Cohorts</div>
+      <div class="flex items-center gap-1.5 text-tertiary font-label-sm text-label-sm">
+        <span class="material-symbols-outlined text-[14px]">verified</span>
+        <span>100% Partitioned</span>
+      </div>
+    </div>
+
+    <div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-lg shadow-md border border-outline-variant/20">
+      <div class="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-secondary/50 to-transparent"></div>
+      <div class="flex items-center justify-between mb-space-sm">
+        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Total Customers</span>
+        <span class="material-symbols-outlined text-secondary text-[18px]">group</span>
+      </div>
+      <div class="font-data-lg text-data-lg text-on-surface mb-space-xs">{{ '{:,}'.format(total_customers) }}</div>
+      <div class="flex items-center gap-1.5 text-secondary font-label-sm text-label-sm">
+        <span class="material-symbols-outlined text-[14px]">dataset</span>
+        <span>Active Dataset</span>
+      </div>
+    </div>
+
+    <div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-lg shadow-md border border-outline-variant/20">
+      <div class="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-tertiary/50 to-transparent"></div>
+      <div class="flex items-center justify-between mb-space-sm">
+        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Top Segment</span>
+        <span class="material-symbols-outlined text-tertiary text-[18px]">workspace_premium</span>
+      </div>
+      <div class="font-data-lg text-data-lg text-on-surface truncate mb-space-xs">
+        {% if segments %}{{ segments[0].name }}{% else %}—{% endif %}
+      </div>
+      <div class="flex items-center gap-1.5 text-tertiary font-label-sm text-label-sm">
+        <span class="material-symbols-outlined text-[14px]">group</span>
+        <span>{% if segments %}{{ '{:,}'.format(segments[0].count) }} customers ({{ segments[0].pct }}%){% else %}—{% endif %}</span>
+      </div>
+    </div>
+
+    <div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-lg shadow-md border border-outline-variant/20">
+      <div class="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-primary-container to-transparent"></div>
+      <div class="flex items-center justify-between mb-space-sm">
+        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Data Source</span>
+        <span class="material-symbols-outlined text-primary-container text-[18px]">database</span>
+      </div>
+      <div class="font-data-md text-data-md text-on-surface truncate mb-space-xs">{{ source }}</div>
+      <div class="flex items-center gap-1.5 text-primary-container font-label-sm text-label-sm">
+        <span class="material-symbols-outlined text-[14px]">check_circle</span>
+        <span>{% if is_demo %}Public Demo Data{% else %}Uploaded File{% endif %}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Segment Cards Grid -->
+  <section class="space-y-space-md">
+    <div class="flex items-center justify-between">
+      <div>
+        <h2 class="font-headline-lg text-headline-lg text-on-surface font-bold">Segment Portfolio Breakdown</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant">Detailed metrics per RFM cohort.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-gutter">
+      {% for seg in segments %}
+      <div class="group relative rounded-xl bg-surface-container-low hover:bg-surface-container p-space-lg transition-all duration-300 shadow-md border border-outline-variant/20 hover:-translate-y-1">
+        <div class="absolute inset-x-0 top-0 h-1 bg-primary rounded-t-xl"></div>
+        <div class="flex items-start justify-between mb-space-md">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-primary shadow-[0_0_8px_#4cd7f6]"></span>
+              <h3 class="font-headline-md text-headline-md text-on-surface font-semibold">{{ seg.name }}</h3>
+            </div>
+            <span class="font-label-sm text-label-sm text-primary font-mono mt-0.5 inline-block">{{ seg.pct }}% of base</span>
+          </div>
+          <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-primary/10 text-primary border border-primary/20">
+            {{ '{:,}'.format(seg.count) }}
+          </span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-space-sm mb-space-md bg-surface-container-lowest/50 p-space-sm rounded-lg">
+          <div>
+            <span class="font-label-sm text-label-sm text-on-surface-variant block">Avg Revenue</span>
+            <span class="font-data-md text-data-md text-tertiary font-semibold">${{ '{:,.2f}'.format(seg.avg_revenue) }}</span>
+          </div>
+          <div>
+            <span class="font-label-sm text-label-sm text-on-surface-variant block">Avg Recency</span>
+            <span class="font-data-md text-data-md text-on-surface font-semibold">{{ seg.avg_recency }}d</span>
+          </div>
+          <div>
+            <span class="font-label-sm text-label-sm text-on-surface-variant block">Repeat Count</span>
+            <span class="font-data-md text-data-md text-secondary font-semibold">{{ '{:,}'.format(seg.repeat_count) }}</span>
+          </div>
+          <div>
+            <span class="font-label-sm text-label-sm text-on-surface-variant block">Total Share</span>
+            <span class="font-data-md text-data-md text-primary font-semibold">{{ seg.pct }}%</span>
+          </div>
+        </div>
+
+        <div class="w-full bg-surface-container-high rounded-full h-1.5 mb-space-md overflow-hidden">
+          <div class="bg-primary h-1.5 rounded-full" style="width: {{ seg.pct }}%"></div>
+        </div>
+
+        <div class="flex items-center justify-between pt-space-xs">
+          <a href="/customers?segment={{ seg.name | urlencode }}" class="inline-flex items-center gap-1 font-label-md text-label-md text-primary hover:text-primary-fixed transition-colors font-medium">
+            View Customers in {{ seg.name }}
+            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- Segment Distribution Chart & Table -->
+  <section class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+    <div class="lg:col-span-5 rounded-xl bg-surface-container-low p-space-lg shadow-lg border border-outline-variant/20">
+      <h3 class="font-headline-md text-headline-md text-on-surface mb-2">Segment Share Distribution</h3>
+      <p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Proportional representation of customer base</p>
+      <div class="chart-container" style="height:320px;">
+        <canvas id="segmentsPageChart"></canvas>
+      </div>
+    </div>
+
+    <div class="lg:col-span-7 rounded-xl bg-surface-container-low p-space-lg shadow-lg border border-outline-variant/20 flex flex-col justify-between">
+      <div>
+        <h3 class="font-headline-md text-headline-md text-on-surface mb-2">Cohort Summary Matrix</h3>
+        <p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Comparative metrics across all customer segments</p>
+        <div class="overflow-x-auto">
+          <table class="cix-table w-full">
+            <thead>
+              <tr class="bg-surface-container-lowest/80 text-left font-label-sm text-label-sm text-on-surface-variant uppercase">
+                <th class="px-3 py-2">Segment Name</th>
+                <th class="px-3 py-2">Customers</th>
+                <th class="px-3 py-2">% Base</th>
+                <th class="px-3 py-2">Avg Revenue</th>
+                <th class="px-3 py-2">Avg Recency</th>
+                <th class="px-3 py-2 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-outline-variant/15 font-body-sm">
+              {% for s in segments %}
+              <tr class="hover:bg-surface-container/40">
+                <td class="px-3 py-2.5 font-medium text-on-surface">{{ s.name }}</td>
+                <td class="px-3 py-2.5 font-mono text-primary">{{ '{:,}'.format(s.count) }}</td>
+                <td class="px-3 py-2.5 font-mono text-on-surface-variant">{{ s.pct }}%</td>
+                <td class="px-3 py-2.5 font-mono text-tertiary">${{ '{:,.2f}'.format(s.avg_revenue) }}</td>
+                <td class="px-3 py-2.5 font-mono text-on-surface-variant">{{ s.avg_recency }}d</td>
+                <td class="px-3 py-2.5 text-right">
+                  <a href="/customers?segment={{ s.name | urlencode }}" class="text-xs text-primary hover:underline">Explore →</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% else %}
+  <div class="flex flex-col items-center justify-center py-24 text-center space-y-4">
+    <span class="material-symbols-outlined text-[48px] text-on-surface-variant">pie_chart</span>
+    <h2 class="font-headline-lg text-headline-lg text-on-surface">No Segment Data</h2>
+    <p class="text-on-surface-variant">Upload a dataset to generate RFM customer segments.</p>
+    <a href="/upload" class="px-6 py-3 rounded-xl bg-primary text-on-primary font-semibold hover:bg-primary-fixed-dim transition-all">Upload Dataset</a>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+{% if data_loaded %}
+<script>
+(function() {
+  const chartData = {{ chart_data | default('{}') | safe }};
+  if (chartData && chartData.labels && chartData.labels.length) {
+    createDonutChart('segmentsPageChart', chartData.labels, chartData.data, 'Segment Distribution');
+  }
+})();
+</script>
+{% endif %}
+{% endblock %}

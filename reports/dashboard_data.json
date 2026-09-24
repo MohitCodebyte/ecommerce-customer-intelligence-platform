@@ -1,0 +1,96 @@
+{
+  "generated_from": "Olist Development Dataset",
+  "data_source_note": "Olist is used only as the development and benchmark dataset. Company deployments should use uploaded company data.",
+  "customers": {
+    "total": 93358,
+    "repeat": 2801,
+    "single_purchase": 90557,
+    "repeat_rate": 3.0
+  },
+  "revenue": {
+    "historical_revenue": 15422461.77,
+    "average_customer_value": 165.2
+  },
+  "clv": {
+    "tier_column": "clv_value_tier",
+    "very_high_customers": 18672,
+    "very_high_revenue": 8254874.14,
+    "very_high_revenue_share": 53.53
+  },
+  "retention": {
+    "high_priority": 14488,
+    "immediate_priority": 0
+  },
+  "value_priority": {
+    "Critical Value": 18672,
+    "Medium Value": 18672,
+    "Low Value": 18672,
+    "High Value": 18671,
+    "Developing Value": 18671
+  },
+  "segments": [
+    {
+      "segment": "Potential Loyalists",
+      "customers": 22504
+    },
+    {
+      "segment": "Loyal Customers",
+      "customers": 15956
+    },
+    {
+      "segment": "At Risk High Value",
+      "customers": 14488
+    },
+    {
+      "segment": "Needs Attention",
+      "customers": 12774
+    },
+    {
+      "segment": "New / Promising",
+      "customers": 7479
+    },
+    {
+      "segment": "At Risk Valuable",
+      "customers": 7350
+    },
+    {
+      "segment": "Champions",
+      "customers": 6493
+    },
+    {
+      "segment": "Hibernating",
+      "customers": 6314
+    }
+  ],
+  "clv_tiers": [
+    {
+      "tier": "Very High",
+      "customers": 18672
+    },
+    {
+      "tier": "Medium",
+      "customers": 18672
+    },
+    {
+      "tier": "Low",
+      "customers": 18672
+    },
+    {
+      "tier": "High",
+      "customers": 18671
+    },
+    {
+      "tier": "Below Average",
+      "customers": 18671
+    }
+  ],
+  "recommendations": {
+    "total": 93358,
+    "priority_distribution": {
+      "High": 51699,
+      "Medium": 20857,
+      "Critical": 14488,
+      "Low": 6314
+    }
+  }
+}

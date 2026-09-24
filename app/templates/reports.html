@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+{% block title %}CIX — Reports & Export Center{% endblock %}
+{% block breadcrumb %}Reports & Export Center{% endblock %}
+
+{% block content %}
+<div class="px-gutter-lg py-space-lg max-w-[1720px] mx-auto space-y-space-xl relative">
+
+  <!-- Header Section -->
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md pb-space-xs">
+    <div class="flex flex-col space-y-space-xs">
+      <div class="flex flex-wrap items-center gap-space-sm font-label-sm text-label-sm text-outline tracking-wider">
+        <span class="flex items-center gap-1.5 text-primary">
+          <span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+          DECISION ARTIFACT ENGINE
+        </span>
+        <span>•</span>
+        <span class="text-on-surface-variant">IN-MEMORY DATA COMPILATION</span>
+      </div>
+      <h1 class="font-headline-xl text-headline-xl text-on-surface font-semibold tracking-tight">Reports & Export Center</h1>
+      <p class="font-body-md text-body-md text-on-surface-variant max-w-3xl">
+        Generate, review, and export customer intelligence reports for executive business decision-making and retention orchestration.
+      </p>
+    </div>
+    <div class="flex items-center gap-space-md shrink-0">
+      <button onclick="exportCSV('intelligence')" class="flex items-center gap-space-xs px-space-md py-space-sm rounded-lg bg-surface-container-high text-on-surface font-label-md text-label-md hover:bg-surface-container-highest transition-all shadow-sm">
+        <span class="material-symbols-outlined text-[18px] text-tertiary">download</span>
+        <span>Download CSV</span>
+      </button>
+      <button onclick="exportExcel('full')" class="flex items-center gap-space-xs px-space-md py-space-sm rounded-lg bg-primary-container text-on-primary-container font-label-md text-label-md font-semibold hover:brightness-110 transition-all shadow-[0_0_20px_rgba(6,182,212,0.35)]">
+        <span class="material-symbols-outlined text-[18px]">table_chart</span>
+        <span>Export Excel Workbook</span>
+      </button>
+    </div>
+  </div>
+
+  {% if data_loaded and report_summary %}
+  <!-- Executive Dataset Summary Strip -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-space-md">
+    <div class="p-space-md rounded-xl bg-surface-container-low/70 backdrop-blur-md shadow-md flex flex-col justify-between border border-outline-variant/20">
+      <div class="flex items-start justify-between">
+        <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Total Customers</span>
+        <span class="material-symbols-outlined text-primary text-[20px]">groups</span>
+      </div>
+      <div class="my-space-xs">
+        <span class="font-data-lg text-data-lg text-on-surface font-semibold tracking-tight">{{ '{:,}'.format(report_summary.total_customers) }}</span>
+      </div>
+      <span class="font-label-sm text-label-sm text-tertiary">100% In-Memory Processed</span>
+    </div>
+
+    <div class="p-space-md rounded-xl bg-surface-container-low/70 backdrop-blur-md shadow-md flex flex-col justify-between border border-outline-variant/20">
+      <div class="flex items-start justify-between">
+        <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Repeat Rate</span>
+        <span class="material-symbols-outlined text-secondary text-[20px]">repeat</span>
+      </div>
+      <div class="my-space-xs">
+        <span class="font-data-lg text-data-lg text-on-surface font-semibold tracking-tight">{{ report_summary.repeat_rate }}%</span>
+      </div>
+      <span class="font-label-sm text-label-sm text-secondary">{{ '{:,}'.format(report_summary.repeat_customers) }} repeat buyers</span>
+    </div>
+
+    <div class="p-space-md rounded-xl bg-surface-container-low/70 backdrop-blur-md shadow-md flex flex-col justify-between border border-outline-variant/20">
+      <div class="flex items-start justify-between">
+        <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Gross Revenue</span>
+        <span class="material-symbols-outlined text-tertiary text-[20px]">payments</span>
+      </div>
+      <div class="my-space-xs">
+        <span class="font-data-lg text-data-lg text-tertiary font-semibold tracking-tight">${{ '{:,.0f}'.format(report_summary.total_revenue) }}</span>
+      </div>
+      <span class="font-label-sm text-label-sm text-tertiary">{{ '{:,}'.format(report_summary.total_orders) }} orders</span>
+    </div>
+
+    <div class="p-space-md rounded-xl bg-surface-container-low/70 backdrop-blur-md shadow-md flex flex-col justify-between border border-outline-variant/20">
+      <div class="flex items-start justify-between">
+        <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Segments</span>
+        <span class="material-symbols-outlined text-primary text-[20px]">pie_chart</span>
+      </div>
+      <div class="my-space-xs">
+        <span class="font-data-lg text-data-lg text-on-surface font-semibold tracking-tight">{{ report_summary.segment_count }} Cohorts</span>
+      </div>
+      <span class="font-label-sm text-label-sm text-primary">RFM Partitioned</span>
+    </div>
+
+    <div class="p-space-md rounded-xl bg-surface-container-low/70 backdrop-blur-md shadow-md flex flex-col justify-between border border-outline-variant/20">
+      <div class="flex items-start justify-between">
+        <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Dataset Source</span>
+        <span class="material-symbols-outlined text-primary-container text-[20px]">database</span>
+      </div>
+      <div class="my-space-xs">
+        <span class="font-data-md text-data-md text-on-surface font-semibold truncate block">{{ report_summary.source }}</span>
+      </div>
+      <span class="font-label-sm text-label-sm text-primary-container">Generated {{ report_summary.generated }}</span>
+    </div>
+  </div>
+
+  <!-- Available Export Artifact Cards Grid -->
+  <div class="space-y-space-md">
+    <h2 class="font-headline-lg text-headline-lg text-on-surface font-semibold">Available Export Artifacts</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter-lg">
+
+      <!-- Card 1: Customer Intelligence CSV -->
+      <div class="rounded-xl bg-surface-container-low border border-outline-variant/20 p-space-lg shadow-lg flex flex-col justify-between space-y-4">
+        <div class="space-y-2">
+          <div class="w-10 h-10 rounded-lg bg-primary/20 border border-primary/30 flex items-center justify-center">
+            <span class="material-symbols-outlined text-primary text-[22px]">table_chart</span>
+          </div>
+          <h3 class="font-headline-md text-headline-md text-on-surface font-semibold">Master Customer Intelligence (CSV)</h3>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">
+            Full customer table containing RFM scores, CLV value tiers, recency, order counts, total revenue, and predicted repeat purchase probabilities.
+          </p>
+          <div class="p-3 rounded-lg bg-surface-container-lowest text-xs font-mono space-y-1 text-on-surface-variant">
+            <div>Format: <strong class="text-primary">.CSV</strong></div>
+            <div>Rows: <strong>{{ '{:,}'.format(report_summary.total_customers) }}</strong></div>
+            <div>Engine: In-Memory pandas stream</div>
+          </div>
+        </div>
+        <button onclick="exportCSV('intelligence')" class="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-primary text-on-primary font-semibold text-sm hover:bg-primary-fixed-dim transition-all shadow-md">
+          <span class="material-symbols-outlined text-[18px]">download</span>
+          Download CSV Report
+        </button>
+      </div>
+
+      <!-- Card 2: Recommendations CSV -->
+      <div class="rounded-xl bg-surface-container-low border border-outline-variant/20 p-space-lg shadow-lg flex flex-col justify-between space-y-4">
+        <div class="space-y-2">
+          <div class="w-10 h-10 rounded-lg bg-secondary/20 border border-secondary/30 flex items-center justify-center">
+            <span class="material-symbols-outlined text-secondary text-[22px]">bolt</span>
+          </div>
+          <h3 class="font-headline-md text-headline-md text-on-surface font-semibold">Retention Recommendations (CSV)</h3>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">
+            Prioritized retention action plan mapping each customer to recommended business interventions, priority levels, and campaigns.
+          </p>
+          <div class="p-3 rounded-lg bg-surface-container-lowest text-xs font-mono space-y-1 text-on-surface-variant">
+            <div>Format: <strong class="text-secondary">.CSV</strong></div>
+            <div>Rows: <strong>{{ '{:,}'.format(report_summary.total_customers) }}</strong></div>
+            <div>Engine: Automated Decision Rules</div>
+          </div>
+        </div>
+        <button onclick="exportCSV('recommendations')" class="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-secondary text-on-secondary font-semibold text-sm hover:opacity-90 transition-all shadow-md">
+          <span class="material-symbols-outlined text-[18px]">download</span>
+          Download Action CSV
+        </button>
+      </div>
+
+      <!-- Card 3: Full Excel Report -->
+      <div class="rounded-xl bg-surface-container-low border border-outline-variant/20 p-space-lg shadow-lg flex flex-col justify-between space-y-4">
+        <div class="space-y-2">
+          <div class="w-10 h-10 rounded-lg bg-tertiary/20 border border-tertiary/30 flex items-center justify-center">
+            <span class="material-symbols-outlined text-tertiary text-[22px]">grid_on</span>
+          </div>
+          <h3 class="font-headline-md text-headline-md text-on-surface font-semibold">Full Enterprise Workbook (Excel .xlsx)</h3>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">
+            Multi-sheet Excel workbook containing both Customer Intelligence master sheet and Retention Recommendations sheet with openpyxl formatting.
+          </p>
+          <div class="p-3 rounded-lg bg-surface-container-lowest text-xs font-mono space-y-1 text-on-surface-variant">
+            <div>Format: <strong class="text-tertiary">.XLSX Workbook</strong></div>
+            <div>Sheets: <strong>Customer Intelligence, Recommendations</strong></div>
+            <div>Engine: openpyxl Native Engine</div>
+          </div>
+        </div>
+        <button onclick="exportExcel('full')" class="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-tertiary text-on-tertiary font-semibold text-sm hover:opacity-90 transition-all shadow-md">
+          <span class="material-symbols-outlined text-[18px]">download</span>
+          Download Excel Workbook
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  {% else %}
+  <div class="flex flex-col items-center justify-center py-24 text-center space-y-4">
+    <span class="material-symbols-outlined text-[48px] text-on-surface-variant">description</span>
+    <h2 class="font-headline-lg text-headline-lg text-on-surface">No Report Data Loaded</h2>
+    <p class="text-on-surface-variant">Upload a customer dataset to compile executive reports and export files.</p>
+    <a href="/upload" class="px-6 py-3 rounded-xl bg-primary text-on-primary font-semibold hover:bg-primary-fixed-dim transition-all">Upload Dataset</a>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}

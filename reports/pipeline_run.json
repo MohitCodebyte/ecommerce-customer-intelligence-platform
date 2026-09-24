@@ -1,0 +1,23 @@
+{
+  "pipeline": "E-Commerce Customer Intelligence Pipeline",
+  "started_at": "2026-09-19T17:32:37.399074",
+  "completed_at": "2026-09-19T17:32:40.145734",
+  "status": "SUCCESS",
+  "successful_steps": 2,
+  "failed_steps": 0,
+  "skipped_steps": 0,
+  "steps": [
+    {
+      "name": "Data Validation",
+      "status": "SUCCESS",
+      "return_code": 0,
+      "duration_seconds": 1.57
+    },
+    {
+      "name": "Data Standardization",
+      "status": "SUCCESS",
+      "return_code": 0,
+      "duration_seconds": 1.17
+    }
+  ]
+}

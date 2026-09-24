@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}CIX — Error {{ code | default(500) }}{% endblock %}
+{% block breadcrumb %}System Notification{% endblock %}
+
+{% block content %}
+<div class="px-gutter-lg py-space-lg max-w-[900px] mx-auto min-h-[70vh] flex flex-col items-center justify-center text-center space-y-6">
+
+  <!-- Error Icon -->
+  <div class="w-24 h-24 rounded-3xl bg-error/15 border border-error/30 flex items-center justify-center animate-pulse">
+    <span class="material-symbols-outlined text-[48px] text-error">warning</span>
+  </div>
+
+  <div class="space-y-2">
+    <span class="font-data-lg text-data-lg font-mono text-error font-bold">ERROR {{ code | default(500) }}</span>
+    <h1 class="font-display-lg text-display-lg text-on-surface tracking-tight">
+      {{ title | default('Application Exception') }}
+    </h1>
+    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg mx-auto">
+      {{ message | default('An unexpected condition was encountered during request processing.') }}
+    </p>
+  </div>
+
+  <div class="flex flex-wrap items-center justify-center gap-3 pt-4">
+    <a href="/dashboard" class="flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-on-primary font-semibold hover:bg-primary-fixed-dim transition-all shadow-[0_0_20px_rgba(76,215,246,0.3)]">
+      <span class="material-symbols-outlined text-[18px]">grid_view</span>
+      Return to Dashboard
+    </a>
+    <a href="/customers" class="flex items-center gap-2 px-6 py-3 rounded-xl bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-all border border-outline-variant/30">
+      <span class="material-symbols-outlined text-[18px]">group</span>
+      Browse Customers
+    </a>
+  </div>
+
+</div>
+{% endblock %}

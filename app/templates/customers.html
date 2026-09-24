@@ -1,0 +1,252 @@
+{% extends "base.html" %}
+{% block title %}CIX — Customer Intelligence{% endblock %}
+{% block breadcrumb %}Customer Intelligence{% endblock %}
+
+{% block content %}
+<div class="px-gutter-lg py-space-lg max-w-[1680px] mx-auto space-y-space-md">
+
+  <!-- Header -->
+  <div class="relative rounded-xl p-space-lg bg-surface-container-low/90 backdrop-blur-xl shadow-xl overflow-hidden flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+    <div class="absolute -right-20 -top-20 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="relative z-10">
+      <h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">Customer Intelligence</h1>
+      <p class="font-body-md text-body-md text-on-surface-variant mt-1">
+        Full customer dataset with RFM scores, CLV tiers, and retention signals.
+        {% if data_loaded %}<span class="text-primary font-mono text-sm">{{ '{:,}'.format(total_customers) }} customers loaded</span>{% endif %}
+      </p>
+    </div>
+    {% if data_loaded %}
+    <div class="flex flex-wrap items-center gap-2 relative z-10">
+      <button onclick="exportCSV('intelligence')" class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest text-sm transition-all">
+        <span class="material-symbols-outlined text-[16px] text-tertiary">download</span> Export CSV
+      </button>
+      <button onclick="exportExcel('intelligence')" class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest text-sm transition-all">
+        <span class="material-symbols-outlined text-[16px] text-secondary">table_chart</span> Export Excel
+      </button>
+    </div>
+    {% endif %}
+  </div>
+
+  {% if data_loaded %}
+  <!-- Filters & Search -->
+  <div class="flex flex-wrap items-center gap-3">
+    <div class="relative flex-1 min-w-48">
+      <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+      <input id="table-search" type="text" placeholder="Search by ID, city, segment..." autocomplete="off"
+             class="w-full h-9 pl-9 pr-4 rounded-lg bg-surface-container-low border border-outline-variant/30 text-on-surface placeholder:text-outline text-sm focus:outline-none focus:ring-1 focus:ring-primary transition-all"/>
+    </div>
+    <select id="filter-segment" class="h-9 px-3 rounded-lg bg-surface-container-low border border-outline-variant/30 text-on-surface-variant text-sm focus:outline-none focus:ring-1 focus:ring-primary">
+      <option value="">All Segments</option>
+      <option>Champions</option>
+      <option>Loyal Customers</option>
+      <option>Potential Loyalists</option>
+      <option>At Risk High Value</option>
+      <option>At Risk Valuable</option>
+      <option>Needs Attention</option>
+      <option>New / Promising</option>
+      <option>Hibernating</option>
+    </select>
+    <select id="filter-tier" class="h-9 px-3 rounded-lg bg-surface-container-low border border-outline-variant/30 text-on-surface-variant text-sm focus:outline-none focus:ring-1 focus:ring-primary">
+      <option value="">All Tiers</option>
+      <option>Very High</option>
+      <option>High</option>
+      <option>Medium</option>
+      <option>Low</option>
+    </select>
+    <select id="filter-priority" class="h-9 px-3 rounded-lg bg-surface-container-low border border-outline-variant/30 text-on-surface-variant text-sm focus:outline-none focus:ring-1 focus:ring-primary">
+      <option value="">All Priorities</option>
+      <option>High</option>
+      <option>Medium</option>
+      <option>Low</option>
+    </select>
+    <select id="table-page-size" class="h-9 px-3 rounded-lg bg-surface-container-low border border-outline-variant/30 text-on-surface-variant text-sm focus:outline-none focus:ring-1 focus:ring-primary">
+      <option value="25">25 / page</option>
+      <option value="50" selected>50 / page</option>
+      <option value="100">100 / page</option>
+    </select>
+    <div class="text-xs text-on-surface-variant ml-1" id="result-count"></div>
+  </div>
+
+  <!-- Table -->
+  <div class="rounded-xl overflow-hidden border border-outline-variant/20 shadow-lg">
+    <div class="overflow-x-auto">
+      <table class="cix-table w-full">
+        <thead>
+          <tr class="bg-surface-container-lowest/80">
+            {% for col, sort_key, tip in [
+              ('Customer ID', '', ''),
+              ('Segment', 'segment', 'Sort by segment'),
+              ('Tier', 'tier', 'Sort by CLV tier'),
+              ('Orders', 'orders', 'Sort by order count'),
+              ('CLV Revenue', 'revenue', 'Sort by historical CLV'),
+              ('Recency', 'recency', 'Sort by recency days'),
+              ('Retention', '', ''),
+              ('Priority', 'priority', ''),
+              ('Recommended Action', '', ''),
+              ('Propensity', 'probability', ''),
+            ] %}
+            <th class="px-4 py-3 text-left font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider whitespace-nowrap"
+                {% if sort_key %}data-sort="{{ sort_key }}" title="{{ tip }}"{% endif %}>
+              {{ col }}
+              {% if sort_key %}<span class="sort-icon material-symbols-outlined text-[14px] align-middle ml-0.5">unfold_more</span>{% endif %}
+            </th>
+            {% endfor %}
+            <th class="px-4 py-3 text-center font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Action</th>
+          </tr>
+        </thead>
+        <tbody id="customer-tbody" class="divide-y divide-outline-variant/15">
+          <tr>
+            <td colspan="11" class="px-4 py-8 text-center">
+              <span class="material-symbols-outlined text-on-surface-variant animate-spin-slow text-2xl">sync</span>
+              <p class="text-on-surface-variant text-sm mt-2">Loading customers...</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="flex items-center justify-between">
+    <span id="pagination-info" class="text-xs text-on-surface-variant"></span>
+    <div id="pagination-controls" class="flex items-center gap-1"></div>
+  </div>
+
+  {% else %}
+  <div class="flex flex-col items-center justify-center py-24 text-center space-y-4">
+    <span class="material-symbols-outlined text-[48px] text-on-surface-variant">group</span>
+    <h2 class="font-headline-lg text-headline-lg text-on-surface">No Customer Data</h2>
+    <p class="text-on-surface-variant">Upload a dataset to view customer intelligence.</p>
+    <a href="/upload" class="px-6 py-3 rounded-xl bg-primary text-on-primary font-semibold hover:bg-primary-fixed-dim transition-all">Upload Dataset</a>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+{% if data_loaded %}
+<script>
+(function() {
+  let currentPage = 1;
+  let perPage = 50;
+  let sortCol = '';
+  let sortDir = 'asc';
+  let debounceTimer;
+
+  const tbody = document.getElementById('customer-tbody');
+  const paginationInfo = document.getElementById('pagination-info');
+  const paginationControls = document.getElementById('pagination-controls');
+  const resultCount = document.getElementById('result-count');
+
+  function getFilters() {
+    return {
+      q: document.getElementById('table-search').value.trim(),
+      segment: document.getElementById('filter-segment').value,
+      tier: document.getElementById('filter-tier').value,
+      priority: document.getElementById('filter-priority').value,
+      page: currentPage,
+      per_page: perPage,
+      sort: sortCol,
+      dir: sortDir,
+    };
+  }
+
+  function buildUrl(params) {
+    const qs = Object.entries(params).filter(([,v]) => v !== '').map(([k,v]) => `${k}=${encodeURIComponent(v)}`).join('&');
+    return `/api/customers?${qs}`;
+  }
+
+  async function loadCustomers() {
+    tbody.innerHTML = `<tr><td colspan="11" class="px-4 py-8 text-center">
+      <span class="material-symbols-outlined text-on-surface-variant animate-spin-slow text-2xl">sync</span>
+      <p class="text-on-surface-variant text-sm mt-2">Loading...</p></td></tr>`;
+    try {
+      const resp = await fetch(buildUrl(getFilters()));
+      const data = await resp.json();
+      renderRows(data.customers);
+      renderPagination(data.page, data.pages, data.total);
+    } catch (e) {
+      tbody.innerHTML = `<tr><td colspan="11" class="px-4 py-6 text-center text-error text-sm">Failed to load customers.</td></tr>`;
+    }
+  }
+
+  function renderRows(customers) {
+    if (!customers.length) {
+      tbody.innerHTML = `<tr><td colspan="11" class="px-4 py-8 text-center text-on-surface-variant text-sm">No customers match the current filters.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = customers.map(c => {
+      const probBar = c.probability != null
+        ? `<div class="flex items-center gap-2"><span class="font-mono text-xs w-10 text-right ${c.probability >= 0.4965 ? 'text-primary' : 'text-on-surface-variant'}">${(c.probability*100).toFixed(0)}%</span><div class="prob-bar-track w-14"><div class="prob-bar-fill ${c.probability >= 0.4965 ? 'bg-primary' : 'bg-on-surface-variant'}" style="width:${(c.probability*100).toFixed(0)}%"></div></div></div>`
+        : '<span class="text-on-surface-variant text-xs">—</span>';
+
+      const segClass = CIXTable.badgeClass(c.segment);
+      const prioClass = CIXTable.badgeClass(c.priority);
+
+      return `<tr onclick="window.location='/customers/${encodeURIComponent(c.id)}'" class="cursor-pointer hover:bg-surface-container/40 transition-colors">
+        <td class="px-4 py-3 font-mono text-[11px] text-primary truncate max-w-[120px]" title="${c.id}">${c.id ? c.id.substring(0,12) + '…' : '—'}</td>
+        <td class="px-4 py-3"><span class="inline-block px-2 py-0.5 rounded-full text-[11px] font-semibold ${segClass}">${c.segment || '—'}</span></td>
+        <td class="px-4 py-3 text-xs text-on-surface-variant">${c.tier || '—'}</td>
+        <td class="px-4 py-3 font-mono text-sm text-on-surface">${c.orders ?? '—'}</td>
+        <td class="px-4 py-3 font-mono text-sm text-tertiary">${c.revenue != null ? '$'+Number(c.revenue).toFixed(0) : '—'}</td>
+        <td class="px-4 py-3 font-mono text-xs text-on-surface-variant">${c.recency ?? '—'} d</td>
+        <td class="px-4 py-3 text-xs text-on-surface-variant truncate max-w-[100px]">${c.retention || '—'}</td>
+        <td class="px-4 py-3"><span class="inline-block px-2 py-0.5 rounded-full text-[11px] font-semibold ${prioClass}">${c.priority || '—'}</span></td>
+        <td class="px-4 py-3 text-xs text-on-surface-variant max-w-[180px] truncate" title="${c.action || ''}">${c.action || '—'}</td>
+        <td class="px-4 py-3">${probBar}</td>
+        <td class="px-4 py-3 text-center">
+          <a href="/customers/${encodeURIComponent(c.id)}" onclick="event.stopPropagation()" class="text-primary hover:underline text-xs">View 360</a>
+        </td>
+      </tr>`;
+    }).join('');
+  }
+
+  function renderPagination(page, totalPages, total) {
+    resultCount.textContent = `${total.toLocaleString()} customers`;
+    paginationInfo.textContent = `Page ${page} of ${totalPages}`;
+    CIXTable.renderPagination(paginationControls, page, totalPages, p => { currentPage = p; loadCustomers(); });
+  }
+
+  // Event listeners
+  document.getElementById('table-search').addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => { currentPage = 1; loadCustomers(); }, 350);
+  });
+
+  ['filter-segment','filter-tier','filter-priority'].forEach(id => {
+    document.getElementById(id).addEventListener('change', () => { currentPage = 1; loadCustomers(); });
+  });
+
+  document.getElementById('table-page-size').addEventListener('change', e => {
+    perPage = parseInt(e.target.value);
+    currentPage = 1;
+    loadCustomers();
+  });
+
+  // Sort headers
+  document.querySelectorAll('[data-sort]').forEach(th => {
+    th.style.cursor = 'pointer';
+    th.addEventListener('click', () => {
+      const col = th.dataset.sort;
+      if (sortCol === col) sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+      else { sortCol = col; sortDir = 'asc'; }
+
+      document.querySelectorAll('.sort-icon').forEach(ic => ic.classList.remove('active'));
+      const icon = th.querySelector('.sort-icon');
+      if (icon) {
+        icon.classList.add('active');
+        icon.textContent = sortDir === 'asc' ? 'arrow_upward' : 'arrow_downward';
+      }
+      currentPage = 1;
+      loadCustomers();
+    });
+  });
+
+  // Initial load
+  loadCustomers();
+})();
+</script>
+{% endif %}
+{% endblock %}

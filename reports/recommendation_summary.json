@@ -1,0 +1,44 @@
+{
+    "customers": 93358,
+    "priority_distribution": {
+        "High": 51699,
+        "Medium": 20857,
+        "Critical": 14488,
+        "Low": 6314
+    },
+    "action_distribution": {
+        "Drive second purchase": 21900,
+        "Strengthen loyalty": 15956,
+        "Immediate retention intervention": 14488,
+        "Re-engage": 12774,
+        "Encourage second purchase": 7479,
+        "Re-engage customer": 7350,
+        "Protect and reward": 6493,
+        "Win back selectively": 6314,
+        "Increase purchase frequency": 604
+    },
+    "campaign_distribution": {
+        "Second Purchase Campaign": 21900,
+        "Loyal Customer Program": 15956,
+        "High Value Win-Back": 14488,
+        "Customer Re-Engagement": 12774,
+        "New Customer Activation": 7479,
+        "Value Customer Win-Back": 7350,
+        "VIP Loyalty Campaign": 6493,
+        "Dormant Customer Win-Back": 6314,
+        "Repeat Purchase Campaign": 604
+    },
+    "business_priority_distribution": {
+        "Low": 40090,
+        "High": 24944,
+        "Medium": 20857,
+        "Immediate": 7467
+    },
+    "high_value_critical_customers": {
+        "customers": 7467,
+        "historical_revenue": 3340191.1
+    },
+    "customers_requiring_retention_action": 87044,
+    "output_file": "D:\\Data scientist\\E-Commerce Customer Intelligence & Churn Prediction\\data\\processed\\customer_recommendations.csv",
+    "report_file": "D:\\Data scientist\\E-Commerce Customer Intelligence & Churn Prediction\\reports\\recommendation_summary.json"
+}

@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-container-lowest": "#0b0e15", "surface": "#10131a", "surface-container-low": "#191b23", "on-secondary-fixed": "#07006c", "surface-container-highest": "#32353d", "primary-container": "#06b6d4", "inverse-primary": "#00687a", "on-surface": "#e1e2ec", "secondary": "#c0c1ff", "on-tertiary-fixed-variant": "#005236", "tertiary": "#4edea3", "on-secondary": "#1000a9", "primary": "#4cd7f6", "on-error": "#690005", "on-tertiary": "#003824", "inverse-on-surface": "#2d3038", "on-secondary-container": "#b0b2ff", "surface-container-high": "#272a32", "on-primary": "#003640", "outline": "#869397", "on-primary-fixed-variant": "#004e5c", "error-container": "#93000a", "background": "#10131a", "surface-variant": "#32353d", "primary-fixed": "#acedff", "on-primary-fixed": "#001f26", "on-tertiary-fixed": "#002113", "inverse-surface": "#e1e2ec", "on-secondary-fixed-variant": "#2f2ebe", "on-surface-variant": "#bcc9cd", "on-error-container": "#ffdad6", "on-primary-container": "#00424f", "tertiary-fixed": "#6ffbbe", "secondary-container": "#3131c0", "secondary-fixed": "#e1e0ff", "surface-container": "#1d1f27", "surface-dim": "#10131a", "primary-fixed-dim": "#4cd7f6", "on-tertiary-container": "#00452e", "secondary-fixed-dim": "#c0c1ff", "tertiary-fixed-dim": "#4edea3", "tertiary-container": "#1bbd85", "surface-bright": "#363941", "surface-tint": "#4cd7f6", "error": "#ffb4ab", "on-background": "#e1e2ec", "outline-variant": "#3d494c" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "gutter": "1rem", "space-sm": "0.5rem", "margin": "1.5rem", "space-xs": "0.25rem", "space-lg": "1.25rem", "space-xl": "2rem", "margin-mobile": "1rem", "gutter-lg": "1.5rem", "space-md": "0.75rem" }, "fontFamily": { "display-lg": ["Plus Jakarta Sans"], "label-md": ["Inter"], "headline-md": ["Plus Jakarta Sans"], "data-sm": ["JetBrains Mono"], "headline-lg": ["Plus Jakarta Sans"], "data-md": ["JetBrains Mono"], "body-sm": ["Inter"], "label-sm": ["Inter"], "headline-xl": ["Plus Jakarta Sans"], "data-lg": ["JetBrains Mono"], "body-lg": ["Inter"], "body-md": ["Inter"] }, "fontSize": { "display-lg": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.03em", "fontWeight": "700" }], "label-md": ["0.8125rem", { "lineHeight": "1.125rem", "letterSpacing": "0.01em", "fontWeight": "500" }], "headline-md": ["1.125rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" }], "data-sm": ["0.75rem", { "lineHeight": "1rem", "letterSpacing": "0em", "fontWeight": "500" }], "headline-lg": ["1.375rem", { "lineHeight": "1.875rem", "letterSpacing": "-0.015em", "fontWeight": "600" }], "data-md": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "-0.01em", "fontWeight": "500" }], "body-sm": ["0.75rem", { "lineHeight": "1.125rem", "letterSpacing": "0.01em", "fontWeight": "400" }], "label-sm": ["0.6875rem", { "lineHeight": "1rem", "letterSpacing": "0.04em", "fontWeight": "600" }], "headline-xl": ["1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "600" }], "data-lg": ["1.5rem", { "lineHeight": "1.875rem", "letterSpacing": "-0.02em", "fontWeight": "600" }], "body-lg": ["1rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.005em", "fontWeight": "400" }], "body-md": ["0.875rem", { "lineHeight": "1.375rem", "letterSpacing": "0.0em", "fontWeight": "400" }] } } } };</script></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.5)]"><div class="flex flex-col flex-1 min-h-0"><div class="h-16 px-space-lg flex items-center gap-space-md bg-surface-container-lowest"><img alt="CIX Enterprise Intelligence minimalist geometric monogram mark, illuminated cyan and indigo glowing polygonal facets with sharp modern data node architecture. Brand logo. - Primary color: #06b6d4
+- Font: plusJakartaSans
+- Mode: dark
+- Roundness: rounded-md
+" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WZSuz23a2J6Sj8g1sV6_z6GKAekWZnFsOvVgmUjsfRO9Ywcr7yFoz-HRqzvK0iFf2da8KU-yNxcMKmT4N6wMja0TMREH4G-aLhzYwZ8CJhafZclGjLG3mGaJUPkHeeB2VlrAh8pTh5zJ0CMg-NtPFXfUqqpxUFQEAO3EpaXWHjzct4oBSaCtZGVC1QN_XjncptIdGkmepe4MdVzRQnrRv8Ltp7aIE3rs-pq9EstxEcC7k7lOxmeIoA5lg"/><div class="flex flex-col"><span class="font-headline-md text-headline-md tracking-tight text-on-surface leading-none">CIX</span><span class="font-label-sm text-label-sm uppercase tracking-wider text-primary">Intelligence</span></div></div><div class="px-space-md py-space-sm"><div class="px-space-sm py-space-xs font-label-sm text-label-sm uppercase text-outline tracking-wider">Navigation</div></div><nav class="flex-1 overflow-y-auto px-space-md space-y-1" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg shadow-[0_0_16px_rgba(6,182,212,0.25)]"><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="overview" href="#"><span class="material-symbols-outlined text-[1.125rem]">space_dashboard</span><span>Overview</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="data-upload" href="#"><span class="material-symbols-outlined text-[1.125rem]">upload_file</span><span>Data Upload</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="data-processing" href="#"><span class="material-symbols-outlined text-[1.125rem]">memory</span><span>Data Processing</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="customers" href="#"><span class="material-symbols-outlined text-[1.125rem]">groups</span><span>Customers</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="customer-360" href="#"><span class="material-symbols-outlined text-[1.125rem]">contact_page</span><span>Customer 360</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="segments" href="#"><span class="material-symbols-outlined text-[1.125rem]">pie_chart</span><span>Segments</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="predictions" href="#"><span class="material-symbols-outlined text-[1.125rem]">batch_prediction</span><span>Predictions</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="recommendations" href="#"><span class="material-symbols-outlined text-[1.125rem]">auto_awesome</span><span>Recommendations</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="analytics" href="#"><span class="material-symbols-outlined text-[1.125rem]">insights</span><span>Analytics</span></a><a aria-current="page" class="flex items-center gap-space-md px-space-md py-space-sm transition-all bg-primary-container text-on-primary-container font-semibold rounded-lg shadow-[0_0_16px_rgba(6,182,212,0.25)]" data-path="reports" href="#"><span class="material-symbols-outlined text-[1.125rem]">description</span><span>Reports</span></a></nav></div><div class="p-space-md bg-surface-container-lowest"><div class="px-space-sm py-space-xs font-label-sm text-label-sm uppercase text-outline tracking-wider">System</div><nav class="space-y-1 mt-space-xs" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg shadow-[0_0_16px_rgba(6,182,212,0.25)]"><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="settings" href="#"><span class="material-symbols-outlined text-[1.125rem]">settings</span><span>Settings</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="admin" href="#"><span class="material-symbols-outlined text-[1.125rem]">admin_panel_settings</span><span>Admin</span></a></nav></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 px-space-xl flex items-center justify-between"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-xs font-label-md text-label-md text-on-surface-variant"><span class="hover:text-on-surface transition-colors cursor-pointer">Home</span><span class="material-symbols-outlined text-[1rem] text-outline">chevron_right</span><span class="text-on-surface font-semibold">Console</span></div><div class="relative flex items-center"><div class="flex items-center gap-space-sm px-space-md py-space-xs rounded-lg bg-surface-container-lowest text-on-surface-variant w-64 shadow-[0_1px_4px_rgba(0,0,0,0.2)]"><span class="material-symbols-outlined text-[1.125rem] text-outline">search</span><span class="font-body-sm text-body-sm text-outline flex-1">Global search...</span><kbd class="px-1.5 py-0.5 rounded bg-surface-container-high font-data-sm text-data-sm text-on-surface-variant">⌘K</kbd></div></div></div><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-sm px-space-md py-space-xs rounded-full bg-surface-container-low"><span class="w-2 h-2 rounded-full bg-tertiary shadow-[0_0_8px_rgba(78,222,163,0.6)] animate-pulse"></span><span class="font-label-sm text-label-sm text-on-surface-variant">Engine: <strong class="text-tertiary font-semibold">Online</strong></span><span class="font-data-sm text-data-sm text-outline px-space-xs">|</span><span class="font-data-sm text-data-sm text-on-surface-variant">482MB</span></div><div class="flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container-low font-label-md text-label-md text-on-surface"><span class="material-symbols-outlined text-[1.125rem] text-primary">storefront</span><span>Store: Global E-Shop Q3</span><span class="material-symbols-outlined text-[1rem] text-outline">arrow_drop_down</span></div><button class="p-space-xs rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all relative"><span class="material-symbols-outlined text-[1.25rem]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-primary-container shadow-[0_0_6px_rgba(6,182,212,0.8)]"></span></button><div class="flex items-center gap-space-md pl-space-sm"><div class="flex flex-col text-right"><span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Marcus Vance</span><span class="font-label-sm text-label-sm text-on-surface-variant leading-tight">VP Customer Retention</span></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-primary/40" src="https://lh3.googleusercontent.com/aida/AEtjO1Xx3ocAA1A3OV5l1GY0fnyA8HNUNoVeeAiGzF6p09tFbw_taJIrk4liK_g-DrGBgm6_ESVzslK3_jCHNi25fvb1yLDf8ApZZaHXARS2dh4x7fvfoD5shZaa2MtIbVW_7dAkxz-uESX5LQO8PxGARS8sFXPcGx2hO4Cr_OvGYQu3MyjlUgOJwMvQEQGxJYE-q9IrGwUddIEfdOtix1LJhws_3q52jU7KMht8dxEWCNC-o0-HcuroRbWM-qQ"/></div></div></header><main class="w-full pt-16 bg-surface px-space-xl py-space-lg min-h-screen"><div class="flex flex-col w-full space-y-gutter-lg">
+<!-- Header Artifact Bar -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md pb-space-xs">
+<div class="flex flex-col space-y-space-xs">
+<div class="flex flex-wrap items-center gap-space-sm font-label-sm text-label-sm text-outline tracking-wider">
+<span class="flex items-center gap-1.5 text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+          DECISION ARTIFACT ENGINE
+        </span>
+<span>•</span>
+<span class="text-on-surface-variant">IN-MEMORY DATA COMPILATION</span>
+<span>•</span>
+<span class="bg-surface-container-low px-2 py-0.5 rounded text-tertiary font-data-sm">Live Pipeline Synced: 48s ago</span>
+<span>•</span>
+<span class="bg-surface-container-low px-2 py-0.5 rounded text-primary font-data-sm">Memory Heap: 482MB</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface font-semibold tracking-tight">Reports &amp; Export Center</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-3xl">
+        Generate, review, and export customer intelligence reports for executive business decision-making and cross-platform retention orchestration.
+      </p>
+</div>
+<!-- Header Actions -->
+<div class="flex items-center gap-space-md shrink-0">
+<button class="flex items-center gap-space-xs px-space-md py-space-sm rounded-lg bg-surface-container-high text-on-surface font-label-md text-label-md hover:bg-surface-container-highest transition-all shadow-sm">
+<span class="material-symbols-outlined text-[1.125rem] text-secondary">cloud_sync</span>
+<span>Batch Schedule (Klaviyo/Braze)</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-sm rounded-lg bg-primary-container text-on-primary-container font-label-md text-label-md font-semibold hover:brightness-110 transition-all shadow-[0_0_20px_rgba(6,182,212,0.35)]">
+<span class="material-symbols-outlined text-[1.125rem]">summarize</span>
+<span>Generate Custom Report</span>
+</button>
+</div>
+</div>
+<!-- Section 1: KPI Metric Strip -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-space-md">
+<!-- KPI 1 -->
+<div class="p-space-md rounded-xl bg-surface-container-low/70 backdrop-blur-md shadow-md flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Customers Analyzed</span>
+<span class="material-symbols-outlined text-primary text-[1.125rem]">groups</span>
+</div>
+<div class="my-space-xs">
+<span class="font-data-lg text-data-lg text-on-surface font-semibold tracking-tight">142,850</span>
+</div>
+<div class="flex items-center justify-between text-tertiary">
+<span class="font-label-sm text-label-sm truncate">+8.4% vs prev cycle • 100% in-mem</span>
+<!-- Sparkline Cyan -->
+<svg class="w-14 h-5 text-primary shrink-0" fill="none" viewbox="0 0 60 20">
+<path d="M1 17L12 14L23 16L34 9L45 11L59 3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="p-space-md rounded-xl bg-surface-container-low/70 backdrop-blur-md shadow-md flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Reports Generated</span>
+<span class="material-symbols-outlined text-secondary text-[1.125rem]">history_edu</span>
+</div>
+<div class="my-space-xs">
+<span class="font-data-lg text-data-lg text-on-surface font-semibold tracking-tight">38</span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm truncate">12 scheduled • 26 ad-hoc</span>
+<!-- Sparkline Purple -->
+<svg class="w-14 h-5 text-secondary shrink-0" fill="none" viewbox="0 0 60 20">
+<path d="M1 18L15 12L28 15L42 7L59 4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="p-space-md rounded-xl bg-surface-container-low/70 backdrop-blur-md shadow-md flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Customers Selected</span>
+<span class="material-symbols-outlined text-tertiary text-[1.125rem]">filter_alt</span>
+</div>
+<div class="my-space-xs">
+<span class="font-data-lg text-data-lg text-on-surface font-semibold tracking-tight">24,860</span>
+</div>
+<div class="flex items-center justify-between text-tertiary">
+<span class="font-label-sm text-label-sm truncate">Active retention target queues</span>
+<!-- Sparkline Emerald -->
+<svg class="w-14 h-5 text-tertiary shrink-0" fill="none" viewbox="0 0 60 20">
+<path d="M1 15L15 13L28 6L40 8L59 2" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="p-space-md rounded-xl bg-surface-container-low/70 backdrop-blur-md shadow-md flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Revenue Analyzed</span>
+<span class="material-symbols-outlined text-primary text-[1.125rem]">payments</span>
+</div>
+<div class="my-space-xs">
+<span class="font-data-lg text-data-lg text-on-surface font-semibold tracking-tight">$18.42M</span>
+</div>
+<div class="flex items-center justify-between text-primary">
+<span class="font-label-sm text-label-sm truncate">+14.2% YoY gross volume</span>
+<!-- Sparkline Bar -->
+<svg class="w-14 h-5 text-primary shrink-0" fill="currentColor" viewbox="0 0 60 20">
+<rect height="8" opacity="0.4" rx="1" width="6" x="2" y="12"></rect>
+<rect height="11" opacity="0.6" rx="1" width="6" x="14" y="9"></rect>
+<rect height="9" opacity="0.5" rx="1" width="6" x="26" y="11"></rect>
+<rect height="15" opacity="0.8" rx="1" width="6" x="38" y="5"></rect>
+<rect height="18" rx="1" width="6" x="50" y="2"></rect>
+</svg>
+</div>
+</div>
+<!-- KPI 5 -->
+<div class="p-space-md rounded-xl bg-surface-container-low/70 backdrop-blur-md shadow-md flex flex-col justify-between bg-gradient-to-br from-surface-container-low/80 via-surface-container-low/60 to-error-container/10">
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">High Priority Customers</span>
+<span class="material-symbols-outlined text-error text-[1.125rem]">warning</span>
+</div>
+<div class="my-space-xs flex items-baseline gap-space-xs">
+<span class="font-data-lg text-data-lg text-on-surface font-semibold tracking-tight">3,120</span>
+<span class="px-1.5 py-0.5 rounded bg-error/15 text-error font-label-sm text-label-sm font-semibold uppercase">Crit</span>
+</div>
+<div class="flex items-center justify-between text-error">
+<span class="font-label-sm text-label-sm truncate">48h Churn Cliff • $1.42M risk</span>
+<span class="material-symbols-outlined text-[1rem]">arrow_upward</span>
+</div>
+</div>
+</div>
+<!-- Section 2: Split Layout (Report Builder & Corporate Report Live Preview) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- Left Column: Report Builder (~58%) -->
+<div class="lg:col-span-7 flex flex-col space-y-space-md bg-surface-container-low/60 backdrop-blur-xl p-space-lg rounded-2xl shadow-xl">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[1.5rem]">tune</span>
+<h2 class="font-headline-md text-headline-md text-on-surface font-semibold">Create New Report</h2>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-secondary-container/40 text-secondary font-label-sm text-label-sm tracking-wide">
+          Interactive Query Composer
+        </span>
+</div>
+<!-- Config Grid Form -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Report Name -->
+<div class="flex flex-col space-y-space-xs md:col-span-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant font-medium uppercase tracking-wider">Report Artifact Name</label>
+<div class="relative flex items-center">
+<input class="w-full bg-surface-container-lowest px-space-md py-space-sm rounded-lg text-on-surface font-body-md text-body-md shadow-inner focus:outline-none focus:ring-1 focus:ring-primary placeholder-outline" type="text" value="Q3 Executive Retention &amp; Repeat Propensity Briefing"/>
+<span class="absolute right-3 material-symbols-outlined text-outline text-[1.125rem]">edit_note</span>
+</div>
+</div>
+<!-- Report Type -->
+<div class="flex flex-col space-y-space-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant font-medium uppercase tracking-wider">Intelligence Schema</label>
+<div class="relative flex items-center">
+<select class="w-full appearance-none bg-surface-container-lowest px-space-md py-space-sm rounded-lg text-on-surface font-body-md text-body-md shadow-inner focus:outline-none focus:ring-1 focus:ring-primary cursor-pointer">
+<option selected="">Full Customer Intelligence Report</option>
+<option>Customer Segments Analysis</option>
+<option>Repeat Purchase Propensity Engine</option>
+<option>Retention Priority Action Matrix</option>
+<option>Revenue Attribution &amp; Gross Margin</option>
+<option>Executive Board Summary</option>
+</select>
+<span class="absolute right-3 pointer-events-none material-symbols-outlined text-outline text-[1.125rem]">expand_more</span>
+</div>
+</div>
+<!-- Date Range -->
+<div class="flex flex-col space-y-space-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant font-medium uppercase tracking-wider">Temporal Boundary (In-Memory Span)</label>
+<div class="flex items-center gap-2">
+<input class="w-1/2 bg-surface-container-lowest px-space-sm py-space-sm rounded-lg font-data-sm text-data-sm text-on-surface text-center focus:outline-none focus:ring-1 focus:ring-primary" type="text" value="2024-07-01"/>
+<span class="font-label-sm text-outline">→</span>
+<input class="w-1/2 bg-surface-container-lowest px-space-sm py-space-sm rounded-lg font-data-sm text-data-sm text-on-surface text-center focus:outline-none focus:ring-1 focus:ring-primary" type="text" value="2024-09-30"/>
+</div>
+</div>
+</div>
+<!-- Customer Filtering Pills -->
+<div class="flex flex-col space-y-space-xs pt-space-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant font-medium uppercase tracking-wider">Cohort Segmentation Filters</label>
+<div class="flex flex-wrap gap-space-xs">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high transition-colors" type="button">
+            All Customers
+          </button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high transition-colors" type="button">
+            Selected Segment
+          </button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high transition-colors" type="button">
+            High Value (Tier 1)
+          </button>
+<button class="px-3 py-1.5 rounded-lg bg-primary/20 text-primary font-label-md text-label-md font-semibold flex items-center gap-1.5 shadow-sm" type="button">
+<span class="material-symbols-outlined text-[1rem]">check</span>
+            High Priority (Critical)
+          </button>
+<button class="px-3 py-1.5 rounded-lg bg-primary/20 text-primary font-label-md text-label-md font-semibold flex items-center gap-1.5 shadow-sm" type="button">
+<span class="material-symbols-outlined text-[1rem]">check</span>
+            Propensity ≥ 75%
+          </button>
+</div>
+</div>
+<!-- Section Checkboxes (2x4 Grid) -->
+<div class="flex flex-col space-y-space-xs pt-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-label-sm text-label-sm text-on-surface-variant font-medium uppercase tracking-wider">Report Component Inclusions (8/8 Active)</label>
+<button class="font-label-sm text-label-sm text-primary hover:underline" type="button">Select Core Preset</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-xs p-space-sm rounded-xl bg-surface-container-lowest/70">
+<label class="flex items-center gap-space-sm p-space-xs rounded-lg hover:bg-surface-container cursor-pointer select-none">
+<input checked="" class="w-4 h-4 rounded bg-surface-container-high accent-primary text-on-primary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface">Executive Summary</span>
+</label>
+<label class="flex items-center gap-space-sm p-space-xs rounded-lg hover:bg-surface-container cursor-pointer select-none">
+<input checked="" class="w-4 h-4 rounded bg-surface-container-high accent-primary text-on-primary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface">Customer Overview</span>
+</label>
+<label class="flex items-center gap-space-sm p-space-xs rounded-lg hover:bg-surface-container cursor-pointer select-none">
+<input checked="" class="w-4 h-4 rounded bg-surface-container-high accent-primary text-on-primary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface">Customer Segments</span>
+</label>
+<label class="flex items-center gap-space-sm p-space-xs rounded-lg hover:bg-surface-container cursor-pointer select-none">
+<input checked="" class="w-4 h-4 rounded bg-surface-container-high accent-primary text-on-primary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface">Repeat Purchase Propensity</span>
+</label>
+<label class="flex items-center gap-space-sm p-space-xs rounded-lg hover:bg-surface-container cursor-pointer select-none">
+<input checked="" class="w-4 h-4 rounded bg-surface-container-high accent-primary text-on-primary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface">Customer Value (AOV/LTV)</span>
+</label>
+<label class="flex items-center gap-space-sm p-space-xs rounded-lg hover:bg-surface-container cursor-pointer select-none">
+<input checked="" class="w-4 h-4 rounded bg-surface-container-high accent-primary text-on-primary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface">Retention Priorities</span>
+</label>
+<label class="flex items-center gap-space-sm p-space-xs rounded-lg hover:bg-surface-container cursor-pointer select-none">
+<input checked="" class="w-4 h-4 rounded bg-surface-container-high accent-primary text-on-primary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface">Recommended Actions</span>
+</label>
+<label class="flex items-center gap-space-sm p-space-xs rounded-lg hover:bg-surface-container cursor-pointer select-none">
+<input checked="" class="w-4 h-4 rounded bg-surface-container-high accent-primary text-on-primary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface">Data Quality Summary</span>
+</label>
+</div>
+</div>
+<!-- Export Format Selection -->
+<div class="flex flex-col space-y-space-xs pt-space-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant font-medium uppercase tracking-wider">Output Artifact Container</label>
+<div class="grid grid-cols-3 gap-space-sm">
+<label class="flex items-center justify-center gap-space-xs p-space-sm rounded-lg bg-surface-container text-on-surface-variant hover:bg-surface-container-high cursor-pointer transition-all">
+<input class="hidden" name="format" type="radio" value="csv"/>
+<span class="material-symbols-outlined text-[1.125rem]">csv</span>
+<span class="font-label-md text-label-md font-semibold">CSV Raw</span>
+</label>
+<label class="flex items-center justify-center gap-space-xs p-space-sm rounded-lg bg-surface-container text-on-surface-variant hover:bg-surface-container-high cursor-pointer transition-all">
+<input class="hidden" name="format" type="radio" value="xlsx"/>
+<span class="material-symbols-outlined text-[1.125rem]">table_view</span>
+<span class="font-label-md text-label-md font-semibold">Excel (.xlsx)</span>
+</label>
+<label class="flex items-center justify-center gap-space-xs p-space-sm rounded-lg bg-primary/15 text-primary shadow-[0_0_12px_rgba(6,182,212,0.25)] cursor-pointer">
+<input checked="" class="hidden" name="format" type="radio" value="pdf"/>
+<span class="material-symbols-outlined text-[1.125rem]">picture_as_pdf</span>
+<span class="font-label-md text-label-md font-semibold">PDF Dossier</span>
+</label>
+</div>
+</div>
+<!-- Bottom Action Bar & Notices -->
+<div class="pt-space-sm flex flex-col space-y-space-sm">
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<button class="flex items-center gap-space-xs px-space-lg py-space-sm rounded-lg bg-primary-container text-on-primary-container font-label-md text-label-md font-semibold hover:brightness-110 shadow-[0_0_24px_rgba(6,182,212,0.4)] transition-all" id="trigger-export-btn">
+<span class="material-symbols-outlined text-[1.25rem]">bolt</span>
+<span>Generate Report</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-sm rounded-lg bg-surface-container-high text-on-surface font-label-md text-label-md hover:bg-surface-container-highest transition-all">
+<span class="material-symbols-outlined text-[1.125rem]">visibility</span>
+<span>Preview Live</span>
+</button>
+</div>
+<button class="font-label-sm text-label-sm text-outline hover:text-on-surface transition-colors">
+            Reset to Standard Template
+          </button>
+</div>
+<div class="flex items-center gap-2 p-space-xs px-space-sm rounded-lg bg-surface-container-lowest/80 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-primary text-[1rem]">offline_bolt</span>
+<span>Generates directly from 482MB volatile memory state in ~2.4s. Zero disk cold queries required.</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Corporate Report Live Preview & Data Handling (~42%) -->
+<div class="lg:col-span-5 flex flex-col space-y-space-md">
+<!-- Document Preview Canvas (Glassmorphic 3D Dossier) -->
+<div class="relative p-space-md rounded-2xl bg-surface-container-low/90 backdrop-blur-2xl shadow-[0_24px_48px_-12px_rgba(0,0,0,0.85)] flex flex-col space-y-space-md overflow-hidden">
+<!-- Top Dossier Identification -->
+<div class="flex items-start justify-between pb-space-xs bg-surface-container-lowest/60 p-space-sm rounded-xl">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary font-bold font-data-md">
+              CIX
+            </div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm font-semibold tracking-wider text-primary">CONFIDENTIAL EXECUTIVE BRIEFING</span>
+<span class="font-data-sm text-data-sm text-outline">DOC-ID: CIX-REP-2024-Q3-094</span>
+</div>
+</div>
+<div class="text-right flex flex-col">
+<span class="font-data-sm text-data-sm text-on-surface-variant">Oct 24, 2024</span>
+<span class="font-data-sm text-data-sm text-outline">14:48 UTC</span>
+</div>
+</div>
+<!-- Document Body Simulated Render -->
+<div class="flex flex-col space-y-space-md text-on-surface-variant font-body-sm text-body-sm">
+<!-- Executive Summary Callout -->
+<div class="p-space-sm rounded-lg bg-surface-container-high/40 space-y-1">
+<span class="font-label-sm text-label-sm font-semibold uppercase text-secondary tracking-wider">1.0 Executive Synthesis</span>
+<p class="text-on-surface leading-relaxed">
+<strong class="text-primary font-semibold">142,850 customers</strong> analyzed across <strong class="text-on-surface font-semibold">$18.42M</strong> gross merchandise volume. Overall repeat purchase rate sits at <strong class="text-tertiary">29.0%</strong>. <strong class="text-error">3,120 high-value customers</strong> identified at immediate 48-hour dormancy cliff with <strong class="text-error">$1.42M recoverable revenue</strong>.
+            </p>
+</div>
+<!-- Segment Breakdown Graphic Mini-Table -->
+<div class="space-y-1.5">
+<div class="flex items-center justify-between font-label-sm text-label-sm uppercase text-outline">
+<span>Segment Decomposition</span>
+<span>Weight &amp; Gross</span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center justify-between p-1.5 rounded bg-surface-container-lowest/80 font-data-sm text-data-sm">
+<span class="flex items-center gap-1.5 text-on-surface">
+<span class="w-2 h-2 rounded-full bg-primary"></span> Champions
+                </span>
+<span class="text-outline">8,420 cust • <strong class="text-on-surface font-semibold">$4.8M</strong></span>
+</div>
+<div class="flex items-center justify-between p-1.5 rounded bg-surface-container-lowest/80 font-data-sm text-data-sm">
+<span class="flex items-center gap-1.5 text-on-surface">
+<span class="w-2 h-2 rounded-full bg-secondary"></span> Loyal Core
+                </span>
+<span class="text-outline">14,800 cust • <strong class="text-on-surface font-semibold">$4.1M</strong></span>
+</div>
+<div class="flex items-center justify-between p-1.5 rounded bg-surface-container-lowest/80 font-data-sm text-data-sm">
+<span class="flex items-center gap-1.5 text-error">
+<span class="w-2 h-2 rounded-full bg-error"></span> At-Risk High Value
+                </span>
+<span class="text-error font-semibold">3,120 cust • $1.4M</span>
+</div>
+</div>
+</div>
+<!-- Propensity Insights -->
+<div class="p-space-sm rounded-lg bg-surface-container-lowest/60 space-y-1">
+<span class="font-label-sm text-label-sm font-semibold uppercase text-tertiary tracking-wider">2.0 Propensity Vectors</span>
+<p class="leading-relaxed">
+<strong class="text-on-surface font-semibold">18,490 accounts</strong> exhibit <strong class="text-tertiary">≥75%</strong> repeat purchase probability. Re-engagement within window <strong class="text-primary">days 14–21</strong> yields 4.4x conversion vs cold baseline reactivation.
+            </p>
+</div>
+<!-- Action Matrix Preview -->
+<div class="space-y-1">
+<span class="font-label-sm text-label-sm font-semibold uppercase text-secondary tracking-wider">3.0 Action Orchestration</span>
+<div class="flex items-center justify-between p-2 rounded bg-surface-container font-label-sm text-label-sm">
+<span class="text-on-surface font-medium">3 Automated Retargeting Flows</span>
+<span class="px-2 py-0.5 rounded bg-tertiary/20 text-tertiary font-semibold">Payload Ready: Klaviyo</span>
+</div>
+</div>
+</div>
+<!-- Watermark Validation Ribbon -->
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+<span class="font-data-sm text-data-sm text-tertiary font-semibold uppercase tracking-wider">STATUS: VALIDATED FOR BOARD REVIEW</span>
+</div>
+<span class="font-data-sm text-data-sm text-outline">Page 1 of 18</span>
+</div>
+</div>
+<!-- Data Handling & Integrity Telemetry Box -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest/90 flex flex-col space-y-space-sm shadow-md">
+<div class="flex items-center justify-between pb-space-xs">
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-outline flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[1rem] text-primary">verified_user</span>
+            Data Handling &amp; Integrity Telemetry
+          </span>
+<span class="font-label-sm text-label-sm text-tertiary">Passed Zero-Error Run</span>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline">Clean Transactions</span>
+<span class="font-data-sm text-data-sm text-on-surface font-semibold">284,910 rows</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline">Dimensional Vectors</span>
+<span class="font-data-sm text-data-sm text-on-surface font-semibold">14 validated metrics</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline">Primary Key Quality</span>
+<span class="font-data-sm text-data-sm text-tertiary font-semibold">100% Zero-Null</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline">Worker Allocation</span>
+<span class="font-data-sm text-data-sm text-primary font-semibold">cix-core-worker</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 3: Report History & Active Generation Queue -->
+<div class="flex flex-col space-y-space-md bg-surface-container-low/60 backdrop-blur-xl p-space-lg rounded-2xl shadow-xl">
+<!-- Table Header & Controls -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[1.5rem]">folder_open</span>
+<h3 class="font-headline-md text-headline-md text-on-surface font-semibold">Generated Report Repository &amp; Exports</h3>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">38 Total</span>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<!-- Search Input -->
+<div class="relative flex items-center">
+<input class="bg-surface-container-lowest px-space-md py-1.5 pl-8 rounded-lg text-on-surface font-body-sm text-body-sm w-56 focus:outline-none focus:ring-1 focus:ring-primary placeholder-outline" placeholder="Search archive artifacts..." type="text"/>
+<span class="absolute left-2.5 material-symbols-outlined text-outline text-[1rem]">search</span>
+</div>
+<!-- Format Filters -->
+<div class="flex items-center p-1 rounded-lg bg-surface-container-lowest text-on-surface-variant font-label-sm text-label-sm">
+<button class="px-2.5 py-1 rounded bg-surface-container-high text-on-surface font-semibold">All</button>
+<button class="px-2.5 py-1 rounded hover:text-on-surface transition-colors">PDF</button>
+<button class="px-2.5 py-1 rounded hover:text-on-surface transition-colors">Excel</button>
+<button class="px-2.5 py-1 rounded hover:text-on-surface transition-colors">CSV</button>
+</div>
+</div>
+</div>
+<!-- Data Table Container -->
+<div class="w-full overflow-x-auto rounded-xl">
+<table class="w-full text-left font-body-md text-body-md border-collapse">
+<thead>
+<tr class="bg-surface-container-lowest/80 text-outline font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-space-sm px-space-md">Report Artifact</th>
+<th class="py-space-sm px-space-sm">Intelligence Model</th>
+<th class="py-space-sm px-space-sm">Generated</th>
+<th class="py-space-sm px-space-sm">Records</th>
+<th class="py-space-sm px-space-sm">Format &amp; Size</th>
+<th class="py-space-sm px-space-sm">Status</th>
+<th class="py-space-sm px-space-md text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-transparent font-data-sm text-data-sm">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container/50 transition-colors">
+<td class="py-space-sm px-space-md font-body-md text-body-md font-medium text-on-surface flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[1.25rem]">picture_as_pdf</span>
+<span class="truncate max-w-xs">Q3 Executive Retention &amp; Repeat Propensity Briefing</span>
+</td>
+<td class="py-space-sm px-space-sm text-on-surface-variant font-label-md text-label-md">Full Intelligence</td>
+<td class="py-space-sm px-space-sm text-outline">12m ago <span class="text-on-surface-variant">(Marcus Vance)</span></td>
+<td class="py-space-sm px-space-sm text-on-surface">142,850</td>
+<td class="py-space-sm px-space-sm text-on-surface-variant">PDF (14.2 MB)</td>
+<td class="py-space-sm px-space-sm">
+<span class="px-2 py-0.5 rounded-full bg-tertiary/15 text-tertiary font-label-sm text-label-sm font-semibold">Ready</span>
+</td>
+<td class="py-space-sm px-space-md text-right">
+<div class="flex items-center justify-end gap-space-xs text-on-surface-variant">
+<button class="p-1 rounded hover:bg-surface-container-high hover:text-primary transition-colors" title="Download Artifact">
+<span class="material-symbols-outlined text-[1.125rem]">download</span>
+</button>
+<button class="p-1 rounded hover:bg-surface-container-high hover:text-primary transition-colors" title="Preview Dossier">
+<span class="material-symbols-outlined text-[1.125rem]">visibility</span>
+</button>
+<button class="p-1 rounded hover:bg-surface-container-high hover:text-primary transition-colors" title="Share Link">
+<span class="material-symbols-outlined text-[1.125rem]">share</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container/50 transition-colors">
+<td class="py-space-sm px-space-md font-body-md text-body-md font-medium text-on-surface flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[1.25rem]">csv</span>
+<span class="truncate max-w-xs">At-Risk VIP Concierge Dispatch List</span>
+</td>
+<td class="py-space-sm px-space-sm text-on-surface-variant font-label-md text-label-md">Retention Actions</td>
+<td class="py-space-sm px-space-sm text-outline">2h ago <span class="text-on-surface-variant">(Automated Pipeline)</span></td>
+<td class="py-space-sm px-space-sm text-on-surface">3,120</td>
+<td class="py-space-sm px-space-sm text-on-surface-variant">CSV (1.8 MB)</td>
+<td class="py-space-sm px-space-sm">
+<span class="px-2 py-0.5 rounded-full bg-tertiary/15 text-tertiary font-label-sm text-label-sm font-semibold">Ready</span>
+</td>
+<td class="py-space-sm px-space-md text-right">
+<div class="flex items-center justify-end gap-space-xs text-on-surface-variant">
+<button class="p-1 rounded hover:bg-surface-container-high hover:text-primary transition-colors" title="Download">
+<span class="material-symbols-outlined text-[1.125rem]">download</span>
+</button>
+<button class="p-1 rounded hover:bg-surface-container-high hover:text-secondary transition-colors" title="Push to Braze">
+<span class="material-symbols-outlined text-[1.125rem]">send</span>
+</button>
+<button class="p-1 rounded hover:bg-surface-container-high hover:text-error transition-colors" title="Delete">
+<span class="material-symbols-outlined text-[1.125rem]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container/50 transition-colors">
+<td class="py-space-sm px-space-md font-body-md text-body-md font-medium text-on-surface flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-tertiary text-[1.25rem]">table_view</span>
+<span class="truncate max-w-xs">Repeat Propensity Threshold Sensitivity Analysis</span>
+</td>
+<td class="py-space-sm px-space-sm text-on-surface-variant font-label-md text-label-md">Repeat Purchase Propensity</td>
+<td class="py-space-sm px-space-sm text-outline">Yesterday <span class="text-on-surface-variant">(Marcus Vance)</span></td>
+<td class="py-space-sm px-space-sm text-on-surface">18,490</td>
+<td class="py-space-sm px-space-sm text-on-surface-variant">Excel (.xlsx)</td>
+<td class="py-space-sm px-space-sm">
+<span class="px-2 py-0.5 rounded-full bg-tertiary/15 text-tertiary font-label-sm text-label-sm font-semibold">Ready</span>
+</td>
+<td class="py-space-sm px-space-md text-right">
+<div class="flex items-center justify-end gap-space-xs text-on-surface-variant">
+<button class="p-1 rounded hover:bg-surface-container-high hover:text-primary transition-colors" title="Download">
+<span class="material-symbols-outlined text-[1.125rem]">download</span>
+</button>
+<button class="p-1 rounded hover:bg-surface-container-high hover:text-primary transition-colors" title="Preview">
+<span class="material-symbols-outlined text-[1.125rem]">visibility</span>
+</button>
+<button class="p-1 rounded hover:bg-surface-container-high hover:text-error transition-colors" title="Delete">
+<span class="material-symbols-outlined text-[1.125rem]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container/50 transition-colors">
+<td class="py-space-sm px-space-md font-body-md text-body-md font-medium text-on-surface flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[1.25rem]">picture_as_pdf</span>
+<span class="truncate max-w-xs">Segment Portfolio Agglomerative Clustering Audit</span>
+</td>
+<td class="py-space-sm px-space-sm text-on-surface-variant font-label-md text-label-md">Customer Segments</td>
+<td class="py-space-sm px-space-sm text-outline">Oct 22, 2024</td>
+<td class="py-space-sm px-space-sm text-on-surface">142,850</td>
+<td class="py-space-sm px-space-sm text-on-surface-variant">PDF (8.6 MB)</td>
+<td class="py-space-sm px-space-sm">
+<span class="px-2 py-0.5 rounded-full bg-tertiary/15 text-tertiary font-label-sm text-label-sm font-semibold">Ready</span>
+</td>
+<td class="py-space-sm px-space-md text-right">
+<div class="flex items-center justify-end gap-space-xs text-on-surface-variant">
+<button class="p-1 rounded hover:bg-surface-container-high hover:text-primary transition-colors" title="Download">
+<span class="material-symbols-outlined text-[1.125rem]">download</span>
+</button>
+<button class="p-1 rounded hover:bg-surface-container-high hover:text-primary transition-colors" title="Preview">
+<span class="material-symbols-outlined text-[1.125rem]">visibility</span>
+</button>
+<button class="p-1 rounded hover:bg-surface-container-high hover:text-error transition-colors" title="Delete">
+<span class="material-symbols-outlined text-[1.125rem]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 5 (Active Processing) -->
+<tr class="bg-primary/5 hover:bg-primary/10 transition-colors">
+<td class="py-space-sm px-space-md font-body-md text-body-md font-medium text-on-surface flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary animate-spin text-[1.25rem]">autorenew</span>
+<span class="truncate max-w-xs">Raw Ingestion Dimension Vector Dump</span>
+</td>
+<td class="py-space-sm px-space-sm text-on-surface-variant font-label-md text-label-md">Revenue Analytics</td>
+<td class="py-space-sm px-space-sm text-outline">Oct 19, 2024</td>
+<td class="py-space-sm px-space-sm text-on-surface">284,910</td>
+<td class="py-space-sm px-space-sm text-on-surface-variant">CSV (42.1 MB)</td>
+<td class="py-space-sm px-space-sm">
+<span class="px-2 py-0.5 rounded-full bg-primary/20 text-primary font-label-sm text-label-sm font-semibold inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+                Processing (74%)
+              </span>
+</td>
+<td class="py-space-sm px-space-md text-right">
+<button class="px-2 py-1 rounded bg-surface-container-high text-error hover:bg-error/20 font-label-sm text-label-sm transition-colors">
+                Cancel
+              </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Pagination -->
+<div class="flex items-center justify-between pt-space-xs font-label-sm text-label-sm text-outline">
+<span>Showing 1 to 5 of 38 compiled reports</span>
+<div class="flex items-center gap-1">
+<button class="px-3 py-1 rounded bg-surface-container-lowest text-outline hover:text-on-surface transition-colors">Prev</button>
+<button class="px-3 py-1 rounded bg-primary-container text-on-primary-container font-semibold">1</button>
+<button class="px-3 py-1 rounded bg-surface-container-lowest hover:text-on-surface transition-colors">2</button>
+<button class="px-3 py-1 rounded bg-surface-container-lowest hover:text-on-surface transition-colors">3</button>
+<span class="px-1 text-outline">...</span>
+<button class="px-3 py-1 rounded bg-surface-container-lowest hover:text-on-surface transition-colors">8</button>
+<button class="px-3 py-1 rounded bg-surface-container-lowest text-outline hover:text-on-surface transition-colors">Next</button>
+</div>
+</div>
+</div>
+<!-- Section 4: Floating / Pinned Export Processing Dialog (Interactive State Demonstrator) -->
+<div class="fixed bottom-6 right-6 w-96 rounded-2xl bg-surface-container-low/95 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.85)] p-space-md z-50 transition-all duration-300 transform" id="export-modal">
+<div class="flex items-start justify-between pb-space-xs">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary shadow-[0_0_8px_rgba(6,182,212,0.8)] animate-pulse"></span>
+<h4 class="font-headline-md text-body-lg text-on-surface font-semibold">Export Pipeline Execution</h4>
+</div>
+<button class="p-1 rounded-full text-outline hover:text-on-surface hover:bg-surface-container transition-colors" id="close-modal-btn">
+<span class="material-symbols-outlined text-[1.125rem]">close</span>
+</button>
+</div>
+<div class="flex flex-col space-y-space-sm pt-space-xs">
+<span class="font-label-sm text-label-sm text-primary font-medium truncate">
+        Artifact: Q3 Executive Retention Briefing (PDF)
+      </span>
+<!-- 4-Step Pipeline Stepper -->
+<div class="space-y-2 py-1 font-label-sm text-label-sm">
+<!-- Step 1 -->
+<div class="flex items-center gap-2 text-tertiary">
+<span class="material-symbols-outlined text-[1rem]">check_circle</span>
+<span>Collecting In-Memory Nodes</span>
+<span class="ml-auto font-data-sm text-outline">0.4s</span>
+</div>
+<!-- Step 2 -->
+<div class="flex items-center gap-2 text-tertiary">
+<span class="material-symbols-outlined text-[1rem]">check_circle</span>
+<span>Compiling RFM &amp; ML Vectors</span>
+<span class="ml-auto font-data-sm text-outline">0.9s</span>
+</div>
+<!-- Step 3 (Active) -->
+<div class="flex items-center gap-2 text-primary font-semibold">
+<span class="material-symbols-outlined text-[1rem] animate-spin">progress_activity</span>
+<span>Rendering High-Res Visualizations</span>
+<span class="ml-auto font-data-sm text-primary">In Progress</span>
+</div>
+<!-- Step 4 -->
+<div class="flex items-center gap-2 text-outline">
+<span class="material-symbols-outlined text-[1rem]">radio_button_unchecked</span>
+<span>Cryptographic Hash &amp; PDF Assembly</span>
+<span class="ml-auto font-data-sm">Pending</span>
+</div>
+</div>
+<!-- Progress Track -->
+<div class="space-y-1">
+<div class="flex justify-between font-data-sm text-data-sm">
+<span class="text-on-surface font-semibold">68% Complete</span>
+<span class="text-outline">Est: ~0.8s remaining</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container-highest overflow-hidden">
+<div class="h-full bg-primary rounded-full shadow-[0_0_8px_rgba(6,182,212,0.8)]" style="width: 68%;"></div>
+</div>
+</div>
+<!-- Modal Footer Controls -->
+<div class="flex items-center justify-end gap-space-xs pt-space-xs">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant font-label-sm text-label-sm hover:text-error hover:bg-error/15 transition-colors" id="cancel-pipeline-btn">
+          Cancel
+        </button>
+<button class="px-3 py-1.5 rounded-lg bg-primary/20 text-primary font-label-sm text-label-sm font-semibold hover:bg-primary/30 transition-colors" id="minimize-modal-btn">
+          Background Task
+        </button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    const modal = document.getElementById('export-modal');
+    const closeBtn = document.getElementById('close-modal-btn');
+    const triggerBtn = document.getElementById('trigger-export-btn');
+    const cancelBtn = document.getElementById('cancel-pipeline-btn');
+    const minimizeBtn = document.getElementById('minimize-modal-btn');
+
+    if (closeBtn && modal) {
+      closeBtn.addEventListener('click', () => {
+        modal.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+      });
+    }
+
+    if (cancelBtn && modal) {
+      cancelBtn.addEventListener('click', () => {
+        modal.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+      });
+    }
+
+    if (minimizeBtn && modal) {
+      minimizeBtn.addEventListener('click', () => {
+        modal.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+      });
+    }
+
+    if (triggerBtn && modal) {
+      triggerBtn.addEventListener('click', () => {
+        modal.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+      });
+    }
+  })();
+</script></main></div></body></html>

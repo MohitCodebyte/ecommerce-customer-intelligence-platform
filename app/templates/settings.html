@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+{% block title %}CIX — Settings & Administration{% endblock %}
+{% block breadcrumb %}Settings{% endblock %}
+
+{% block content %}
+<div class="px-gutter-lg py-space-lg max-w-[1720px] mx-auto space-y-space-xl relative">
+
+  <!-- Top Global System Ribbon -->
+  <div class="w-full flex flex-wrap items-center justify-between gap-space-md p-space-md rounded-xl bg-surface-container-low border border-outline-variant/20 shadow-md">
+    <div class="flex items-center flex-wrap gap-space-md">
+      <div class="flex items-center gap-space-xs px-space-sm py-0.5 rounded-full bg-surface-container-high">
+        <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-primary">System Control & Governance</span>
+      </div>
+      <span class="font-data-sm text-data-sm text-outline-variant">•</span>
+      <span class="font-data-sm text-data-sm text-on-surface-variant">Runtime Architecture: <strong class="text-on-surface font-semibold">In-Memory (Zero Disk Write)</strong></span>
+      <span class="font-data-sm text-data-sm text-outline-variant">•</span>
+      <span class="font-data-sm text-data-sm text-tertiary">Database: Free (Session In-Memory)</span>
+    </div>
+    <div class="flex items-center gap-space-sm">
+      <span class="material-symbols-outlined text-[1rem] text-primary">verified_user</span>
+      <span class="font-data-sm text-data-sm text-on-surface-variant">CIX Enterprise Core</span>
+    </div>
+  </div>
+
+  <!-- Header Section -->
+  <div class="w-full flex flex-col lg:flex-row lg:items-center justify-between gap-space-lg">
+    <div class="flex flex-col max-w-3xl">
+      <div class="flex items-center gap-space-sm mb-space-xs">
+        <span class="material-symbols-outlined text-primary text-[1.5rem]">settings</span>
+        <h1 class="font-display-lg text-display-lg text-on-surface tracking-tight">Settings</h1>
+      </div>
+      <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+        Configure runtime intelligence parameters, calibrate in-memory dataset buffers, and review ML model production artifacts.
+      </p>
+    </div>
+    <div class="flex items-center gap-space-md shrink-0">
+      <a href="/admin" class="flex items-center gap-space-sm px-space-lg py-space-sm rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-all shadow-md">
+        <span class="material-symbols-outlined text-[1.125rem] text-primary">shield</span>
+        <span class="font-label-md text-label-md">System Administration & Health →</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Main Settings Two-Column Layout -->
+  <div class="grid grid-cols-12 gap-gutter-lg items-start">
+
+    <!-- LEFT COLUMN: Session Monitor -->
+    <div class="col-span-12 xl:col-span-4 flex flex-col gap-space-lg">
+      <!-- Session RAM Monitor Card -->
+      <div class="p-space-lg rounded-xl bg-surface-container-low border border-outline-variant/20 shadow-md relative overflow-hidden space-y-4">
+        <div class="flex items-center justify-between">
+          <span class="font-label-sm text-label-sm uppercase tracking-wider text-primary">Volatile Execution Engine</span>
+          <span class="flex h-2 w-2 relative">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-tertiary opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-tertiary"></span>
+          </span>
+        </div>
+        <div>
+          <h3 class="font-headline-md text-headline-md text-on-surface">In-Memory Execution</h3>
+          <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+            Model inference, customer feature engineering, and segment clustering operate entirely in RAM.
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-1.5 p-space-sm rounded-lg bg-surface-container-lowest">
+          <div class="flex items-center justify-between font-data-sm text-data-sm">
+            <span class="text-outline">RAM Allocation</span>
+            <span class="text-primary font-semibold">482 MB / 8,192 MB</span>
+          </div>
+          <div class="w-full h-2 rounded-full bg-surface-container-high overflow-hidden">
+            <div class="h-full bg-primary rounded-full" style="width: 5.9%;"></div>
+          </div>
+          <div class="flex items-center justify-between font-data-sm text-[0.6875rem] text-outline">
+            <span>Buffer Pressure: Minimal</span>
+            <span>5.9% utilized</span>
+          </div>
+        </div>
+
+        <div class="pt-space-md border-t border-outline-variant/20 flex items-center justify-between text-xs text-on-surface-variant">
+          <span class="text-tertiary flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">lock</span> RAM Isolated</span>
+          <span class="font-mono">No SQL Database Required</span>
+        </div>
+      </div>
+
+      <!-- Quick Action: Clear Memory -->
+      <div class="p-space-md rounded-xl bg-surface-container-low border border-outline-variant/20 flex items-center justify-between">
+        <div>
+          <span class="font-label-md text-label-md text-on-surface font-semibold block">Clear Active Dataset</span>
+          <span class="font-body-sm text-body-sm text-on-surface-variant">Flush uploaded file from memory buffer</span>
+        </div>
+        <button onclick="clearDataset()" class="px-3 py-1.5 rounded-lg bg-error/15 text-error hover:bg-error/25 text-xs font-semibold transition-colors">
+          Clear RAM
+        </button>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN: Configuration Panels -->
+    <div class="col-span-12 xl:col-span-8 space-y-space-lg">
+
+      <!-- Panel 1: ML Model Artifact Calibration -->
+      <div class="p-space-lg rounded-xl bg-surface-container-low border border-outline-variant/20 shadow-md space-y-4">
+        <div class="flex items-center gap-2 border-b border-outline-variant/20 pb-3">
+          <span class="material-symbols-outlined text-primary text-[22px]">psychology</span>
+          <h2 class="font-headline-md text-headline-md text-on-surface font-semibold">Production ML Model Configuration</h2>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div class="p-3 rounded-lg bg-surface-container-lowest">
+            <span class="text-xs text-on-surface-variant block">Model Status</span>
+            <span class="font-mono text-sm font-bold {% if sys_info.model_loaded %}text-tertiary{% else %}text-error{% endif %}">
+              {% if sys_info.model_loaded %}Loaded{% else %}Not Loaded{% endif %}
+            </span>
+          </div>
+          <div class="p-3 rounded-lg bg-surface-container-lowest">
+            <span class="text-xs text-on-surface-variant block">Classification Threshold</span>
+            <span class="font-mono text-sm font-bold text-primary">{{ sys_info.threshold }}</span>
+          </div>
+          <div class="p-3 rounded-lg bg-surface-container-lowest">
+            <span class="text-xs text-on-surface-variant block">Feature Vector Size</span>
+            <span class="font-mono text-sm font-bold text-secondary">{{ sys_info.feature_count }} features</span>
+          </div>
+          <div class="p-3 rounded-lg bg-surface-container-lowest">
+            <span class="text-xs text-on-surface-variant block">Model ROC-AUC</span>
+            <span class="font-mono text-sm font-bold text-tertiary">{{ sys_info.roc_auc }}</span>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-lg bg-surface-container-highest/40 space-y-2 text-xs text-on-surface-variant">
+          <div class="flex items-center justify-between">
+            <span>Model Path:</span>
+            <span class="font-mono text-primary">artifacts_production/models/xgb_repeat_purchase_production.joblib</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span>Threshold File:</span>
+            <span class="font-mono text-on-surface">artifacts_production/reports/threshold.json</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span>Feature Columns:</span>
+            <span class="font-mono text-on-surface">artifacts_production/models/feature_columns.json</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 2: Dataset & Cache Telemetry -->
+      <div class="p-space-lg rounded-xl bg-surface-container-low border border-outline-variant/20 shadow-md space-y-4">
+        <div class="flex items-center gap-2 border-b border-outline-variant/20 pb-3">
+          <span class="material-symbols-outlined text-secondary text-[22px]">storage</span>
+          <h2 class="font-headline-md text-headline-md text-on-surface font-semibold">Active Dataset & Cache Status</h2>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+          <div class="p-3 rounded-lg bg-surface-container-lowest">
+            <span class="text-xs text-on-surface-variant block">Data Loaded</span>
+            <span class="font-mono text-sm font-bold {% if sys_info.data_loaded %}text-tertiary{% else %}text-on-surface-variant{% endif %}">
+              {% if sys_info.data_loaded %}Yes ({{ '{:,}'.format(sys_info.current_rows) }} rows){% else %}No{% endif %}
+            </span>
+          </div>
+          <div class="p-3 rounded-lg bg-surface-container-lowest">
+            <span class="text-xs text-on-surface-variant block">Active Source</span>
+            <span class="font-mono text-sm font-bold text-primary truncate block" title="{{ sys_info.data_source }}">{{ sys_info.data_source }}</span>
+          </div>
+          <div class="p-3 rounded-lg bg-surface-container-lowest">
+            <span class="text-xs text-on-surface-variant block">Olist Demo Fallback</span>
+            <span class="font-mono text-sm font-bold text-secondary">
+              {% if sys_info.demo_available %}Available ({{ '{:,}'.format(sys_info.demo_rows) }} rows){% else %}Unavailable{% endif %}
+            </span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-3 text-xs">
+          <div class="p-3 rounded-lg bg-surface-container-lowest flex items-center justify-between">
+            <span>Master CSV File</span>
+            <span class="font-mono font-bold {% if sys_info.master_csv_exists %}text-tertiary{% else %}text-error{% endif %}">
+              {% if sys_info.master_csv_exists %}Present{% else %}Missing{% endif %}
+            </span>
+          </div>
+          <div class="p-3 rounded-lg bg-surface-container-lowest flex items-center justify-between">
+            <span>Recommendations CSV</span>
+            <span class="font-mono font-bold {% if sys_info.recs_csv_exists %}text-tertiary{% else %}text-error{% endif %}">
+              {% if sys_info.recs_csv_exists %}Present{% else %}Missing{% endif %}
+            </span>
+          </div>
+          <div class="p-3 rounded-lg bg-surface-container-lowest flex items-center justify-between">
+            <span>Predictions CSV</span>
+            <span class="font-mono font-bold {% if sys_info.predictions_csv_exists %}text-tertiary{% else %}text-error{% endif %}">
+              {% if sys_info.predictions_csv_exists %}Present{% else %}Missing{% endif %}
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+{% endblock %}

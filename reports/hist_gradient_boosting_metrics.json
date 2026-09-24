@@ -1,0 +1,52 @@
+{
+  "model": "HistGradientBoostingClassifier",
+  "leakage_safe": true,
+  "max_iter": 300,
+  "learning_rate": 0.05,
+  "max_leaf_nodes": 31,
+  "min_samples_leaf": 20,
+  "l2_regularization": 1.0,
+  "accuracy": 0.9882847433375067,
+  "precision": 0.9882847433375067,
+  "recall": 1.0,
+  "f1": 0.9941078576890209,
+  "roc_auc": 0.5520004061668282,
+  "pr_auc": 0.9904302237675593,
+  "confusion_matrix": [
+    [
+      0,
+      131
+    ],
+    [
+      0,
+      11051
+    ]
+  ],
+  "classification_report": {
+    "0": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 131.0
+    },
+    "1": {
+      "precision": 0.9882847433375067,
+      "recall": 1.0,
+      "f1-score": 0.9941078576890209,
+      "support": 11051.0
+    },
+    "accuracy": 0.9882847433375067,
+    "macro avg": {
+      "precision": 0.49414237166875336,
+      "recall": 0.5,
+      "f1-score": 0.49705392884451044,
+      "support": 11182.0
+    },
+    "weighted avg": {
+      "precision": 0.9767067339136816,
+      "recall": 0.9882847433375067,
+      "f1-score": 0.9824616289859927,
+      "support": 11182.0
+    }
+  }
+}

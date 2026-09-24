@@ -1,0 +1,39 @@
+{
+  "target": "repeat_purchase",
+  "feature_columns": [
+    "total_orders",
+    "total_revenue",
+    "average_order_value",
+    "recency_days",
+    "customer_lifetime_days",
+    "repeat_customer",
+    "purchase_frequency",
+    "mean_purchase_gap_days",
+    "median_purchase_gap_days",
+    "max_purchase_gap_days",
+    "purchase_gap_count",
+    "observation_window_days"
+  ],
+  "forbidden_columns": [
+    "customer_unique_id",
+    "snapshot_date",
+    "future_end_date",
+    "first_purchase_date",
+    "last_purchase_date",
+    "repeat_purchase"
+  ],
+  "train_snapshots": [
+    "2017-05-01",
+    "2017-06-30",
+    "2017-08-29",
+    "2017-11-02",
+    "2018-01-01"
+  ],
+  "test_snapshot": "2018-03-02",
+  "train_rows": 115063,
+  "test_rows": 55907,
+  "train_repeat_rate": 0.01451378809869376,
+  "test_repeat_rate": 0.0117158853095319,
+  "leakage_safe_split": true,
+  "split_method": "Time-based: older snapshots for training, latest snapshot for untouched testing."
+}

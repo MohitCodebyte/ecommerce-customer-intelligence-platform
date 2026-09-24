@@ -1,0 +1,49 @@
+{
+    "dataset": "Olist Brazilian E-Commerce Public Dataset",
+    "order_filter": "delivered",
+    "customer_identity": "customer_unique_id",
+    "repeat_customer_definition": "customer with at least 2 delivered orders",
+    "repeat_customers_analyzed": 2801,
+    "purchase_gap_records": 3120,
+    "gap_statistics": {
+        "gap_records": 3120,
+        "mean_gap_days": 79.15,
+        "median_gap_days": 29.45,
+        "75th_percentile_days": 121.47,
+        "90th_percentile_days": 240.28,
+        "95th_percentile_days": 312.17,
+        "99th_percentile_days": 444.62
+    },
+    "validation_windows": [
+        {
+            "window_days": 90,
+            "return_gaps_at_or_above_window": 973,
+            "percentage_of_repeat_purchase_gaps": 31.19
+        },
+        {
+            "window_days": 120,
+            "return_gaps_at_or_above_window": 793,
+            "percentage_of_repeat_purchase_gaps": 25.42
+        },
+        {
+            "window_days": 180,
+            "return_gaps_at_or_above_window": 516,
+            "percentage_of_repeat_purchase_gaps": 16.54
+        },
+        {
+            "window_days": 240,
+            "return_gaps_at_or_above_window": 314,
+            "percentage_of_repeat_purchase_gaps": 10.06
+        },
+        {
+            "window_days": 300,
+            "return_gaps_at_or_above_window": 177,
+            "percentage_of_repeat_purchase_gaps": 5.67
+        },
+        {
+            "window_days": 365,
+            "return_gaps_at_or_above_window": 84,
+            "percentage_of_repeat_purchase_gaps": 2.69
+        }
+    ]
+}

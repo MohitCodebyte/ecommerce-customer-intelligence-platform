@@ -1,0 +1,7 @@
+{
+  "selected_threshold": 0.033468081512384944,
+  "optimization_mode": "precision_floor",
+  "target_precision": 0.1,
+  "target_recall": 0.4,
+  "threshold_source": "validation"
+}

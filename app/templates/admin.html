@@ -1,0 +1,259 @@
+{% extends "base.html" %}
+{% block title %}CIX — System Administration & Health{% endblock %}
+{% block breadcrumb %}System Administration & Health{% endblock %}
+
+{% block content %}
+<div class="px-gutter-lg py-space-lg max-w-[1720px] mx-auto space-y-space-xl relative">
+
+  <!-- Glow Effect -->
+  <div class="fixed -top-40 left-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+
+  <!-- Global Health Ribbon -->
+  <div class="w-full flex flex-wrap items-center justify-between gap-space-md p-space-md rounded-xl bg-surface-container-low border border-outline-variant/20 shadow-md">
+    <div class="flex items-center flex-wrap gap-space-md">
+      <div class="flex items-center gap-space-xs px-space-sm py-0.5 rounded-full bg-surface-container-high">
+        <span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-tertiary">System Administration & Operational Health</span>
+      </div>
+      <span class="font-data-sm text-data-sm text-outline-variant">•</span>
+      <span class="font-data-sm text-data-sm text-on-surface-variant">In-Memory Execution: <strong class="text-tertiary font-semibold">Active</strong></span>
+      <span class="font-data-sm text-data-sm text-outline-variant">•</span>
+      <span class="font-data-sm text-data-sm text-primary">Database: Database-Free Architecture</span>
+    </div>
+    <div class="flex items-center gap-space-sm">
+      <button onclick="refreshAdminStatus()" class="flex items-center gap-1 px-3 py-1 rounded bg-surface-container-high text-primary hover:bg-surface-bright text-xs font-semibold transition-all">
+        <span class="material-symbols-outlined text-[14px]">refresh</span> Refresh Status
+      </button>
+    </div>
+  </div>
+
+  <!-- Title & Controls Header -->
+  <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-lg">
+    <div>
+      <div class="flex items-center gap-2 mb-1">
+        <span class="material-symbols-outlined text-primary text-[28px]">shield</span>
+        <h1 class="font-display-lg text-display-lg text-on-surface font-bold tracking-tight">System Administration & Health</h1>
+      </div>
+      <p class="font-body-md text-body-md text-on-surface-variant max-w-3xl">
+        Real-time telemetry, backend service status, ML scoring pipeline diagnostics, and dataset validation.
+      </p>
+    </div>
+    <div class="flex flex-wrap items-center gap-space-sm">
+      <button onclick="reloadModelArtifacts()" class="flex items-center gap-1.5 px-space-md py-2 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-bright text-sm font-semibold transition-all shadow-sm">
+        <span class="material-symbols-outlined text-[18px] text-secondary">psychology</span>
+        <span>Reload Model</span>
+      </button>
+      <a href="/upload" class="flex items-center gap-1.5 px-space-md py-2 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-bright text-sm font-semibold transition-all shadow-sm">
+        <span class="material-symbols-outlined text-[18px] text-primary">checklist</span>
+        <span>Validate Dataset</span>
+      </a>
+      <button onclick="clearDataset()" class="flex items-center gap-1.5 px-space-lg py-2 rounded-lg bg-error/15 text-error hover:bg-error/25 border border-error/30 text-sm font-semibold transition-all shadow-sm">
+        <span class="material-symbols-outlined text-[18px]">delete_sweep</span>
+        <span>Clear Current Dataset</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- System Status Overview (6 Tiles) -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-space-md">
+    <div class="p-space-md rounded-xl bg-surface-container-low border border-outline-variant/20 shadow-md flex flex-col justify-between">
+      <div class="flex items-center justify-between mb-2">
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Application Status</span>
+        <span class="material-symbols-outlined text-tertiary text-[18px]">check_circle</span>
+      </div>
+      <div class="font-data-md text-data-md font-bold text-tertiary">{{ sys_health.app_status }}</div>
+      <span class="text-[11px] text-on-surface-variant mt-2">Flask Server Running</span>
+    </div>
+
+    <div class="p-space-md rounded-xl bg-surface-container-low border border-outline-variant/20 shadow-md flex flex-col justify-between">
+      <div class="flex items-center justify-between mb-2">
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Backend Status</span>
+        <span class="material-symbols-outlined text-primary text-[18px]">dns</span>
+      </div>
+      <div class="font-data-md text-data-md font-bold text-primary">Online</div>
+      <span class="text-[11px] text-on-surface-variant mt-2 truncate">{{ sys_health.backend_status }}</span>
+    </div>
+
+    <div class="p-space-md rounded-xl bg-surface-container-low border border-outline-variant/20 shadow-md flex flex-col justify-between">
+      <div class="flex items-center justify-between mb-2">
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Dataset Status</span>
+        <span class="material-symbols-outlined text-secondary text-[18px]">database</span>
+      </div>
+      <div class="font-data-md text-data-md font-bold text-on-surface truncate">{{ sys_health.dataset_status }}</div>
+      <span class="text-[11px] text-on-surface-variant mt-2">Rows: {{ '{:,}'.format(sys_health.rows_loaded) }}</span>
+    </div>
+
+    <div class="p-space-md rounded-xl bg-surface-container-low border border-outline-variant/20 shadow-md flex flex-col justify-between">
+      <div class="flex items-center justify-between mb-2">
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Model Status</span>
+        <span class="material-symbols-outlined text-tertiary text-[18px]">psychology</span>
+      </div>
+      <div class="font-data-md text-data-md font-bold text-tertiary truncate">{{ sys_health.model_status }}</div>
+      <span class="text-[11px] text-on-surface-variant mt-2">ROC-AUC: {{ sys_health.roc_auc }}</span>
+    </div>
+
+    <div class="p-space-md rounded-xl bg-surface-container-low border border-outline-variant/20 shadow-md flex flex-col justify-between">
+      <div class="flex items-center justify-between mb-2">
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Prediction Engine</span>
+        <span class="material-symbols-outlined text-primary text-[18px]">electric_bolt</span>
+      </div>
+      <div class="font-data-md text-data-md font-bold text-primary truncate">Active</div>
+      <span class="text-[11px] text-on-surface-variant mt-2">Threshold: {{ sys_health.threshold }}</span>
+    </div>
+
+    <div class="p-space-md rounded-xl bg-surface-container-low border border-outline-variant/20 shadow-md flex flex-col justify-between">
+      <div class="flex items-center justify-between mb-2">
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Export Engine</span>
+        <span class="material-symbols-outlined text-tertiary text-[18px]">file_download</span>
+      </div>
+      <div class="font-data-md text-data-md font-bold text-tertiary">Active</div>
+      <span class="text-[11px] text-on-surface-variant mt-2">CSV & openpyxl Ready</span>
+    </div>
+  </div>
+
+  <!-- Detailed System Telemetry Grid -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg">
+
+    <!-- Card 1: Pipeline & Data Status -->
+    <div class="rounded-xl bg-surface-container-low p-space-lg border border-outline-variant/20 shadow-lg space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-outline-variant/20">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary text-[22px]">memory</span>
+          <h2 class="font-headline-md text-headline-md text-on-surface font-semibold">In-Memory Pipeline Diagnostics</h2>
+        </div>
+        <span class="px-2.5 py-0.5 rounded-full bg-tertiary/10 text-tertiary text-xs font-semibold">Zero Disk Write</span>
+      </div>
+
+      <div class="space-y-3 font-body-sm text-body-sm">
+        <div class="flex items-center justify-between p-2.5 rounded bg-surface-container-lowest">
+          <span class="text-on-surface-variant">Active Source File</span>
+          <span class="font-mono text-primary font-bold text-xs">{{ sys_health.source }}</span>
+        </div>
+        <div class="flex items-center justify-between p-2.5 rounded bg-surface-container-lowest">
+          <span class="text-on-surface-variant">Total Rows Loaded</span>
+          <span class="font-mono text-on-surface font-bold text-xs">{{ '{:,}'.format(sys_health.rows_loaded) }}</span>
+        </div>
+        <div class="flex items-center justify-between p-2.5 rounded bg-surface-container-lowest">
+          <span class="text-on-surface-variant">Total Columns Loaded</span>
+          <span class="font-mono text-on-surface font-bold text-xs">{{ sys_health.columns_loaded }}</span>
+        </div>
+        <div class="flex items-center justify-between p-2.5 rounded bg-surface-container-lowest">
+          <span class="text-on-surface-variant">Demo Mode Fallback</span>
+          <span class="font-mono font-bold text-xs {% if sys_health.is_demo %}text-secondary{% else %}text-on-surface-variant{% endif %}">
+            {% if sys_health.is_demo %}Active (Olist Dataset){% else %}Inactive (Uploaded File Active){% endif %}
+          </span>
+        </div>
+        <div class="flex items-center justify-between p-2.5 rounded bg-surface-container-lowest">
+          <span class="text-on-surface-variant">Last File Uploaded</span>
+          <span class="font-mono text-on-surface-variant text-xs">{{ sys_health.last_upload }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: ML Artifacts & Scoring Telemetry -->
+    <div class="rounded-xl bg-surface-container-low p-space-lg border border-outline-variant/20 shadow-lg space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-outline-variant/20">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-secondary text-[22px]">psychology</span>
+          <h2 class="font-headline-md text-headline-md text-on-surface font-semibold">ML Engine Artifacts</h2>
+        </div>
+        <span class="px-2.5 py-0.5 rounded-full bg-primary/10 text-primary text-xs font-semibold">XGBoost Production</span>
+      </div>
+
+      <div class="space-y-3 font-body-sm text-body-sm">
+        <div class="flex items-center justify-between p-2.5 rounded bg-surface-container-lowest">
+          <span class="text-on-surface-variant">Model Binary</span>
+          <span class="font-mono text-tertiary font-bold text-xs">xgb_repeat_purchase_production.joblib</span>
+        </div>
+        <div class="flex items-center justify-between p-2.5 rounded bg-surface-container-lowest">
+          <span class="text-on-surface-variant">Selected Probability Cutoff</span>
+          <span class="font-mono text-primary font-bold text-xs">{{ sys_health.threshold }}</span>
+        </div>
+        <div class="flex items-center justify-between p-2.5 rounded bg-surface-container-lowest">
+          <span class="text-on-surface-variant">Feature Matrix Dimension</span>
+          <span class="font-mono text-on-surface font-bold text-xs">{{ sys_health.feature_count }} features</span>
+        </div>
+        <div class="flex items-center justify-between p-2.5 rounded bg-surface-container-lowest">
+          <span class="text-on-surface-variant">Test Set ROC-AUC</span>
+          <span class="font-mono text-tertiary font-bold text-xs">{{ sys_health.roc_auc }}</span>
+        </div>
+        <div class="flex items-center justify-between p-2.5 rounded bg-surface-container-lowest">
+          <span class="text-on-surface-variant">Test Set PR-AUC</span>
+          <span class="font-mono text-tertiary font-bold text-xs">{{ sys_health.pr_auc }}</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Supported Operations Control Panel -->
+  <div class="rounded-xl bg-surface-container-low p-space-lg border border-outline-variant/20 shadow-lg space-y-4">
+    <h2 class="font-headline-md text-headline-md text-on-surface font-semibold">Supported Operational Actions</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+      <button onclick="refreshAdminStatus()" class="p-4 rounded-xl bg-surface-container-high hover:bg-surface-container-highest transition-all border border-outline-variant/20 text-left space-y-2 group">
+        <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+          <span class="material-symbols-outlined text-[20px]">refresh</span>
+        </div>
+        <div class="font-label-md text-label-md text-on-surface font-semibold">Refresh Status</div>
+        <div class="text-xs text-on-surface-variant">Re-query system telemetry and in-memory heap counters</div>
+      </button>
+
+      <a href="/upload" class="p-4 rounded-xl bg-surface-container-high hover:bg-surface-container-highest transition-all border border-outline-variant/20 text-left space-y-2 group">
+        <div class="w-10 h-10 rounded-lg bg-secondary/20 flex items-center justify-center text-secondary group-hover:scale-110 transition-transform">
+          <span class="material-symbols-outlined text-[20px]">checklist</span>
+        </div>
+        <div class="font-label-md text-label-md text-on-surface font-semibold">Validate Dataset</div>
+        <div class="text-xs text-on-surface-variant">Upload and validate CSV/Excel file schema and missing values</div>
+      </a>
+
+      <button onclick="reloadModelArtifacts()" class="p-4 rounded-xl bg-surface-container-high hover:bg-surface-container-highest transition-all border border-outline-variant/20 text-left space-y-2 group">
+        <div class="w-10 h-10 rounded-lg bg-tertiary/20 flex items-center justify-center text-tertiary group-hover:scale-110 transition-transform">
+          <span class="material-symbols-outlined text-[20px]">psychology</span>
+        </div>
+        <div class="font-label-md text-label-md text-on-surface font-semibold">Reload Model</div>
+        <div class="text-xs text-on-surface-variant">Re-read production joblib binaries and threshold configs</div>
+      </button>
+
+      <button onclick="clearDataset()" class="p-4 rounded-xl bg-surface-container-high hover:bg-error/15 border border-outline-variant/20 text-left space-y-2 group">
+        <div class="w-10 h-10 rounded-lg bg-error/20 flex items-center justify-center text-error group-hover:scale-110 transition-transform">
+          <span class="material-symbols-outlined text-[20px]">delete_sweep</span>
+        </div>
+        <div class="font-label-md text-label-md text-error font-semibold">Clear Current Dataset</div>
+        <div class="text-xs text-on-surface-variant">Flush active dataset from in-memory RAM buffer</div>
+      </button>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+async function refreshAdminStatus() {
+  try {
+    const resp = await fetch('/api/health');
+    const data = await resp.json();
+    Toast.show(`System healthy: ${data.customers.toLocaleString()} customers in memory.`, 'success');
+    setTimeout(() => window.location.reload(), 1000);
+  } catch (e) {
+    Toast.show('Failed to refresh status: ' + e.message, 'error');
+  }
+}
+
+async function reloadModelArtifacts() {
+  Toast.show('Reloading ML model artifacts...', 'info');
+  try {
+    const resp = await fetch('/api/reload-model', { method: 'POST' });
+    const data = await resp.json();
+    if (data.status === 'success') {
+      Toast.show(data.message, 'success');
+      setTimeout(() => window.location.reload(), 1000);
+    } else {
+      Toast.show(data.message || 'Model reload failed.', 'error');
+    }
+  } catch (e) {
+    Toast.show('Failed to reload model: ' + e.message, 'error');
+  }
+}
+</script>
+{% endblock %}

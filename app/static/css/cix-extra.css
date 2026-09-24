@@ -1,0 +1,2249 @@
+/* CIX Platform — Supplemental CSS & Enterprise Theme System (Dark + Light Mode) */
+
+/* ── Custom Properties & Responsive Grid Architecture ─────── */
+:root {
+  --sidebar-width: 18rem;
+  /* 288px */
+  --sidebar-collapsed-width: 4.5rem;
+  /* 72px */
+  --current-sidebar-width: var(--sidebar-width);
+  --topbar-height: 5rem;
+  /* 80px */
+}
+
+body.sidebar-collapsed {
+  --current-sidebar-width: var(--sidebar-collapsed-width);
+}
+
+@media (max-width: 1023px) {
+
+  :root,
+  body.sidebar-collapsed {
+    --current-sidebar-width: 0px;
+  }
+}
+
+/* ── Global Theme Color Tokens ──────────────────────────── */
+html.dark {
+  --bg-main: #10131a;
+  --bg-surface-lowest: #0b0e15;
+  --bg-surface-low: #191b23;
+  --bg-surface: #1d1f27;
+  --bg-surface-high: #272a32;
+  --bg-surface-highest: #32353d;
+  --text-main: #e1e2ec;
+  --text-muted: #bcc9cd;
+  --border-subtle: rgba(61, 73, 76, 0.4);
+  --border-strong: #3d494c;
+  --primary-accent: #4cd7f6;
+  --shadow-depth: 0 12px 32px -4px rgba(0, 0, 0, 0.45);
+}
+
+html.light,
+html:not(.dark) {
+  --bg-main: #f8fafc;
+  --bg-surface-lowest: #ffffff;
+  --bg-surface-low: #f1f5f9;
+  --bg-surface: #ffffff;
+  --bg-surface-high: #e2e8f0;
+  --bg-surface-highest: #cbd5e1;
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --border-subtle: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --primary-accent: #0284c7;
+  --shadow-depth: 0 4px 20px -2px rgba(0, 0, 0, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
+}
+
+/* Smooth Theme Switch Transitions */
+body,
+#sidebar,
+#topbar,
+main .rounded-xl,
+main .rounded-2xl,
+input,
+select,
+button,
+.cix-table th,
+.cix-table td {
+  transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Scrollbar ──────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-accent);
+}
+
+/* ── Smooth Scroll & Motion ───────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ── Page Entrance & Animations ───────────────────── */
+@keyframes page-entrance {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glow-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 12px rgba(76, 215, 246, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 28px rgba(76, 215, 246, 0.6);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.page-fade-in {
+  animation: page-entrance 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(76, 215, 246, 0.1), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ── Staggered Entrance Animations ───────────────── */
+.stagger-item {
+  opacity: 0;
+  animation: page-entrance 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.stagger-1 {
+  animation-delay: 0.05s;
+}
+
+.stagger-2 {
+  animation-delay: 0.12s;
+}
+
+.stagger-3 {
+  animation-delay: 0.18s;
+}
+
+.stagger-4 {
+  animation-delay: 0.24s;
+}
+
+.stagger-5 {
+  animation-delay: 0.30s;
+}
+
+/* ── Sidebar Viewport Height & Layout Architecture ─ */
+#sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s, border-color 0.3s;
+  will-change: width, transform;
+}
+
+body.sidebar-collapsed #sidebar {
+  width: var(--sidebar-collapsed-width);
+}
+
+/* Sidebar label & logo collapse transitions */
+.sidebar-logo-text,
+.sidebar-label,
+.sidebar-section-title {
+  opacity: 1;
+  max-width: 200px;
+  white-space: nowrap;
+  transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1), margin 0.35s ease;
+  overflow: hidden;
+}
+
+body.sidebar-collapsed .sidebar-logo-text,
+body.sidebar-collapsed .sidebar-label,
+body.sidebar-collapsed .sidebar-section-title {
+  opacity: 0;
+  max-width: 0;
+  margin: 0;
+  pointer-events: none;
+}
+
+body.sidebar-collapsed #sidebarCollapseBtn span {
+  transform: rotate(180deg);
+}
+
+#sidebarCollapseBtn span {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Sidebar nav item micro-interactions */
+#sidebar nav a {
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+#sidebar nav a:hover {
+  transform: translateX(2px);
+}
+
+body.sidebar-collapsed #sidebar nav a:hover {
+  transform: none;
+}
+
+/* ── Topbar Position & Width ────────────────────────────── */
+#topbar {
+  left: var(--current-sidebar-width);
+  width: calc(100% - var(--current-sidebar-width));
+  transition: left 0.35s cubic-bezier(0.16, 1, 0.3, 1), width 0.35s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s, border-color 0.3s;
+  will-change: left, width;
+}
+
+/* Search input focus effect */
+#global-search {
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, width 0.25s ease;
+}
+
+#global-search:focus {
+  border-color: var(--primary-accent);
+  box-shadow: 0 0 16px rgba(76, 215, 246, 0.25);
+}
+
+/* ── Main Content Container Layout ─────────────────────── */
+#main-content {
+  margin-left: var(--current-sidebar-width);
+  width: calc(100% - var(--current-sidebar-width));
+  transition: margin-left 0.35s cubic-bezier(0.16, 1, 0.3, 1), width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: margin-left, width;
+}
+
+/* ── Card Micro-interactions & Depth ───────────── */
+main .rounded-xl,
+main .rounded-2xl {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html.dark main .rounded-xl:hover,
+html.dark main .rounded-2xl:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.45), 0 0 16px rgba(76, 215, 246, 0.12);
+  border-color: rgba(76, 215, 246, 0.35);
+}
+
+/* ── Button Animations & Micro-states ────────────── */
+button,
+.btn-primary,
+.btn-secondary,
+a.rounded-lg,
+a.rounded-xl {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+button:active,
+.btn-primary:active,
+.btn-secondary:active {
+  transform: scale(0.97);
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--primary-accent);
+  outline-offset: 2px;
+}
+
+/* ── Mobile Off-Canvas Drawer ────────────────────── */
+#mobile-overlay {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#mobile-overlay.active {
+  display: block;
+  opacity: 1;
+}
+
+@media (max-width: 1023px) {
+  #sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    height: 100dvh;
+    width: 18rem !important;
+    transform: translateX(-100%);
+    z-index: 50;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  #sidebar.mobile-open {
+    transform: translateX(0);
+    box-shadow: 8px 0 32px rgba(0, 0, 0, 0.6);
+  }
+
+  #main-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  #topbar {
+    left: 0 !important;
+    width: 100% !important;
+  }
+}
+
+/* ── Skeleton Loader Shimmer ──────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg, #1d1f27 25%, #272a32 50%, #1d1f27 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite ease-in-out;
+  border-radius: 0.375rem;
+}
+
+/* ── Toast Notifications ─────────────────────────── */
+#toast-container {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.toast {
+  min-width: 280px;
+  max-width: 400px;
+  padding: 0.875rem 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  animation: slide-in-right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.toast-success {
+  background: #1d2e23;
+  border: 1px solid #4edea3;
+  color: #4edea3;
+}
+
+.toast-error {
+  background: #2e1d1d;
+  border: 1px solid #ffb4ab;
+  color: #ffb4ab;
+}
+
+.toast-warning {
+  background: #2e2a1d;
+  border: 1px solid #e8c84e;
+  color: #e8c84e;
+}
+
+.toast-info {
+  background: #1d2530;
+  border: 1px solid #4cd7f6;
+  color: #4cd7f6;
+}
+
+.toast-dismiss {
+  margin-left: auto;
+  cursor: pointer;
+  opacity: 0.7;
+  font-size: 18px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.toast-dismiss:hover {
+  opacity: 1;
+}
+
+/* ── Upload Drop Zone ────────────────────────────── */
+#drop-zone {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#drop-zone.drag-over {
+  border-color: var(--primary-accent) !important;
+  background: rgba(76, 215, 246, 0.08) !important;
+  box-shadow: 0 0 30px rgba(76, 215, 246, 0.25);
+  transform: scale(1.01);
+}
+
+/* ── Tables ──────────────────────────────────────── */
+.cix-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.cix-table th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  cursor: pointer;
+  user-select: none;
+}
+
+.cix-table th:hover .sort-icon {
+  opacity: 1;
+}
+
+.cix-table .sort-icon {
+  opacity: 0.4;
+  transition: opacity 0.15s;
+}
+
+.cix-table .sort-icon.active {
+  opacity: 1;
+  color: var(--primary-accent);
+}
+
+.cix-table tbody tr {
+  transition: background-color 0.15s ease;
+  cursor: pointer;
+}
+
+/* ── Probability Bar ─────────────────────────────── */
+.prob-bar-track {
+  height: 6px;
+  border-radius: 9999px;
+  background: var(--bg-surface-high);
+  overflow: hidden;
+}
+
+.prob-bar-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Segment Badge Colors (Dark Mode) ────────────── */
+html.dark .badge-Champions {
+  background: rgba(76, 215, 246, 0.15);
+  color: #4cd7f6;
+  border: 1px solid rgba(76, 215, 246, 0.3);
+}
+
+html.dark .badge-Loyal {
+  background: rgba(192, 193, 255, 0.15);
+  color: #c0c1ff;
+  border: 1px solid rgba(192, 193, 255, 0.3);
+}
+
+html.dark .badge-Potential {
+  background: rgba(78, 222, 163, 0.15);
+  color: #4edea3;
+  border: 1px solid rgba(78, 222, 163, 0.3);
+}
+
+html.dark .badge-AtRisk {
+  background: rgba(255, 180, 171, 0.15);
+  color: #ffb4ab;
+  border: 1px solid rgba(255, 180, 171, 0.3);
+}
+
+html.dark .badge-Needs {
+  background: rgba(232, 200, 78, 0.15);
+  color: #e8c84e;
+  border: 1px solid rgba(232, 200, 78, 0.3);
+}
+
+html.dark .badge-Hibernating {
+  background: rgba(130, 130, 150, 0.15);
+  color: #aaa;
+  border: 1px solid rgba(130, 130, 150, 0.3);
+}
+
+html.dark .badge-New {
+  background: rgba(78, 222, 163, 0.10);
+  color: #4edea3;
+  border: 1px solid rgba(78, 222, 163, 0.2);
+}
+
+html.dark .badge-High {
+  background: rgba(76, 215, 246, 0.12);
+  color: #4cd7f6;
+  border: 1px solid rgba(76, 215, 246, 0.25);
+}
+
+html.dark .badge-Medium {
+  background: rgba(192, 193, 255, 0.12);
+  color: #c0c1ff;
+  border: 1px solid rgba(192, 193, 255, 0.25);
+}
+
+html.dark .badge-Low {
+  background: rgba(134, 147, 151, 0.12);
+  color: #bcc9cd;
+  border: 1px solid rgba(134, 147, 151, 0.25);
+}
+
+/* ── Pipeline Stage ──────────────────────────────── */
+.pipeline-stage {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.pipeline-connector {
+  position: absolute;
+  top: 28px;
+  left: 50%;
+  right: -50%;
+  height: 2px;
+  background: linear-gradient(90deg, #4cd7f6, #4edea3);
+  opacity: 0.5;
+  z-index: 0;
+}
+
+/* ── Chart Containers ────────────────────────────── */
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Modal ───────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay.hidden {
+  display: none;
+}
+
+.modal-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  max-width: 480px;
+  width: 90%;
+  animation: fade-in-up 0.3s ease-out;
+  box-shadow: var(--shadow-depth);
+}
+
+/* ── 3D Background Canvas ────────────────────────── */
+#bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.35;
+}
+
+/* ── Progress Bar Shimmer ────────────────────────── */
+.upload-progress-bar {
+  height: 4px;
+  background: linear-gradient(90deg, #4cd7f6, #4edea3, #c0c1ff);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s linear infinite;
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+}
+
+/* ==========================================================================
+   LIGHT MODE DESIGN SYSTEM OVERRIDES (Enterprise White / Cool Slate Theme)
+   ========================================================================== */
+
+html:not(.dark) body {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+html:not(.dark) #sidebar {
+  background-color: rgba(255, 255, 255, 0.98) !important;
+  border-right-color: #e2e8f0 !important;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.04) !important;
+}
+
+html:not(.dark) #topbar {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+  border-bottom-color: #e2e8f0 !important;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
+html:not(.dark) .text-on-surface {
+  color: #0f172a !important;
+}
+
+html:not(.dark) .text-on-surface-variant {
+  color: #475569 !important;
+}
+
+html:not(.dark) .bg-surface-container-lowest {
+  background-color: #ffffff !important;
+}
+
+html:not(.dark) .bg-surface-container-low {
+  background-color: #f8fafc !important;
+}
+
+html:not(.dark) .bg-surface-container {
+  background-color: #ffffff !important;
+}
+
+html:not(.dark) .bg-surface-container-high {
+  background-color: #e2e8f0 !important;
+}
+
+html:not(.dark) .bg-surface-container-highest {
+  background-color: #cbd5e1 !important;
+}
+
+html:not(.dark) .border-outline-variant\/15,
+html:not(.dark) .border-outline-variant\/20,
+html:not(.dark) .border-outline-variant\/30,
+html:not(.dark) .border-outline-variant\/40,
+html:not(.dark) .border-outline-variant\/50 {
+  border-color: #e2e8f0 !important;
+}
+
+/* Cards & Elevated Surfaces in Light Mode */
+html:not(.dark) main .rounded-xl,
+html:not(.dark) main .rounded-2xl,
+html:not(.dark) .modal-box {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03) !important;
+}
+
+html:not(.dark) main .rounded-xl:hover,
+html:not(.dark) main .rounded-2xl:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -4px rgba(0, 0, 0, 0.08), 0 0 12px rgba(2, 132, 199, 0.12) !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* Inputs & Form Elements in Light Mode */
+html:not(.dark) input,
+html:not(.dark) select,
+html:not(.dark) textarea {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+html:not(.dark) input::placeholder {
+  color: #94a3b8 !important;
+}
+
+html:not(.dark) input:focus,
+html:not(.dark) select:focus {
+  border-color: #0284c7 !important;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15) !important;
+}
+
+/* Tables in Light Mode */
+html:not(.dark) .cix-table th {
+  background-color: #f8fafc !important;
+  color: #475569 !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+html:not(.dark) .cix-table td {
+  border-bottom-color: #f1f5f9 !important;
+  color: #1e293b !important;
+}
+
+html:not(.dark) .cix-table tbody tr:hover {
+  background-color: #f1f5f9 !important;
+}
+
+html:not(.dark) .cix-table tbody tr.selected {
+  background-color: #e0f2fe !important;
+}
+
+/* Badges in Light Mode */
+html:not(.dark) .badge-Champions {
+  background: #e0f2fe !important;
+  color: #0369a1 !important;
+  border: 1px solid #bae6fd !important;
+}
+
+html:not(.dark) .badge-Loyal {
+  background: #e0e7ff !important;
+  color: #4338ca !important;
+  border: 1px solid #c7d2fe !important;
+}
+
+html:not(.dark) .badge-Potential {
+  background: #d1fae5 !important;
+  color: #047857 !important;
+  border: 1px solid #a7f3d0 !important;
+}
+
+html:not(.dark) .badge-AtRisk {
+  background: #fee2e2 !important;
+  color: #b91c1c !important;
+  border: 1px solid #fca5a5 !important;
+}
+
+html:not(.dark) .badge-Needs {
+  background: #fef3c7 !important;
+  color: #b45309 !important;
+  border: 1px solid #fde68a !important;
+}
+
+html:not(.dark) .badge-Hibernating {
+  background: #f1f5f9 !important;
+  color: #64748b !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+html:not(.dark) .badge-New {
+  background: #d1fae5 !important;
+  color: #047857 !important;
+  border: 1px solid #a7f3d0 !important;
+}
+
+html:not(.dark) .badge-High {
+  background: #e0f2fe !important;
+  color: #0369a1 !important;
+  border: 1px solid #bae6fd !important;
+}
+
+html:not(.dark) .badge-Medium {
+  background: #e0e7ff !important;
+  color: #4338ca !important;
+  border: 1px solid #c7d2fe !important;
+}
+
+html:not(.dark) .badge-Low {
+  background: #f1f5f9 !important;
+  color: #64748b !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+/* Buttons in Light Mode */
+html:not(.dark) .btn-primary,
+html:not(.dark) button.bg-primary,
+html:not(.dark) a.bg-primary {
+  background-color: #0284c7 !important;
+  color: #ffffff !important;
+}
+
+html:not(.dark) button.bg-primary:hover,
+html:not(.dark) a.bg-primary:hover {
+  background-color: #0369a1 !important;
+}
+
+/* Sidebar Active & Inactive Links in Light Mode */
+html:not(.dark) #sidebar nav a.bg-surface-container-high {
+  background-color: #e0f2fe !important;
+  color: #0284c7 !important;
+  box-shadow: inset 3px 0 0 0 #0284c7 !important;
+}
+
+html:not(.dark) #sidebar nav a:not(.bg-surface-container-high) {
+  color: #475569 !important;
+}
+
+html:not(.dark) #sidebar nav a:not(.bg-surface-container-high):hover {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+/* ── Reduced Motion Accessibility ────────────────── */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =========================================================
+   CIX FINAL RESPONSIVE + SIDEBAR FIX
+   ========================================================= */
+
+/* =========================================================
+   DESKTOP SIDEBAR
+   ========================================================= */
+
+#sidebar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+
+  height: 100dvh !important;
+  width: var(--current-sidebar-width) !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+
+  overflow: hidden !important;
+
+  z-index: 1000 !important;
+
+  transition:
+    width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.3s ease !important;
+}
+
+
+/* =========================================================
+   SIDEBAR NAVIGATION
+   ========================================================= */
+
+#sidebar nav {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+
+/* =========================================================
+   SYSTEM CONTROL / FOOTER
+   IMPORTANT: NO DARK OVERLAY
+   ========================================================= */
+
+#sidebar>div:last-child {
+  flex-shrink: 0 !important;
+
+  position: relative !important;
+  z-index: 1005 !important;
+
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+
+/* Light mode footer */
+html:not(.dark) #sidebar>div:last-child {
+  background: #ffffff !important;
+  color: #475569 !important;
+
+  border-top: 1px solid #e2e8f0 !important;
+
+  box-shadow: none !important;
+}
+
+
+/* Dark mode footer */
+html.dark #sidebar>div:last-child {
+  background: #0b0e15 !important;
+}
+
+
+/* =========================================================
+   CRITICAL FIX:
+   MOBILE OVERLAY MUST NEVER APPEAR ON DESKTOP
+   ========================================================= */
+
+#mobile-overlay {
+  display: none !important;
+
+  opacity: 0 !important;
+  pointer-events: none !important;
+
+  visibility: hidden !important;
+}
+
+
+/* =========================================================
+   DESKTOP MAIN CONTENT
+   ========================================================= */
+
+#main-content {
+  margin-left: var(--current-sidebar-width) !important;
+
+  width: calc(100% - var(--current-sidebar-width)) !important;
+
+  min-width: 0 !important;
+
+  transition:
+    margin-left 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    width 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+
+/* =========================================================
+   DESKTOP TOPBAR
+   ========================================================= */
+
+#topbar {
+  left: var(--current-sidebar-width) !important;
+
+  width: calc(100% - var(--current-sidebar-width)) !important;
+
+  transition:
+    left 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    width 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+
+/* =========================================================
+   NO HORIZONTAL PAGE OVERFLOW
+   ========================================================= */
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+
+  overflow-x: hidden !important;
+}
+
+
+/* =========================================================
+   MOBILE / TABLET
+   ========================================================= */
+
+@media (max-width: 1023px) {
+
+  /* Sidebar becomes mobile drawer */
+  #sidebar {
+    width: 18rem !important;
+
+    transform: translateX(-100%) !important;
+
+    height: 100dvh !important;
+
+    z-index: 1001 !important;
+
+    box-shadow: 12px 0 35px rgba(0, 0, 0, 0.20) !important;
+  }
+
+
+  /* OPEN MOBILE SIDEBAR */
+  #sidebar.mobile-open {
+    transform: translateX(0) !important;
+  }
+
+
+  /* =====================================================
+       MOBILE OVERLAY
+       ===================================================== */
+
+  #mobile-overlay {
+    display: block !important;
+
+    position: fixed !important;
+
+    inset: 0 !important;
+
+    width: 100vw !important;
+    height: 100dvh !important;
+
+    background: rgba(15, 23, 42, 0.42) !important;
+
+    backdrop-filter: blur(2px) !important;
+    -webkit-backdrop-filter: blur(2px) !important;
+
+    opacity: 0 !important;
+
+    visibility: hidden !important;
+
+    pointer-events: none !important;
+
+    z-index: 1000 !important;
+
+    transition:
+      opacity 0.3s ease,
+      visibility 0.3s ease !important;
+  }
+
+
+  /* Overlay only when mobile menu is open */
+  #mobile-overlay.active {
+    opacity: 1 !important;
+
+    visibility: visible !important;
+
+    pointer-events: auto !important;
+  }
+
+
+  /* =====================================================
+       MAIN CONTENT = FULL WIDTH
+       ===================================================== */
+
+  #main-content {
+    margin-left: 0 !important;
+
+    width: 100% !important;
+
+    max-width: 100% !important;
+
+    min-width: 0 !important;
+  }
+
+
+  /* =====================================================
+       TOPBAR = FULL WIDTH
+       ===================================================== */
+
+  #topbar {
+    left: 0 !important;
+
+    width: 100% !important;
+
+    max-width: 100% !important;
+  }
+
+
+  /* =====================================================
+       PAGE CONTENT
+       ===================================================== */
+
+  main {
+    width: 100% !important;
+
+    max-width: 100% !important;
+
+    min-width: 0 !important;
+  }
+
+
+  /* =====================================================
+       GRID RESPONSIVENESS
+       ===================================================== */
+
+  .grid {
+    min-width: 0 !important;
+  }
+
+
+  /* =====================================================
+       TABLE RESPONSIVENESS
+       ===================================================== */
+
+  .overflow-x-auto {
+    max-width: 100% !important;
+
+    overflow-x: auto !important;
+
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+
+  table {
+    min-width: 700px;
+  }
+
+
+  /* =====================================================
+       CARDS
+       ===================================================== */
+
+  main .rounded-xl,
+  main .rounded-2xl {
+    max-width: 100% !important;
+  }
+
+
+  /* =====================================================
+       CHARTS
+       ===================================================== */
+
+  canvas {
+    max-width: 100% !important;
+  }
+
+
+  /* =====================================================
+       SEARCH BAR
+       ===================================================== */
+
+  #global-search {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 640px) {
+
+  #sidebar {
+    width: min(86vw, 300px) !important;
+  }
+
+
+  #topbar {
+    height: 4.25rem !important;
+
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+
+  #main-content {
+    width: 100% !important;
+
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+
+  /* Hide unnecessary desktop search width */
+  #global-search {
+    width: 100% !important;
+  }
+
+
+  /* Make cards single column */
+  .grid-cols-2,
+  .grid-cols-3,
+  .grid-cols-4,
+  .grid-cols-5,
+  .grid-cols-6 {
+    grid-template-columns: 1fr !important;
+  }
+
+
+  /* Buttons don't overflow */
+  button,
+  a {
+    max-width: 100%;
+  }
+
+
+  /* Dashboard cards */
+  main .rounded-xl,
+  main .rounded-2xl {
+    width: 100% !important;
+
+    min-width: 0 !important;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+  #sidebar {
+    width: 88vw !important;
+  }
+
+
+  #main-content {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+
+  #topbar {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE TOUCH EXPERIENCE
+   ========================================================= */
+
+@media (max-width: 1023px) {
+
+  #sidebar nav a {
+    min-height: 44px;
+
+    display: flex;
+
+    align-items: center;
+
+    touch-action: manipulation;
+  }
+
+
+  button,
+  a {
+    touch-action: manipulation;
+  }
+}
+
+/* =========================================================
+   CIX — FINAL MOBILE RESPONSIVE SYSTEM
+   ========================================================= */
+
+@media (max-width: 1023px) {
+
+  /* =====================================================
+       GLOBAL MOBILE RESET
+       ===================================================== */
+
+  html,
+  body {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+
+  #main-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  main {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+
+  /* =====================================================
+       SIDEBAR — MOBILE DRAWER
+       ===================================================== */
+
+  #sidebar {
+    width: min(320px, 86vw) !important;
+    max-width: 320px !important;
+
+    transform: translateX(-105%) !important;
+
+    z-index: 1001 !important;
+
+    box-shadow:
+      12px 0 40px rgba(0, 0, 0, 0.20) !important;
+
+    transition:
+      transform 0.35s cubic-bezier(.22, 1, .36, 1) !important;
+  }
+
+  #sidebar.mobile-open {
+    transform: translateX(0) !important;
+  }
+
+
+  /* =====================================================
+       MOBILE OVERLAY
+       ===================================================== */
+
+  #mobile-overlay {
+    z-index: 1000 !important;
+  }
+
+
+  /* =====================================================
+       TOPBAR
+       ===================================================== */
+
+  #topbar {
+    position: sticky !important;
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    z-index: 900 !important;
+
+    height: 64px !important;
+
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+
+    overflow: hidden !important;
+  }
+
+
+  /* =====================================================
+       TOPBAR FLEX CHILDREN
+       ===================================================== */
+
+  #topbar>* {
+    min-width: 0 !important;
+  }
+
+
+  /* =====================================================
+       GLOBAL SEARCH
+       ===================================================== */
+
+  #global-search {
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+
+  /* =====================================================
+       MOBILE PAGE CONTAINER
+       ===================================================== */
+
+  main>div,
+  main .mx-auto {
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+
+  /* =====================================================
+       TAILWIND GRID → MOBILE
+       ===================================================== */
+
+  .grid-cols-2,
+  .grid-cols-3,
+  .grid-cols-4,
+  .grid-cols-5,
+  .grid-cols-6,
+  .lg\:grid-cols-2,
+  .lg\:grid-cols-3,
+  .lg\:grid-cols-4,
+  .xl\:grid-cols-2,
+  .xl\:grid-cols-3,
+  .xl\:grid-cols-4 {
+    grid-template-columns: 1fr !important;
+  }
+
+
+  /* =====================================================
+       DASHBOARD / ANALYTICS CARDS
+       ===================================================== */
+
+  main .rounded-xl,
+  main .rounded-2xl {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+
+  /* =====================================================
+       KPI CARDS
+       ===================================================== */
+
+  .grid>.rounded-xl,
+  .grid>.rounded-2xl {
+    width: 100% !important;
+  }
+
+
+  /* =====================================================
+       FLEX ROWS THAT BREAK ON MOBILE
+       ===================================================== */
+
+  .flex-row {
+    flex-wrap: wrap !important;
+  }
+
+
+  /* Don't force important content into tiny columns */
+  .gap-6,
+  .gap-5,
+  .gap-4 {
+    min-width: 0 !important;
+  }
+
+
+  /* =====================================================
+       CHART CARDS
+       ===================================================== */
+
+  .chart-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+  }
+
+  canvas {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+
+  /* =====================================================
+       CUSTOMER TABLE
+       ===================================================== */
+
+  .overflow-x-auto {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .cix-table {
+    min-width: 900px !important;
+  }
+
+
+  /* =====================================================
+       CUSTOMER FILTERS
+       ===================================================== */
+
+  .cix-table~*,
+  input,
+  select {
+    min-width: 0;
+  }
+
+
+  /* =====================================================
+       BUTTON GROUPS
+       ===================================================== */
+
+  .flex.gap-2,
+  .flex.gap-3,
+  .flex.gap-4 {
+    max-width: 100% !important;
+  }
+
+
+  /* =====================================================
+       MODALS
+       ===================================================== */
+
+  .modal-overlay {
+    padding: 12px !important;
+  }
+
+  .modal-box {
+    width: calc(100vw - 24px) !important;
+    max-width: calc(100vw - 24px) !important;
+
+    max-height: 90dvh !important;
+
+    overflow-y: auto !important;
+  }
+
+
+  /* =====================================================
+       CUSTOMER 360
+       ===================================================== */
+
+  .customer-360-grid,
+  .customer-detail-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+
+  /* =====================================================
+       RFM
+       ===================================================== */
+
+  .rfm-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+
+  /* =====================================================
+       UPLOAD PAGE
+       ===================================================== */
+
+  #drop-zone {
+    min-height: 260px !important;
+
+    padding: 24px 16px !important;
+  }
+
+
+  #drop-zone button {
+    width: auto !important;
+    max-width: 100% !important;
+  }
+
+
+  /* =====================================================
+       REPORTS / EXPORT
+       ===================================================== */
+
+  .export-actions,
+  .report-actions {
+    display: flex !important;
+    flex-direction: column !important;
+
+    width: 100% !important;
+  }
+
+  .export-actions button,
+  .export-actions a,
+  .report-actions button,
+  .report-actions a {
+    width: 100% !important;
+  }
+
+
+  /* =====================================================
+       SETTINGS / ADMIN FORMS
+       ===================================================== */
+
+  form .grid {
+    grid-template-columns: 1fr !important;
+  }
+
+
+  /* =====================================================
+       LONG TEXT
+       ===================================================== */
+
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  span {
+    overflow-wrap: anywhere;
+  }
+
+
+  /* =====================================================
+       PREVENT MEDIA OVERFLOW
+       ===================================================== */
+
+  img,
+  svg,
+  video,
+  iframe {
+    max-width: 100% !important;
+  }
+}
+
+
+/* =========================================================
+   TABLET
+   768px
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  #topbar {
+    height: 60px !important;
+  }
+
+
+  /* Main horizontal padding */
+  #main-content {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+
+  main {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+
+  /* Page headers */
+  main h1 {
+    font-size: 28px !important;
+    line-height: 1.15 !important;
+  }
+
+
+  main h2 {
+    font-size: 22px !important;
+  }
+
+
+  /* Header actions */
+  .page-header-actions,
+  .header-actions {
+    width: 100% !important;
+  }
+
+
+  /* Search */
+  #global-search {
+    max-width: 100% !important;
+  }
+
+
+  /* Cards */
+  main .rounded-xl,
+  main .rounded-2xl {
+    border-radius: 16px !important;
+  }
+
+
+  /* Chart legends */
+  .chart-container ul,
+  .chart-container .legend {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE PHONE
+   ========================================================= */
+
+@media (max-width: 640px) {
+
+  /* =====================================================
+       TOPBAR
+       ===================================================== */
+
+  #topbar {
+    height: 58px !important;
+
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+
+
+  /* Hide large desktop breadcrumb text */
+  #topbar .breadcrumb {
+    max-width: 110px !important;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+
+  /* =====================================================
+       MAIN CONTENT
+       ===================================================== */
+
+  #main-content {
+    padding: 0 10px !important;
+  }
+
+
+  /* =====================================================
+       PAGE TITLE
+       ===================================================== */
+
+  main h1 {
+    font-size: 24px !important;
+  }
+
+  main h2 {
+    font-size: 20px !important;
+  }
+
+  main h3 {
+    font-size: 17px !important;
+  }
+
+
+  /* =====================================================
+       ALL CARDS
+       ===================================================== */
+
+  main .rounded-xl,
+  main .rounded-2xl {
+    width: 100% !important;
+
+    min-width: 0 !important;
+
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+
+  /* =====================================================
+       KPI VALUE
+       ===================================================== */
+
+  main .text-3xl {
+    font-size: 24px !important;
+  }
+
+  main .text-2xl {
+    font-size: 21px !important;
+  }
+
+
+  /* =====================================================
+       BUTTONS
+       ===================================================== */
+
+  button {
+    min-height: 42px;
+  }
+
+
+  /* =====================================================
+       FILTER ROW
+       ===================================================== */
+
+  .filters,
+  .filter-bar {
+    display: flex !important;
+    flex-direction: column !important;
+
+    width: 100% !important;
+  }
+
+  .filters>*,
+  .filter-bar>* {
+    width: 100% !important;
+  }
+
+
+  /* =====================================================
+       DONUT / PIE CHARTS
+       ===================================================== */
+
+  .chart-container {
+    min-height: 260px !important;
+  }
+
+
+  /* =====================================================
+       CUSTOMER TABLE
+       ===================================================== */
+
+  .cix-table {
+    min-width: 850px !important;
+  }
+
+
+  /* =====================================================
+       UPLOAD
+       ===================================================== */
+
+  #drop-zone {
+    min-height: 220px !important;
+
+    border-radius: 16px !important;
+  }
+
+
+  /* =====================================================
+       CUSTOMER 360
+       ===================================================== */
+
+  .customer-360-grid,
+  .customer-detail-grid {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+
+  /* =====================================================
+       EXPORT BUTTONS
+       ===================================================== */
+
+  .export-actions {
+    flex-direction: column !important;
+  }
+
+  .export-actions>* {
+    width: 100% !important;
+  }
+}
+
+
+/* =========================================================
+   SMALL PHONE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+  #sidebar {
+    width: 88vw !important;
+    max-width: 300px !important;
+  }
+
+
+  #main-content {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+
+
+  /* Compact cards */
+  main .rounded-xl,
+  main .rounded-2xl {
+    padding: 14px !important;
+  }
+
+
+  /* Smaller page heading */
+  main h1 {
+    font-size: 22px !important;
+  }
+
+
+  /* Hide unnecessary desktop-only shortcut */
+  #global-search kbd {
+    display: none !important;
+  }
+
+
+  /* Full-width action buttons */
+  main button,
+  main a.btn-primary,
+  main a.btn-secondary {
+    max-width: 100%;
+  }
+
+
+  /* Prevent badges from becoming huge */
+  .badge-Champions,
+  .badge-Loyal,
+  .badge-Potential,
+  .badge-AtRisk,
+  .badge-Needs,
+  .badge-Hibernating,
+  .badge-New,
+  .badge-High,
+  .badge-Medium,
+  .badge-Low {
+    max-width: 100% !important;
+
+    white-space: normal !important;
+
+    word-break: normal !important;
+  }
+}
+
+
+/* =========================================================
+   EXTRA SMALL PHONE
+   ========================================================= */
+
+@media (max-width: 390px) {
+
+  #sidebar {
+    width: 90vw !important;
+  }
+
+
+  #topbar {
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+  }
+
+
+  #main-content {
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+  }
+
+
+  main h1 {
+    font-size: 21px !important;
+  }
+
+
+  main .rounded-xl,
+  main .rounded-2xl {
+    padding: 12px !important;
+  }
+}
+/* =========================================================
+   CIX FOOTER
+   ========================================================= */
+
+.cix-footer {
+    width: 100%;
+    padding: 18px 24px;
+    border-top: 1px solid rgba(134, 147, 151, 0.18);
+    background: rgba(11, 14, 21, 0.35);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.cix-footer-inner {
+    max-width: 1600px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: var(--text-muted, #8f9aa0);
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.cix-developer-link {
+    color: #4cd7f6;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.cix-developer-link:hover {
+    color: #7ee8ff;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+html.light .cix-developer-link {
+    color: #0891b2;
+}
+
+html.light .cix-developer-link:hover {
+    color: #0369a1;
+}
+
+.cix-footer-divider {
+    opacity: 0.45;
+}
+
+/* Light mode */
+html.light .cix-footer {
+    background: rgba(255, 255, 255, 0.72);
+    border-top-color: rgba(0, 0, 0, 0.10);
+}
+
+html.light .cix-footer-inner {
+    color: #64748b;
+}
+
+html.light .cix-footer strong {
+    color: #0891b2;
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+    .cix-footer {
+        padding: 16px 14px;
+    }
+
+    .cix-footer-inner {
+        flex-wrap: wrap;
+        gap: 5px 8px;
+        font-size: 11px;
+    }
+}
+/* =========================================================
+   CIX — MAIN CONTENT VERTICAL SCROLL FIX
+   Sidebar + Main Content Independent Scrolling
+   ========================================================= */
+
+html,
+body {
+    height: 100% !important;
+    overflow: hidden !important;
+}
+
+#main-content {
+    height: 100vh !important;
+    min-height: 100vh !important;
+
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior-y: auto !important;
+
+    scrollbar-width: thin;
+}
+
+/* Chrome / Edge / Brave scrollbar */
+#main-content::-webkit-scrollbar {
+    width: 7px;
+}
+
+#main-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#main-content::-webkit-scrollbar-thumb {
+    background: var(--border-strong);
+    border-radius: 999px;
+}
+
+#main-content::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-accent);
+}
+
+/* Main page should be normal document content */
+#main-content > main {
+    height: auto !important;
+    min-height: calc(100vh - 80px) !important;
+    overflow: visible !important;
+}
+
+/* Footer remains inside the scrolling content */
+#main-content .cix-footer {
+    position: relative !important;
+    overflow: visible !important;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 1023px) {
+
+    html,
+    body {
+        overflow: hidden !important;
+    }
+
+    #main-content {
+        height: 100dvh !important;
+        min-height: 100dvh !important;
+
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    #main-content > main {
+        min-height: auto !important;
+        height: auto !important;
+    }
+}
+/* =========================================================
+   CIX — FOOTER SCROLL / OVERLAY FIX
+   Footer must stay in normal document flow
+   ========================================================= */
+
+#main-content {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100vh !important;
+    min-height: 100vh !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+/* Main page content must be allowed to grow naturally */
+#main-content > main {
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: calc(100vh - 80px) !important;
+    overflow: visible !important;
+}
+
+/* Footer = normal flow, NOT fixed/sticky */
+#main-content > .cix-footer {
+    position: static !important;
+    inset: auto !important;
+    bottom: auto !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+
+    flex: 0 0 auto !important;
+
+    width: 100% !important;
+    height: auto !important;
+    min-height: 56px !important;
+
+    margin-top: 0 !important;
+
+    overflow: visible !important;
+    z-index: 1 !important;
+}
+
+/* Footer content */
+#main-content > .cix-footer .cix-footer-inner {
+    position: static !important;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 1023px) {
+
+    #main-content {
+        height: 100dvh !important;
+        min-height: 100dvh !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+    }
+
+    #main-content > main {
+        flex: 0 0 auto !important;
+        min-height: auto !important;
+        height: auto !important;
+    }
+
+    #main-content > .cix-footer {
+        position: static !important;
+        width: 100% !important;
+        min-height: 56px !important;
+    }
+}
+/* =========================================================
+   CIX — CHART LEGEND TEXT THEME FIX
+   Dark theme  → White
+   Light theme → Dark
+   Only chart legends
+   ========================================================= */
+
+/* DARK MODE */
+html.dark .chart-container .chartjs-legend,
+html.dark .chart-container .legend,
+html.dark .chart-container ul,
+html.dark .chart-container li {
+    color: #ffffff !important;
+}
+
+/* Chart.js canvas legend is rendered inside canvas.
+   Force Chart.js legend text through chart configuration
+   using the CSS variable below. */
+html.dark {
+    --chart-legend-text: #ffffff;
+}
+
+html.light,
+html:not(.dark) {
+    --chart-legend-text: #1e293b;
+}
+
+/* Any HTML-based chart legend */
+html.dark .chart-container span,
+html.dark .chart-container label {
+    color: #ffffff !important;
+}
+
+html.light .chart-container span,
+html.light .chart-container label,
+html:not(.dark) .chart-container span,
+html:not(.dark) .chart-container label {
+    color: #1e293b !important;
+}

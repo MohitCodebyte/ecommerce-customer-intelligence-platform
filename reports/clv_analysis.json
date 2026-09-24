@@ -1,0 +1,41 @@
+{
+    "analysis_date": "2018-08-30",
+    "customers": 93358,
+    "repeat_customers": 2801,
+    "total_historical_revenue": 15422461.77,
+    "average_customer_value": 165.2,
+    "median_customer_value": 107.78,
+    "average_order_value": 160.31,
+    "clv_tiers": [
+        {
+            "clv_value_tier": "Low",
+            "customers": 18672,
+            "total_revenue": 741137.39,
+            "average_value": 39.69
+        },
+        {
+            "clv_value_tier": "Below Average",
+            "customers": 18671,
+            "total_revenue": 1316651.05,
+            "average_value": 70.52
+        },
+        {
+            "clv_value_tier": "Medium",
+            "customers": 18672,
+            "total_revenue": 2025990.35,
+            "average_value": 108.5
+        },
+        {
+            "clv_value_tier": "High",
+            "customers": 18671,
+            "total_revenue": 3083808.84,
+            "average_value": 165.17
+        },
+        {
+            "clv_value_tier": "Very High",
+            "customers": 18672,
+            "total_revenue": 8254874.14,
+            "average_value": 442.1
+        }
+    ]
+}

@@ -1,0 +1,49 @@
+{
+  "config": {
+    "train_file": "data/processed/repeat_purchase_train.csv",
+    "test_file": "data/processed/repeat_purchase_test.csv",
+    "output_dir": "artifacts_production",
+    "target_recall": 0.4,
+    "n_iter": 40,
+    "cv_folds": 5,
+    "random_state": 42,
+    "validation_size": 0.2,
+    "n_ensemble_seeds": 3
+  },
+  "selected_threshold": 0.49649133284886676,
+  "validation_precision": 0.01954022988505747,
+  "validation_recall": 0.40718562874251496,
+  "final_test_metrics": {
+    "threshold": 0.49649133284886676,
+    "accuracy": 0.7123437136673404,
+    "balanced_accuracy": 0.564057713637391,
+    "precision": 0.016909876620529844,
+    "recall": 0.4122137404580153,
+    "f1": 0.03248706533509806,
+    "f2": 0.07263140904933556,
+    "roc_auc": 0.5910508714271266,
+    "pr_auc": 0.02901634331813715,
+    "test_prevalence": 0.0117158853095319,
+    "test_positive_count": 655,
+    "test_negative_count": 55252,
+    "cv_best_pr_auc": 0.0347610418207868,
+    "best_params": {
+      "subsample": 1.0,
+      "scale_pos_weight": 67.9,
+      "reg_lambda": 3,
+      "reg_alpha": 1,
+      "n_estimators": 600,
+      "min_child_weight": 1,
+      "max_depth": 3,
+      "learning_rate": 0.02,
+      "gamma": 0.5,
+      "colsample_bytree": 0.9
+    },
+    "confusion_matrix": {
+      "true_negative": 39555,
+      "false_positive": 15697,
+      "false_negative": 385,
+      "true_positive": 270
+    }
+  }
+}

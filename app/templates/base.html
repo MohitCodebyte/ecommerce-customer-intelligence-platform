@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en" class="dark" data-theme="dark">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="CIX — E-Commerce Customer Intelligence Platform powered by XGBoost Repeat Purchase Propensity Model"/>
+  <title>{% block title %}CIX — Customer Intelligence{% endblock %}</title>
+
+  <!-- Theme Init Script (Zero Flash) -->
+  <script>
+    (function() {
+      var saved = localStorage.getItem('cix-theme') || 'dark';
+      if (saved === 'light') {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light');
+        document.documentElement.setAttribute('data-theme', 'light');
+      } else {
+        document.documentElement.classList.remove('light');
+        document.documentElement.classList.add('dark');
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+
+  <!-- Tailwind CDN + Stitch Design Tokens -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'primary':                '#4cd7f6',
+            'on-primary':             '#003640',
+            'primary-container':      '#06b6d4',
+            'on-primary-container':   '#00424f',
+            'primary-fixed':          '#acedff',
+            'primary-fixed-dim':      '#4cd7f6',
+            'on-primary-fixed':       '#001f26',
+            'on-primary-fixed-variant':'#004e5c',
+            'secondary':              '#c0c1ff',
+            'on-secondary':           '#1000a9',
+            'secondary-container':    '#3131c0',
+            'on-secondary-container': '#b0b2ff',
+            'secondary-fixed':        '#e1e0ff',
+            'secondary-fixed-dim':    '#c0c1ff',
+            'on-secondary-fixed':     '#07006c',
+            'on-secondary-fixed-variant':'#2f2ebe',
+            'tertiary':               '#4edea3',
+            'on-tertiary':            '#003824',
+            'tertiary-container':     '#1bbd85',
+            'on-tertiary-container':  '#00452e',
+            'tertiary-fixed':         '#6ffbbe',
+            'tertiary-fixed-dim':     '#4edea3',
+            'on-tertiary-fixed':      '#002113',
+            'on-tertiary-fixed-variant':'#005236',
+            'error':                  '#ffb4ab',
+            'on-error':               '#690005',
+            'error-container':        '#93000a',
+            'on-error-container':     '#ffdad6',
+            'background':             '#10131a',
+            'on-background':          '#e1e2ec',
+            'surface':                '#10131a',
+            'surface-dim':            '#10131a',
+            'surface-bright':         '#363941',
+            'surface-tint':           '#4cd7f6',
+            'surface-variant':        '#32353d',
+            'on-surface':             '#e1e2ec',
+            'on-surface-variant':     '#bcc9cd',
+            'surface-container-lowest':'#0b0e15',
+            'surface-container-low':  '#191b23',
+            'surface-container':      '#1d1f27',
+            'surface-container-high': '#272a32',
+            'surface-container-highest':'#32353d',
+            'inverse-surface':        '#e1e2ec',
+            'inverse-on-surface':     '#2d3038',
+            'inverse-primary':        '#00687a',
+            'outline':                '#869397',
+            'outline-variant':        '#3d494c',
+          },
+          borderRadius: {
+            DEFAULT: '0.25rem', lg: '0.5rem', xl: '0.75rem', full: '9999px',
+          },
+          spacing: {
+            'space-xs': '0.25rem', 'space-sm': '0.5rem', 'space-md': '0.75rem',
+            'space-lg': '1.25rem', 'space-xl': '2rem',
+            'gutter': '1rem', 'gutter-lg': '1.5rem', 'margin': '1.5rem', 'margin-mobile': '1rem',
+          },
+          fontFamily: {
+            'headline-xl': ['Plus Jakarta Sans', 'sans-serif'],
+            'headline-lg': ['Plus Jakarta Sans', 'sans-serif'],
+            'headline-md': ['Plus Jakarta Sans', 'sans-serif'],
+            'display-lg':  ['Plus Jakarta Sans', 'sans-serif'],
+            'body-lg':  ['Inter', 'sans-serif'],
+            'body-md':  ['Inter', 'sans-serif'],
+            'body-sm':  ['Inter', 'sans-serif'],
+            'label-md': ['Inter', 'sans-serif'],
+            'label-sm': ['Inter', 'sans-serif'],
+            'data-lg':  ['JetBrains Mono', 'monospace'],
+            'data-md':  ['JetBrains Mono', 'monospace'],
+            'data-sm':  ['JetBrains Mono', 'monospace'],
+          },
+          fontSize: {
+            'display-lg':  ['2.25rem', { lineHeight:'2.75rem', letterSpacing:'-0.03em', fontWeight:'700' }],
+            'headline-xl': ['1.75rem', { lineHeight:'2.25rem', letterSpacing:'-0.02em', fontWeight:'600' }],
+            'headline-lg': ['1.375rem',{ lineHeight:'1.875rem',letterSpacing:'-0.015em',fontWeight:'600' }],
+            'headline-md': ['1.125rem',{ lineHeight:'1.5rem',  letterSpacing:'-0.01em', fontWeight:'600' }],
+            'body-lg':  ['1rem',    { lineHeight:'1.5rem',  letterSpacing:'-0.005em',fontWeight:'400' }],
+            'body-md':  ['0.875rem',{ lineHeight:'1.375rem',letterSpacing:'0em',     fontWeight:'400' }],
+            'body-sm':  ['0.75rem', { lineHeight:'1.125rem',letterSpacing:'0.01em', fontWeight:'400' }],
+            'label-md': ['0.8125rem',{ lineHeight:'1.125rem',letterSpacing:'0.01em',fontWeight:'500' }],
+            'label-sm': ['0.6875rem',{ lineHeight:'1rem',   letterSpacing:'0.04em',fontWeight:'600' }],
+            'data-lg':  ['1.5rem',  { lineHeight:'1.875rem',letterSpacing:'-0.02em',fontWeight:'600' }],
+            'data-md':  ['0.875rem',{ lineHeight:'1.25rem', letterSpacing:'-0.01em',fontWeight:'500' }],
+            'data-sm':  ['0.75rem', { lineHeight:'1rem',    letterSpacing:'0em',   fontWeight:'500' }],
+          },
+        }
+      }
+    };
+  </script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cix-extra.css') }}"/>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  {% block extra_head %}{% endblock %}
+
+  <style>
+    @layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } }
+    body { font-family: 'Inter', sans-serif; min-height: 100vh; }
+  </style>
+</head>
+
+<body class="bg-background font-body-md text-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container">
+
+<!-- Flash Messages (hidden, read by JS) -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for cat, msg in messages %}
+    <div data-flash data-flash-type="{{ cat }}" class="hidden">{{ msg }}</div>
+  {% endfor %}
+{% endwith %}
+
+<!-- Toast container -->
+<div id="toast-container"></div>
+
+<!-- Mobile overlay -->
+<div id="mobile-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"></div>
+
+<!-- ── SIDEBAR ─────────────────────────────────────────────── -->
+<aside id="sidebar" class="fixed left-0 top-0 h-full bg-surface-container-lowest/95 backdrop-blur-2xl z-50 flex flex-col justify-between shadow-[4px_0_24px_rgba(0,0,0,0.3)] border-r border-outline-variant/20">
+  <div class="flex flex-col flex-1 min-h-0">
+    <!-- Logo -->
+    <div class="h-20 px-space-lg flex items-center justify-between border-b border-outline-variant/20 flex-shrink-0">
+      <a href="{{ url_for('dashboard') }}" class="flex items-center gap-space-md group">
+        <div class="w-8 h-8 rounded-lg bg-primary/20 border border-primary/40 flex items-center justify-center group-hover:bg-primary/30 transition-colors flex-shrink-0">
+          <span class="font-headline-md text-headline-md text-primary font-bold leading-none">C</span>
+        </div>
+        <div class="flex flex-col sidebar-logo-text">
+          <span class="font-headline-md text-headline-md text-on-surface tracking-tight leading-none">CIX</span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">E-Commerce Intelligence</span>
+        </div>
+      </a>
+      <button id="sidebarCollapseBtn" aria-label="Collapse sidebar" class="p-space-xs rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors">
+        <span class="material-symbols-outlined text-[20px]">keyboard_double_arrow_left</span>
+      </button>
+    </div>
+
+    <!-- Nav links -->
+    <div class="flex-1 overflow-y-auto px-space-md py-space-md space-y-space-xs">
+      <div class="px-space-md py-space-xs font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider sidebar-section-title">Intelligence Suite</div>
+      <nav class="space-y-0.5">
+        {% set endpoint = request.endpoint %}
+        {% set nav_items = [
+          ('overview',         'grid_view',      'Overview',        url_for('dashboard'),             ['dashboard', 'home']),
+          ('data-upload',      'cloud_upload',   'Data Upload',     url_for('upload'),                ['upload']),
+          ('data-processing',  'memory',         'Data Processing', url_for('processing'),            ['processing']),
+          ('customers',        'group',          'Customers',       url_for('customers'),             ['customers']),
+          ('customer-360',     'account_circle', 'Customer 360',    url_for('customer_detail_empty'), ['customer_detail', 'customer_detail_empty']),
+          ('segments',         'pie_chart',      'Segments',        url_for('segments'),              ['segments']),
+          ('predictions',      'trending_up',    'Predictions',     url_for('predictions'),           ['predictions']),
+          ('recommendations',  'bolt',           'Recommendations', url_for('recommendations'),       ['recommendations']),
+          ('analytics',        'bar_chart',      'Analytics',       url_for('analytics'),             ['analytics']),
+          ('explorer',         'manage_search',  'Explorer',        url_for('explorer'),              ['explorer']),
+          ('reports',          'description',    'Reports',         url_for('reports'),               ['reports']),
+        ] %}
+        {% for path_key, icon, label, href, endpoints in nav_items %}
+          {% set is_active = (endpoint in endpoints) %}
+          <a href="{{ href }}" data-path="{{ path_key }}"
+             class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg transition-all duration-150 group
+             {% if is_active %}bg-surface-container-high text-primary font-bold shadow-[inset_2px_0_0_0_#4cd7f6]{% else %}text-on-surface-variant hover:bg-surface-container hover:text-on-surface{% endif %}"
+             {% if is_active %}aria-current="page"{% endif %}>
+            <span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-110 flex-shrink-0">{{ icon }}</span>
+            <span class="font-body-md text-body-md sidebar-label">{{ label }}</span>
+          </a>
+        {% endfor %}
+      </nav>
+    </div>
+  </div>
+
+  <!-- Bottom nav -->
+  <div class="px-space-md py-space-md border-t border-outline-variant/20 bg-surface-container-lowest/60">
+    <div class="px-space-md py-space-xs font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider sidebar-section-title">System Control</div>
+    <nav class="space-y-0.5 mt-1">
+      <a href="{{ url_for('settings') }}" data-path="settings"
+         class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg transition-all duration-150 group
+         {% if request.endpoint == 'settings' %}bg-surface-container-high text-primary font-bold shadow-[inset_2px_0_0_0_#4cd7f6]{% else %}text-on-surface-variant hover:bg-surface-container hover:text-on-surface{% endif %}">
+        <span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-110">settings</span>
+        <span class="font-body-md text-body-md sidebar-label">Settings</span>
+      </a>
+      <a href="{{ url_for('admin') }}" data-path="admin"
+         class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg transition-all duration-150 group
+         {% if request.endpoint == 'admin' %}bg-surface-container-high text-primary font-bold shadow-[inset_2px_0_0_0_#4cd7f6]{% else %}text-on-surface-variant hover:bg-surface-container hover:text-on-surface{% endif %}">
+        <span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-110">shield</span>
+        <span class="font-body-md text-body-md sidebar-label">Admin</span>
+      </a>
+      <button type="button" onclick="ThemeSystem.toggleTheme()"
+              class="w-full flex items-center gap-space-md px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all group mt-1">
+        <span class="material-symbols-outlined text-[20px] transition-transform group-hover:rotate-45 dark:hidden text-amber-500">light_mode</span>
+        <span class="material-symbols-outlined text-[20px] transition-transform group-hover:-rotate-12 hidden dark:inline text-primary">dark_mode</span>
+        <span class="font-body-md text-body-md sidebar-label">Switch Theme</span>
+      </button>
+    </nav>
+  </div>
+</aside>
+
+<!-- ── MAIN CONTENT AREA ──────────────────────────────────── -->
+<div id="main-content" class="min-h-screen flex flex-col">
+
+  <!-- TOPBAR -->
+  <header id="topbar" class="fixed top-0 right-0 h-20 bg-surface-container-lowest/85 backdrop-blur-2xl z-40 px-gutter-lg flex items-center justify-between border-b border-outline-variant/20 shadow-[0_1px_8px_rgba(0,0,0,0.15)]">
+    <!-- Left: hamburger + breadcrumb -->
+    <div class="flex items-center gap-space-md">
+      <button id="mobileSidebarToggle" aria-label="Open menu" class="lg:hidden p-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors">
+        <span class="material-symbols-outlined text-[22px]">menu</span>
+      </button>
+      <div class="flex items-center gap-space-xs font-label-md text-label-md text-on-surface-variant">
+        <a href="{{ url_for('dashboard') }}" class="hover:text-on-surface cursor-pointer transition-colors hidden sm:inline">CIX Platform</a>
+        <span class="material-symbols-outlined text-[16px] hidden sm:inline">chevron_right</span>
+        <span class="text-primary font-medium">{% block breadcrumb %}Intelligence{% endblock %}</span>
+      </div>
+    </div>
+
+    <!-- Center: search -->
+    <div class="flex-1 max-w-md mx-4 hidden md:block">
+      <div class="relative flex items-center">
+        <span class="material-symbols-outlined absolute left-space-md text-on-surface-variant text-[18px]">search</span>
+        <input id="global-search" type="text" placeholder="Search customers, segments..." autocomplete="off"
+               class="w-full h-9 pl-9 pr-20 rounded-lg bg-surface-container-low text-on-surface placeholder:text-outline font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary transition-all"/>
+        <kbd class="absolute right-space-sm hidden lg:inline-flex items-center px-1.5 py-0.5 font-data-sm text-data-sm rounded bg-surface-container-high text-on-surface-variant border border-outline-variant/40 text-[10px]">⌘K</kbd>
+      </div>
+    </div>
+
+    <!-- Right: status + theme + profile -->
+    <div class="flex items-center gap-space-md">
+      <!-- Engine status -->
+      <div class="hidden xl:flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-surface-container-low border border-outline-variant/30">
+        <span class="w-2 h-2 rounded-full bg-tertiary shadow-[0_0_8px_#4edea3] animate-pulse"></span>
+        <span class="font-data-sm text-data-sm text-on-surface-variant text-[11px]">
+          Engine: <span class="text-tertiary">Online</span>
+          {% if is_demo is defined and is_demo %}· <span class="text-warning">Demo</span>{% endif %}
+        </span>
+      </div>
+
+      <!-- Theme Toggle -->
+      <button id="themeToggleBtn" type="button" aria-label="Toggle Light/Dark Theme"
+              class="theme-toggle-btn relative p-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all flex items-center justify-center group"
+              title="Switch Theme (Light / Dark)">
+        <span class="material-symbols-outlined text-[20px] transition-transform duration-300 group-hover:rotate-45 dark:hidden text-amber-500">light_mode</span>
+        <span class="material-symbols-outlined text-[20px] transition-transform duration-300 group-hover:-rotate-12 hidden dark:inline text-primary">dark_mode</span>
+      </button>
+
+      <!-- Notifications -->
+      <button aria-label="Notifications" class="relative p-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors">
+        <span class="material-symbols-outlined text-[22px]">notifications</span>
+      </button>
+
+      <div class="h-8 w-px bg-outline-variant/40"></div>
+
+      <!-- Profile -->
+      <div class="flex items-center gap-space-sm">
+        <div class="w-8 h-8 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center">
+          <span class="text-primary font-bold text-sm font-mono">AI</span>
+        </div>
+        <div class="hidden md:flex flex-col text-left">
+          <span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">CIX Platform</span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant leading-tight">ML Analytics</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page content -->
+  <main class="pt-20 flex-1 relative page-fade-in">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+<footer class="cix-footer">
+      <div class="cix-footer-inner">
+          <span>© 2026 CIX — E-Commerce Customer Intelligence</span>
+          <span class="cix-footer-divider">•</span>
+          <span>
+              Developed by
+              <a
+                  href="https://www.linkedin.com/in/mohit-kushwah-3a8802383"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="cix-developer-link"
+              >
+                  Mohit Kushwah
+              </a>
+          </span>
+      </div>
+  </footer>
+
+</div><!-- /#main-content -->
+
+<!-- Scripts -->
+<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+<script src="{{ url_for('static', filename='js/cix.js') }}"></script>
+{% block extra_scripts %}{% endblock %}
+
+</body>
+</html>

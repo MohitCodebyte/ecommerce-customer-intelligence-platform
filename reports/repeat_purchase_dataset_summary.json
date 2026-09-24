@@ -1,0 +1,32 @@
+{
+  "dataset": "Olist Brazilian E-Commerce Public Dataset",
+  "future_observation_window_days": 180,
+  "snapshots_used": [
+    "2018-03-02",
+    "2018-01-01",
+    "2017-11-02",
+    "2017-08-29",
+    "2017-06-30",
+    "2017-05-01"
+  ],
+  "rows": 170970,
+  "repeat_purchase_count": 2325,
+  "no_repeat_purchase_count": 168645,
+  "repeat_purchase_rate": 0.013598876995964205,
+  "target_definition": "1 = customer made at least one completed purchase during the 180-day future observation window; 0 = no completed purchase during that window.",
+  "leakage_rule": "Future purchase information is used only to construct the target and is excluded from model features.",
+  "model_features": [
+    "total_orders",
+    "total_revenue",
+    "average_order_value",
+    "recency_days",
+    "customer_lifetime_days",
+    "repeat_customer",
+    "purchase_frequency",
+    "mean_purchase_gap_days",
+    "median_purchase_gap_days",
+    "max_purchase_gap_days",
+    "purchase_gap_count",
+    "observation_window_days"
+  ]
+}

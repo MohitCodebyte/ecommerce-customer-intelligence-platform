@@ -1,0 +1,65 @@
+{
+    "dataset": "Olist Brazilian E-Commerce Public Dataset",
+    "order_filter": "delivered",
+    "customer_identity": "customer_unique_id",
+    "observation_definition": "Customer is eligible for a churn label only when the dataset contains at least the selected number of days after the customer's last purchase.",
+    "summary": {
+        "total_customers": 93358,
+        "repeat_customers": 2801,
+        "single_purchase_customers": 90557,
+        "dataset_start_date": "2016-09-15",
+        "dataset_end_date": "2018-08-29",
+        "median_days_observed_after_last_purchase": 218.0,
+        "mean_days_observed_after_last_purchase": 236.94
+    },
+    "observation_windows": [
+        {
+            "observation_window_days": 90,
+            "total_customers": 93358,
+            "eligible_customers": 74899,
+            "not_eligible_customers": 18459,
+            "eligible_percent": 80.23,
+            "eligible_repeat_customers": 2187
+        },
+        {
+            "observation_window_days": 120,
+            "total_customers": 93358,
+            "eligible_customers": 68438,
+            "not_eligible_customers": 24920,
+            "eligible_percent": 73.31,
+            "eligible_repeat_customers": 1964
+        },
+        {
+            "observation_window_days": 180,
+            "total_customers": 93358,
+            "eligible_customers": 55252,
+            "not_eligible_customers": 38106,
+            "eligible_percent": 59.18,
+            "eligible_repeat_customers": 1566
+        },
+        {
+            "observation_window_days": 240,
+            "total_customers": 93358,
+            "eligible_customers": 41766,
+            "not_eligible_customers": 51592,
+            "eligible_percent": 44.74,
+            "eligible_repeat_customers": 1116
+        },
+        {
+            "observation_window_days": 300,
+            "total_customers": 93358,
+            "eligible_customers": 29507,
+            "not_eligible_customers": 63851,
+            "eligible_percent": 31.61,
+            "eligible_repeat_customers": 770
+        },
+        {
+            "observation_window_days": 365,
+            "total_customers": 93358,
+            "eligible_customers": 20738,
+            "not_eligible_customers": 72620,
+            "eligible_percent": 22.21,
+            "eligible_repeat_customers": 497
+        }
+    ]
+}

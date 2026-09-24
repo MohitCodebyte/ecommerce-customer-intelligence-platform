@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-error":"#690005","tertiary-container":"#1bbd85","tertiary-fixed-dim":"#4edea3","surface-tint":"#4cd7f6","error":"#ffb4ab","on-primary":"#003640","on-secondary-fixed-variant":"#2f2ebe","surface-bright":"#363941","on-primary-fixed-variant":"#004e5c","primary":"#4cd7f6","on-tertiary":"#003824","background":"#10131a","secondary-fixed-dim":"#c0c1ff","outline-variant":"#3d494c","error-container":"#93000a","inverse-surface":"#e1e2ec","surface-container":"#1d1f27","primary-container":"#06b6d4","on-error-container":"#ffdad6","inverse-primary":"#00687a","surface":"#10131a","on-secondary-fixed":"#07006c","on-secondary-container":"#b0b2ff","secondary-fixed":"#e1e0ff","secondary-container":"#3131c0","on-background":"#e1e2ec","on-primary-container":"#00424f","on-tertiary-fixed":"#002113","surface-container-highest":"#32353d","on-secondary":"#1000a9","tertiary-fixed":"#6ffbbe","inverse-on-surface":"#2d3038","surface-dim":"#10131a","surface-variant":"#32353d","on-tertiary-container":"#00452e","outline":"#869397","surface-container-low":"#191b23","secondary":"#c0c1ff","tertiary":"#4edea3","on-surface":"#e1e2ec","surface-container-high":"#272a32","surface-container-lowest":"#0b0e15","on-surface-variant":"#bcc9cd","on-tertiary-fixed-variant":"#005236","primary-fixed":"#acedff","on-primary-fixed":"#001f26","primary-fixed-dim":"#4cd7f6"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"space-xs":"0.25rem","margin":"1.5rem","space-xl":"2rem","margin-mobile":"1rem","gutter-lg":"1.5rem","space-md":"0.75rem","gutter":"1rem","space-lg":"1.25rem","space-sm":"0.5rem"},fontFamily:{"data-lg":["JetBrains Mono"],"headline-xl":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"body-sm":["Inter"],"data-md":["JetBrains Mono"],"label-sm":["Inter"],"label-md":["Inter"],"headline-md":["Plus Jakarta Sans"],"body-md":["Inter"],"data-sm":["JetBrains Mono"],"body-lg":["Inter"],"display-lg":["Plus Jakarta Sans"]},fontSize:{"data-lg":["1.5rem",{lineHeight:"1.875rem",letterSpacing:"-0.02em",fontWeight:"600"}],"headline-xl":["1.75rem",{lineHeight:"2.25rem",letterSpacing:"-0.02em",fontWeight:"600"}],"headline-lg":["1.375rem",{lineHeight:"1.875rem",letterSpacing:"-0.015em",fontWeight:"600"}],"body-sm":["0.75rem",{lineHeight:"1.125rem",letterSpacing:"0.01em",fontWeight:"400"}],"data-md":["0.875rem",{lineHeight:"1.25rem",letterSpacing:"-0.01em",fontWeight:"500"}],"label-sm":["0.6875rem",{lineHeight:"1rem",letterSpacing:"0.04em",fontWeight:"600"}],"label-md":["0.8125rem",{lineHeight:"1.125rem",letterSpacing:"0.01em",fontWeight:"500"}],"headline-md":["1.125rem",{lineHeight:"1.5rem",letterSpacing:"-0.01em",fontWeight:"600"}],"body-md":["0.875rem",{lineHeight:"1.375rem",letterSpacing:"0em",fontWeight:"400"}],"data-sm":["0.75rem",{lineHeight:"1rem",letterSpacing:"0em",fontWeight:"500"}],"body-lg":["1rem",{lineHeight:"1.5rem",letterSpacing:"-0.005em",fontWeight:"400"}],"display-lg":["2.25rem",{lineHeight:"2.75rem",letterSpacing:"-0.03em",fontWeight:"700"}]}}}};</script></head><body class="bg-background font-body-md text-body-md text-on-surface antialiased min-h-screen selection:bg-primary-container selection:text-on-primary-container"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest/90 backdrop-blur-2xl z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col flex-1 min-h-0"><div class="h-20 px-space-lg flex items-center justify-between"><div class="flex items-center gap-space-md"><img alt="CIX Monogram Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VYWPKkXPK_foImwcPXgiOq99_ZJP5pdL08Yph9M0XC0xwgBGxB84VL3FvA_BmR0MRFCyKRcohRt2TavlDiiC9vC46M6h8OxpjyarHfIG-WPiD6rWSQTNXnVsc6287_fJbi9HQtL9py5uX4Mxbe7iC93ChFIGMu1CAZ1W07TdXu3FTW9JcO8ppttLQA2egAT-KEyNDUElw6jkvBmn7PyYpDHFzpTXRuS8SYfGYY7GQAfqHX_VLNU8CvQmg"/><div class="flex flex-col"><span class="font-headline-md text-headline-md text-on-surface tracking-tight leading-none">CIX</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mt-0.5">E-Commerce Intelligence</span></div></div><button aria-label="Collapse sidebar" class="p-space-xs rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">keyboard_double_arrow_left</span></button></div><div class="flex-1 overflow-y-auto px-space-md py-space-sm space-y-space-xs"><div class="px-space-md py-space-xs font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Intelligence Suite</div><nav class="space-y-space-xs" data-active-classes="bg-surface-container-high text-primary font-bold shadow-[inset_2px_0_0_0_#4cd7f6]"><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all group" data-path="overview" href="#"><span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-110">grid_view</span><span class="font-body-md text-body-md">Overview</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all group" data-path="data-upload" href="#"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-110">cloud_upload</span><span class="font-body-md text-body-md">Data Upload</span></div><span class="font-label-sm text-label-sm px-space-xs py-0.5 rounded-full bg-primary-container/20 text-primary border border-primary/30">Active</span></a><a aria-current="page" class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg transition-all group bg-surface-container-high text-primary font-bold shadow-[inset_2px_0_0_0_#4cd7f6]" data-path="data-processing" href="#"><span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-110">memory</span><span class="font-body-md text-body-md">Data Processing</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all group" data-path="customers" href="#"><span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-110">group</span><span class="font-body-md text-body-md">Customers</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all group" data-path="customer-360" href="#"><span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-110">account_circle</span><span class="font-body-md text-body-md">Customer 360</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all group" data-path="segments" href="#"><span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-110">pie_chart</span><span class="font-body-md text-body-md">Segments</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all group" data-path="predictions" href="#"><span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-110">trending_up</span><span class="font-body-md text-body-md">Predictions</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all group" data-path="recommendations" href="#"><span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-110">bolt</span><span class="font-body-md text-body-md">Recommendations</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all group" data-path="analytics" href="#"><span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-110">bar_chart</span><span class="font-body-md text-body-md">Analytics</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all group" data-path="reports" href="#"><span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-110">description</span><span class="font-body-md text-body-md">Reports</span></a></nav></div></div><div class="px-space-md py-space-md bg-surface-container-lowest/60"><div class="px-space-md py-space-xs font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">System Control</div><nav class="space-y-space-xs" data-active-classes="bg-surface-container-high text-primary font-bold shadow-[inset_2px_0_0_0_#4cd7f6]"><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all group" data-path="settings" href="#"><span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-110">settings</span><span class="font-body-md text-body-md">Settings</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all group" data-path="admin" href="#"><span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-110">shield</span><span class="font-body-md text-body-md">Admin</span></a></nav></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-20 bg-surface-container-lowest/80 backdrop-blur-2xl z-40 px-gutter-lg flex items-center justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-label-md text-label-md text-on-surface-variant"><span class="hover:text-on-surface cursor-pointer transition-colors">CIX Platform</span><span class="material-symbols-outlined text-[16px]">chevron_right</span><span class="text-primary font-medium">Intelligence Core</span></div></div><div class="flex-1 max-w-lg mx-space-xl"><div class="relative flex items-center"><span class="material-symbols-outlined absolute left-space-md text-on-surface-variant text-[20px]">search</span><input class="w-full h-10 pl-10 pr-24 rounded-lg bg-surface-container-low text-on-surface placeholder:text-outline font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Search customer graph, cohort, propensity model..." type="text"/><div class="absolute right-space-sm flex items-center gap-space-xs"><button aria-label="Filter search" class="p-1 text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[18px]">tune</span></button><kbd class="hidden sm:inline-flex items-center px-1.5 py-0.5 font-data-sm text-data-sm rounded bg-surface-container-high text-on-surface-variant border border-outline-variant/40">Cmd + K</kbd></div></div></div><div class="flex items-center gap-space-md"><div class="hidden xl:flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-surface-container-low border border-outline-variant/30"><span class="w-2 h-2 rounded-full bg-tertiary shadow-[0_0_8px_#4edea3]"></span><span class="font-data-sm text-data-sm text-on-surface-variant">Engine: <span class="text-tertiary">Online</span> · 482MB</span></div><button class="flex items-center gap-space-xs px-space-md py-1.5 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors border border-outline-variant/30" type="button"><span class="material-symbols-outlined text-[18px] text-primary">storefront</span><span class="font-label-md text-label-md">Store: Global E-Shop Q3</span><span class="material-symbols-outlined text-[16px]">arrow_drop_down</span></button><div class="relative"><button aria-label="Notifications" class="relative p-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_#4cd7f6]"></span></button></div><div class="h-8 w-px bg-outline-variant/40 mx-space-xs"></div><div class="flex items-center gap-space-md"><div class="relative"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-primary/40" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKRRmeapuooQljGkGihZSmwRnDZHg3fanoOda28WLQ0olML-lStMaKyfovYH2IQRu0JhSZGZXMiJHQt_YLGwH00fnCgFiqylj6u8EVeNSiKgXC_oGgWHdZ3bN93_OWGc2VypV1SR2rV2BGev-R6i_NW_wj8VWbwwdepBhHQsalQNo8_Lv_dE3d2jMYQt6WOUwBggpoOug9_eqCTitdToZDPP2fvbQE1T61gkBk_Z56o8_irQonlmSw"/><span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-tertiary ring-2 ring-surface-container-lowest"></span></div><div class="hidden md:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Marcus Vance</span><span class="font-label-sm text-label-sm text-on-surface-variant leading-tight">VP Customer Retention</span></div></div></div></header><main class="relative pt-20 min-h-screen bg-background"><div class="flex flex-col w-full">
+<div class="p-gutter-lg space-y-gutter-lg">
+<!-- Top Action Bar & Dynamic Sub-Header -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-lg shadow-xl">
+<div class="absolute -right-20 -top-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute left-1/3 -bottom-24 w-80 h-80 bg-secondary-container/20 rounded-full blur-3xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col xl:flex-row xl:items-center justify-between gap-space-md">
+<div class="space-y-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-tertiary-container/15 text-tertiary font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>
+              PIPELINE EXECUTION ID #PX-8942
+            </span>
+<span class="font-data-sm text-data-sm text-on-surface-variant">Runtime: 3.0s (In-Memory Engine)</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">Data Processing</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+            Automated in-memory validation, feature engineering, and retention propensity pipeline execution across enterprise transactions.
+          </p>
+</div>
+<div class="flex items-center flex-wrap gap-space-sm">
+<button class="group flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-all shadow-sm" id="exportTelemetryBtn" type="button">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant group-hover:text-primary transition-colors">download</span>
+<span class="font-label-md text-label-md">Export Telemetry JSON</span>
+</button>
+<button class="group flex items-center gap-space-xs px-space-lg py-2 rounded-lg bg-primary-container text-on-primary-container font-semibold hover:bg-primary transition-all shadow-[0_0_20px_rgba(6,182,212,0.35)]" id="rerunPipelineBtn" type="button">
+<span class="material-symbols-outlined text-[19px] transition-transform group-hover:rotate-180 duration-700">cached</span>
+<span class="font-label-md text-label-md">Re-run Full Pipeline</span>
+</button>
+</div>
+</div>
+</div>
+<!-- 1. Premium Visual Multi-Stage Flowchart with Geometric Graphic Core -->
+<div class="rounded-xl bg-surface-container-lowest p-space-lg shadow-xl relative overflow-hidden">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md pb-space-lg">
+<div class="flex items-center gap-space-md">
+<div class="relative w-12 h-12 flex items-center justify-center rounded-xl bg-surface-container shadow-md">
+<!-- Geometric 3D Hexagon Node matching the reference graphic -->
+<svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="6" viewbox="0 0 100 100">
+<polygon opacity="0.9" points="50,12 88,32 88,68 50,88 12,68 12,32" stroke="currentColor"></polygon>
+<line stroke="currentColor" x1="50" x2="50" y1="50" y2="12"></line>
+<line stroke="currentColor" x1="50" x2="88" y1="50" y2="68"></line>
+<line stroke="currentColor" x1="50" x2="12" y1="50" y2="68"></line>
+<line stroke="#c0c1ff" stroke-dasharray="4 4" x1="50" x2="12" y1="50" y2="32"></line>
+<line stroke="#4edea3" stroke-dasharray="4 4" x1="50" x2="88" y1="50" y2="32"></line>
+<circle cx="50" cy="50" fill="#4cd7f6" r="8" stroke="none"></circle>
+<circle cx="50" cy="12" fill="#4cd7f6" r="5" stroke="none"></circle>
+<circle cx="12" cy="32" fill="#1bbd85" r="5" stroke="none"></circle>
+<circle cx="88" cy="32" fill="#c0c1ff" r="5" stroke="none"></circle>
+</svg>
+</div>
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary font-semibold">Active In-Memory Graph</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">End-to-End Execution Sequence</h2>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="flex items-center gap-2 px-space-sm py-1 rounded bg-surface-container font-data-sm text-data-sm text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span>All 7 Micro-Stages Synced</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Latency: <strong>3.0s total</strong></span>
+</div>
+</div>
+<!-- Pipeline horizontal chain -->
+<div class="relative overflow-x-auto pb-space-sm pt-space-xs">
+<div class="min-w-[1100px] flex items-center justify-between relative">
+<!-- Flow Line Background with Active Gradient Pulse -->
+<div class="absolute left-6 right-6 top-7 h-0.5 bg-surface-container-high pointer-events-none"></div>
+<div class="absolute left-6 right-6 top-7 h-0.5 bg-gradient-to-r from-primary via-tertiary to-secondary pointer-events-none opacity-80"></div>
+<!-- Stage 1 -->
+<div class="relative flex flex-col items-center text-center z-10 w-36 group cursor-pointer">
+<div class="w-14 h-14 rounded-xl bg-surface-container-high flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:bg-surface-bright">
+<span class="material-symbols-outlined text-[24px] text-primary">cloud_done</span>
+</div>
+<span class="mt-space-sm font-label-md text-label-md font-semibold text-on-surface">1. Upload</span>
+<span class="font-data-sm text-data-sm text-tertiary font-bold">100% · 0.4s</span>
+<span class="mt-1 px-1.5 py-0.5 rounded bg-surface-container font-data-sm text-data-sm text-on-surface-variant text-[11px] truncate max-w-full">284,910 rows</span>
+</div>
+<!-- Stage 2 -->
+<div class="relative flex flex-col items-center text-center z-10 w-36 group cursor-pointer">
+<div class="w-14 h-14 rounded-xl bg-surface-container-high flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:bg-surface-bright">
+<span class="material-symbols-outlined text-[24px] text-tertiary">verified_user</span>
+</div>
+<span class="mt-space-sm font-label-md text-label-md font-semibold text-on-surface">2. Validation</span>
+<span class="font-data-sm text-data-sm text-tertiary font-bold">100% · 0.3s</span>
+<span class="mt-1 px-1.5 py-0.5 rounded bg-surface-container font-data-sm text-data-sm text-on-surface-variant text-[11px] truncate max-w-full">284.9k valid</span>
+</div>
+<!-- Stage 3 -->
+<div class="relative flex flex-col items-center text-center z-10 w-36 group cursor-pointer">
+<div class="w-14 h-14 rounded-xl bg-surface-container-high flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:bg-surface-bright">
+<span class="material-symbols-outlined text-[24px] text-primary">cleaning_services</span>
+</div>
+<span class="mt-space-sm font-label-md text-label-md font-semibold text-on-surface">3. Cleaning</span>
+<span class="font-data-sm text-data-sm text-tertiary font-bold">100% · 0.2s</span>
+<span class="mt-1 px-1.5 py-0.5 rounded bg-surface-container font-data-sm text-data-sm text-on-surface-variant text-[11px] truncate max-w-full">0 dupes</span>
+</div>
+<!-- Stage 4 -->
+<div class="relative flex flex-col items-center text-center z-10 w-36 group cursor-pointer">
+<div class="w-14 h-14 rounded-xl bg-surface-container-high flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:bg-surface-bright">
+<span class="material-symbols-outlined text-[24px] text-secondary">tune</span>
+</div>
+<span class="mt-space-sm font-label-md text-label-md font-semibold text-on-surface">4. Feature Eng.</span>
+<span class="font-data-sm text-data-sm text-tertiary font-bold">100% · 0.8s</span>
+<span class="mt-1 px-1.5 py-0.5 rounded bg-surface-container font-data-sm text-data-sm text-on-surface-variant text-[11px] truncate max-w-full">24 features</span>
+</div>
+<!-- Stage 5 -->
+<div class="relative flex flex-col items-center text-center z-10 w-36 group cursor-pointer">
+<div class="w-14 h-14 rounded-xl bg-surface-container-high flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:bg-surface-bright">
+<span class="material-symbols-outlined text-[24px] text-primary">hub</span>
+</div>
+<span class="mt-space-sm font-label-md text-label-md font-semibold text-on-surface">5. Intelligence</span>
+<span class="font-data-sm text-data-sm text-tertiary font-bold">100% · 0.5s</span>
+<span class="mt-1 px-1.5 py-0.5 rounded bg-surface-container font-data-sm text-data-sm text-on-surface-variant text-[11px] truncate max-w-full">142k RFM</span>
+</div>
+<!-- Stage 6 -->
+<div class="relative flex flex-col items-center text-center z-10 w-36 group cursor-pointer">
+<div class="w-14 h-14 rounded-xl bg-surface-container-high flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:bg-surface-bright">
+<span class="material-symbols-outlined text-[24px] text-tertiary">query_stats</span>
+</div>
+<span class="mt-space-sm font-label-md text-label-md font-semibold text-on-surface">6. Prediction</span>
+<span class="font-data-sm text-data-sm text-tertiary font-bold">100% · 0.6s</span>
+<span class="mt-1 px-1.5 py-0.5 rounded bg-surface-container font-data-sm text-data-sm text-on-surface-variant text-[11px] truncate max-w-full">Scoring Conv.</span>
+</div>
+<!-- Stage 7 -->
+<div class="relative flex flex-col items-center text-center z-10 w-36 group cursor-pointer">
+<div class="w-14 h-14 rounded-xl bg-primary-container/20 flex items-center justify-center shadow-[0_0_20px_rgba(76,215,246,0.35)] transition-transform duration-300 group-hover:scale-105">
+<span class="material-symbols-outlined text-[24px] text-primary animate-pulse">recommend</span>
+</div>
+<span class="mt-space-sm font-label-md text-label-md font-semibold text-primary">7. Recommend</span>
+<span class="font-data-sm text-data-sm text-primary font-bold">Ready · 0.2s</span>
+<span class="mt-1 px-1.5 py-0.5 rounded bg-primary-container/20 font-data-sm text-data-sm text-primary text-[11px] truncate max-w-full">3 playbooks</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 2. Main Panel: Dataset Validation & Schema Integrity -->
+<div class="rounded-xl bg-surface-container-low shadow-xl p-space-lg space-y-gutter-lg">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div>
+<div class="flex items-center gap-space-sm">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Dataset Validation &amp; Schema Integrity</h2>
+<span class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded-full bg-tertiary-container/20 text-tertiary font-label-sm text-label-sm font-semibold tracking-wide">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-ping"></span>
+              VALIDATION STATUS: READY FOR ANALYSIS
+            </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
+            Strict multi-type schema matching and primary key uniqueness assertion passed across all 14 ingested dimensions.
+          </p>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Engine Hash:</span>
+<code class="px-2 py-1 rounded bg-surface-container font-data-sm text-data-sm text-primary">sha256:4b91...8c02</code>
+</div>
+</div>
+<!-- Ingestion Metric Cards Bento Grid -->
+<div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-space-md">
+<!-- Total Rows -->
+<div class="rounded-lg bg-surface-container p-space-md shadow-md flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase">Total Rows</span>
+<span class="material-symbols-outlined text-[18px] text-primary">table_rows</span>
+</div>
+<div class="mt-space-sm">
+<div class="font-data-lg text-data-lg text-on-surface">284,910</div>
+<div class="font-data-sm text-data-sm text-tertiary flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+              100% parsed
+            </div>
+</div>
+</div>
+<!-- Columns Detected -->
+<div class="rounded-lg bg-surface-container p-space-md shadow-md flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase">Columns</span>
+<span class="material-symbols-outlined text-[18px] text-secondary">view_column</span>
+</div>
+<div class="mt-space-sm">
+<div class="font-data-lg text-data-lg text-on-surface">14 / 14</div>
+<div class="font-data-sm text-data-sm text-tertiary flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">done_all</span>
+              schema matched
+            </div>
+</div>
+</div>
+<!-- Missing Values -->
+<div class="rounded-lg bg-surface-container p-space-md shadow-md flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase">Missing Values</span>
+<span class="material-symbols-outlined text-[18px] text-tertiary">check</span>
+</div>
+<div class="mt-space-sm">
+<div class="font-data-lg text-data-lg text-on-surface">0</div>
+<div class="font-data-sm text-data-sm text-tertiary flex items-center gap-1 mt-0.5">
+<span>0.00% primary keys</span>
+</div>
+</div>
+</div>
+<!-- Duplicate Records -->
+<div class="rounded-lg bg-surface-container p-space-md shadow-md flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase">Duplicates</span>
+<span class="material-symbols-outlined text-[18px] text-primary">filter_none</span>
+</div>
+<div class="mt-space-sm">
+<div class="font-data-lg text-data-lg text-on-surface">0</div>
+<div class="font-data-sm text-data-sm text-on-surface-variant flex items-center gap-1 mt-0.5">
+<span>0 deduplicated</span>
+</div>
+</div>
+</div>
+<!-- Invalid Records -->
+<div class="rounded-lg bg-surface-container p-space-md shadow-md flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase">Invalid Records</span>
+<span class="material-symbols-outlined text-[18px] text-primary">block</span>
+</div>
+<div class="mt-space-sm">
+<div class="font-data-lg text-data-lg text-on-surface">0</div>
+<div class="font-data-sm text-data-sm text-tertiary flex items-center gap-1 mt-0.5">
+<span>0 rejected</span>
+</div>
+</div>
+</div>
+<!-- Valid Records -->
+<div class="rounded-lg bg-surface-container p-space-md shadow-md flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase">Valid Records</span>
+<span class="material-symbols-outlined text-[18px] text-tertiary">task_alt</span>
+</div>
+<div class="mt-space-sm">
+<div class="font-data-lg text-data-lg text-on-surface">284,910</div>
+<div class="font-data-sm text-data-sm text-tertiary flex items-center gap-1 mt-0.5">
+<span>100.00% clean</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Detailed Validation Checks Table -->
+<div class="rounded-xl overflow-hidden bg-surface-container-lowest shadow-md">
+<div class="px-space-lg py-space-sm bg-surface-container-high/60 flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Deterministic Assertion Log</span>
+<span class="font-data-sm text-data-sm text-tertiary">6 of 6 Critical Checks Passed</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-space-sm px-space-lg">Check Domain</th>
+<th class="py-space-sm px-space-lg">Validation Rule &amp; Range Evidence</th>
+<th class="py-space-sm px-space-lg">Evaluation Outcome</th>
+<th class="py-space-sm px-space-lg text-right">Verification</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 text-on-surface font-body-md text-body-md">
+<tr class="hover:bg-surface-container-high/40 transition-colors">
+<td class="py-space-md px-space-lg font-medium flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">badge</span>
+                  Customer IDs
+                </td>
+<td class="py-space-md px-space-lg text-on-surface-variant font-data-sm text-data-sm">
+                  142,850 unique identifiers verified · No null or empty strings
+                </td>
+<td class="py-space-md px-space-lg">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-tertiary-container/15 text-tertiary font-data-sm text-data-sm font-semibold">
+                    PASSED (100%)
+                  </span>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<span class="material-symbols-outlined text-[20px] text-tertiary">check_circle</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/40 transition-colors">
+<td class="py-space-md px-space-lg font-medium flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">calendar_today</span>
+                  Order Dates
+                </td>
+<td class="py-space-md px-space-lg text-on-surface-variant font-data-sm text-data-sm">
+                  ISO-8601 UTC chronological sequence validated (2024-01-01 to 2024-09-30)
+                </td>
+<td class="py-space-md px-space-lg">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-tertiary-container/15 text-tertiary font-data-sm text-data-sm font-semibold">
+                    PASSED
+                  </span>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<span class="material-symbols-outlined text-[20px] text-tertiary">check_circle</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/40 transition-colors">
+<td class="py-space-md px-space-lg font-medium flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">payments</span>
+                  Revenue Values
+                </td>
+<td class="py-space-md px-space-lg text-on-surface-variant font-data-sm text-data-sm">
+                  Positive numerical float check ($1.20 min to $4,850 max) · No negative amounts
+                </td>
+<td class="py-space-md px-space-lg">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-tertiary-container/15 text-tertiary font-data-sm text-data-sm font-semibold">
+                    PASSED
+                  </span>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<span class="material-symbols-outlined text-[20px] text-tertiary">check_circle</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/40 transition-colors">
+<td class="py-space-md px-space-lg font-medium flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">find_in_page</span>
+                  Missing Values
+                </td>
+<td class="py-space-md px-space-lg text-on-surface-variant font-data-sm text-data-sm">
+                  Zero missing cells in primary keys (CustomerID, OrderID, OrderDate, Value)
+                </td>
+<td class="py-space-md px-space-lg">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-tertiary-container/15 text-tertiary font-data-sm text-data-sm font-semibold">
+                    PASSED
+                  </span>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<span class="material-symbols-outlined text-[20px] text-tertiary">check_circle</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/40 transition-colors">
+<td class="py-space-md px-space-lg font-medium flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">copy_all</span>
+                  Duplicate Records
+                </td>
+<td class="py-space-md px-space-lg text-on-surface-variant font-data-sm text-data-sm">
+                  Zero duplicate transaction hash instances found across 284,910 rows
+                </td>
+<td class="py-space-md px-space-lg">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-tertiary-container/15 text-tertiary font-data-sm text-data-sm font-semibold">
+                    PASSED
+                  </span>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<span class="material-symbols-outlined text-[20px] text-tertiary">check_circle</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/40 transition-colors">
+<td class="py-space-md px-space-lg font-medium flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">schema</span>
+                  Required Columns
+                </td>
+<td class="py-space-md px-space-lg text-on-surface-variant font-data-sm text-data-sm">
+                  All 5 core dimension keys and 9 extended attributes found and typed
+                </td>
+<td class="py-space-md px-space-lg">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-tertiary-container/15 text-tertiary font-data-sm text-data-sm font-semibold">
+                    PASSED
+                  </span>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<span class="material-symbols-outlined text-[20px] text-tertiary">check_circle</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- 3. Bottom Section: In-Memory Analysis Summary & Primary Floating Flow CTA -->
+<div class="rounded-xl bg-surface-container-low shadow-xl p-space-lg relative overflow-hidden">
+<div class="flex items-center justify-between mb-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[20px] text-primary">memory</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">In-Memory Analysis Summary</h2>
+</div>
+<span class="font-data-sm text-data-sm text-on-surface-variant">Engine Cluster: <strong>cix-core-worker-us-east-1</strong></span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-space-lg mb-space-lg">
+<!-- Column 1: Volume Analyzed -->
+<div class="rounded-xl bg-surface-container p-space-md shadow-md flex flex-col justify-between space-y-space-md">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Volume Analyzed</span>
+<span class="material-symbols-outlined text-[20px] text-primary">analytics</span>
+</div>
+<div class="space-y-space-sm">
+<div class="flex items-baseline justify-between">
+<span class="font-body-md text-body-md text-on-surface-variant">Customers</span>
+<span class="font-data-md text-data-md text-on-surface font-bold">142,850</span>
+</div>
+<div class="flex items-baseline justify-between">
+<span class="font-body-md text-body-md text-on-surface-variant">Orders Processed</span>
+<span class="font-data-md text-data-md text-on-surface font-bold">284,910</span>
+</div>
+<div class="flex items-baseline justify-between pt-space-xs">
+<span class="font-body-md text-body-md text-on-surface-variant">Gross Value Tracked</span>
+<span class="font-data-lg text-data-lg text-tertiary font-bold">$18.42M</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-1.5 overflow-hidden">
+<div class="bg-primary h-1.5 rounded-full w-full"></div>
+</div>
+</div>
+<!-- Column 2: Features Generated -->
+<div class="rounded-xl bg-surface-container p-space-md shadow-md flex flex-col justify-between space-y-space-md">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Features Generated</span>
+<span class="material-symbols-outlined text-[20px] text-secondary">model_training</span>
+</div>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2 py-1 rounded bg-surface-container-high font-data-sm text-data-sm text-on-surface">Recency (Days)</span>
+<span class="px-2 py-1 rounded bg-surface-container-high font-data-sm text-data-sm text-on-surface">Purchase Velocity</span>
+<span class="px-2 py-1 rounded bg-surface-container-high font-data-sm text-data-sm text-on-surface">Order Interval StdDev</span>
+<span class="px-2 py-1 rounded bg-surface-container-high font-data-sm text-data-sm text-on-surface">Basket Growth Index</span>
+<span class="px-2 py-1 rounded bg-surface-container-high font-data-sm text-data-sm text-on-surface">Category Affinity</span>
+<span class="px-2 py-1 rounded bg-surface-container-high font-data-sm text-data-sm text-tertiary font-semibold">Propensity Vector (6D)</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">All 24 feature dimensions registered to vector table</span>
+</div>
+<!-- Column 3: Pipeline Health -->
+<div class="rounded-xl bg-surface-container p-space-md shadow-md flex flex-col justify-between space-y-space-md">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Pipeline Health</span>
+<span class="material-symbols-outlined text-[20px] text-tertiary">health_and_safety</span>
+</div>
+<div class="space-y-space-xs font-data-sm text-data-sm">
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant">Total Execution Time:</span>
+<span class="text-tertiary font-bold">3.0s</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant">Memory Footprint:</span>
+<span class="text-primary font-bold">482 MB / 8,192 MB</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant">Storage Impact:</span>
+<span class="text-on-surface">Volatile zero-disk footprint</span>
+</div>
+<div class="flex justify-between items-center pt-1">
+<span class="text-on-surface-variant">Security Policy:</span>
+<span class="text-tertiary font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+                SOC-2 Encrypted
+              </span>
+</div>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+            Zero anomalies or cold starts detected
+          </div>
+</div>
+</div>
+<!-- Action Footer with Radiant CTA -->
+<div class="flex flex-col sm:flex-row items-center justify-between pt-space-md gap-space-md">
+<div class="flex items-center gap-space-sm text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px] text-primary">auto_awesome</span>
+<span>Next automated synchronization schedule: <strong>Tomorrow at 02:00 UTC</strong></span>
+</div>
+<button class="w-full sm:w-auto group flex items-center justify-center gap-space-sm px-space-xl py-3.5 rounded-xl bg-gradient-to-r from-primary-container via-primary to-secondary-container text-on-primary-container font-headline-md text-headline-md font-bold shadow-[0_0_28px_rgba(6,182,212,0.45)] hover:shadow-[0_0_36px_rgba(76,215,246,0.65)] hover:scale-[1.02] active:scale-[0.99] transition-all duration-300" id="continueIntelligenceBtn" type="button">
+<span>Continue to Customer Intelligence</span>
+<span class="material-symbols-outlined text-[22px] transition-transform group-hover:translate-x-1.5">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    const rerunBtn = document.getElementById('rerunPipelineBtn');
+    if (rerunBtn) {
+      rerunBtn.addEventListener('click', function() {
+        const icon = rerunBtn.querySelector('.material-symbols-outlined');
+        if (icon) {
+          icon.classList.add('animate-spin');
+          setTimeout(() => {
+            icon.classList.remove('animate-spin');
+          }, 1200);
+        }
+      });
+    }
+
+    const exportBtn = document.getElementById('exportTelemetryBtn');
+    if (exportBtn) {
+      exportBtn.addEventListener('click', function() {
+        const payload = {
+          executionId: "PX-8942",
+          status: "READY",
+          timestamp: new Date().toISOString(),
+          metrics: {
+            rows: 284910,
+            customers: 142850,
+            executionTimeSec: 3.0,
+            memoryMb: 482
+          }
+        };
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'pipeline-telemetry-px8942.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      });
+    }
+
+    const continueBtn = document.getElementById('continueIntelligenceBtn');
+    if (continueBtn) {
+      continueBtn.addEventListener('click', function() {
+        const customerLink = document.querySelector('aside a[data-path="customer-360"]') || document.querySelector('aside a[data-path="customers"]');
+        if (customerLink) {
+          customerLink.click();
+        }
+      });
+    }
+  })();
+</script></main></div></body></html>

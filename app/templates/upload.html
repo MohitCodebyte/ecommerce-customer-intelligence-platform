@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block title %}CIX — Data Upload{% endblock %}
+{% block breadcrumb %}Data Upload{% endblock %}
+
+{% block content %}
+<div class="px-gutter-lg py-space-lg max-w-[900px] mx-auto space-y-space-lg">
+
+  <!-- Header -->
+  <div class="relative rounded-xl p-space-lg bg-surface-container-low/90 backdrop-blur-xl shadow-xl overflow-hidden">
+    <div class="absolute -right-10 -top-10 w-64 h-64 bg-primary/8 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="relative z-10">
+      <div class="flex items-center gap-space-sm mb-2">
+        <span class="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_#4cd7f6]"></span>
+        <span class="font-label-sm text-label-sm text-primary uppercase tracking-widest">Data Ingestion</span>
+      </div>
+      <h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">Upload Customer Data</h1>
+      <p class="font-body-md text-body-md text-on-surface-variant mt-1 max-w-xl">
+        Upload a CSV or Excel file containing customer transaction data. The ML pipeline will run automatically on upload.
+      </p>
+    </div>
+  </div>
+
+  <!-- Requirements Card -->
+  <div class="rounded-xl bg-surface-container/60 border border-outline-variant/30 p-space-lg space-y-3">
+    <h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+      <span class="material-symbols-outlined text-[20px] text-secondary">checklist</span>
+      Accepted File Formats
+    </h2>
+    <div class="grid grid-cols-3 gap-3">
+      {% for fmt, icon, desc in [
+        ('CSV', 'table_chart', 'Comma-separated values'),
+        ('XLSX', 'grid_on', 'Excel 2007+ Workbook'),
+        ('XLS', 'grid_on', 'Legacy Excel Workbook'),
+      ] %}
+      <div class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-high/60 border border-outline-variant/20">
+        <span class="material-symbols-outlined text-primary text-[22px]">{{ icon }}</span>
+        <div>
+          <div class="font-label-md text-label-md text-on-surface font-semibold">{{ fmt }}</div>
+          <div class="text-[11px] text-on-surface-variant">{{ desc }}</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="text-xs text-on-surface-variant bg-surface-container-high/40 rounded-lg p-3 flex items-start gap-2">
+      <span class="material-symbols-outlined text-[16px] text-tertiary flex-shrink-0 mt-0.5">info</span>
+      <span>Max file size: <strong class="text-on-surface">100 MB</strong>. Compatible with the Olist Brazilian E-Commerce dataset format. Data is processed in-memory and not persisted.</span>
+    </div>
+  </div>
+
+  <!-- Drop Zone -->
+  <div id="drop-zone"
+       class="relative rounded-2xl border-2 border-dashed border-outline-variant/50 hover:border-primary/60 p-12 text-center cursor-pointer transition-all duration-200 group bg-surface-container/30 hover:bg-surface-container/50">
+    <div class="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none">
+      <div class="absolute -top-20 -left-20 w-48 h-48 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-all"></div>
+      <div class="absolute -bottom-20 -right-20 w-48 h-48 bg-secondary/5 rounded-full blur-2xl group-hover:bg-secondary/10 transition-all"></div>
+    </div>
+    <div class="relative z-10 space-y-4">
+      <div class="w-16 h-16 rounded-2xl bg-primary/15 border border-primary/30 flex items-center justify-center mx-auto group-hover:bg-primary/25 transition-colors animate-float">
+        <span class="material-symbols-outlined text-[32px] text-primary">cloud_upload</span>
+      </div>
+      <div>
+        <p class="text-on-surface font-semibold text-base">Drag & drop your file here</p>
+        <p class="text-on-surface-variant text-sm mt-1">or click to browse</p>
+      </div>
+      <div class="flex items-center justify-center gap-2">
+        <button id="browse-btn" type="button"
+                class="px-5 py-2.5 rounded-lg bg-primary text-on-primary text-sm font-semibold hover:bg-primary-fixed-dim transition-all shadow-[0_0_16px_rgba(76,215,246,0.3)] active:scale-95">
+          Browse Files
+        </button>
+      </div>
+      <input id="file-input" type="file" accept=".csv,.xlsx,.xls" class="hidden" aria-label="Upload dataset file"/>
+    </div>
+  </div>
+
+  <!-- File Info (shown after selection) -->
+  <div id="file-info" class="hidden"></div>
+
+  <!-- Upload Button -->
+  <div class="flex items-center gap-3">
+    <button id="upload-btn" type="button" disabled
+            class="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-primary text-on-primary font-semibold text-sm hover:bg-primary-fixed-dim transition-all shadow-[0_0_20px_rgba(76,215,246,0.3)] active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none">
+      <span class="material-symbols-outlined text-[18px]">rocket_launch</span>
+      Analyze Dataset
+    </button>
+    {% if data_loaded %}
+    <button type="button" onclick="clearDataset()"
+            class="px-5 py-3 rounded-xl bg-surface-container text-on-surface-variant hover:text-error hover:bg-error/10 hover:border-error/30 border border-outline-variant/30 text-sm transition-all">
+      <span class="material-symbols-outlined text-[18px]">delete_sweep</span>
+    </button>
+    {% endif %}
+  </div>
+
+  <!-- Progress -->
+  <div id="upload-progress-wrap" class="hidden space-y-2">
+    <div class="flex items-center justify-between text-xs text-on-surface-variant">
+      <span>Processing pipeline...</span>
+      <span id="upload-progress-text" class="text-primary font-mono"></span>
+    </div>
+    <div class="h-1 rounded-full bg-surface-container-highest overflow-hidden">
+      <div id="upload-progress-bar" class="upload-progress-bar" style="width:0%"></div>
+    </div>
+  </div>
+
+  <!-- Upload result panel -->
+  <div id="upload-result-panel" class="hidden"></div>
+
+  <!-- Current dataset status -->
+  {% if data_loaded %}
+  <div class="flex items-center gap-3 p-4 rounded-xl bg-tertiary/10 border border-tertiary/30">
+    <span class="material-symbols-outlined text-tertiary text-[22px]">check_circle</span>
+    <div>
+      <p class="text-sm font-semibold text-on-surface">Dataset loaded: <span class="text-tertiary font-mono">{{ upload_info.get('filename', 'Previous upload') }}</span></p>
+      <p class="text-xs text-on-surface-variant">Upload a new file above to replace it.</p>
+    </div>
+    <a href="/dashboard" class="ml-auto text-xs text-primary underline hover:no-underline flex-shrink-0">View Dashboard →</a>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}

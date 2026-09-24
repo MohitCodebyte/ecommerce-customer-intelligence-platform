@@ -1,0 +1,50 @@
+[
+  {
+    "feature": "numeric__future_purchase_count",
+    "importance": 0.958425
+  },
+  {
+    "feature": "numeric__recency_days",
+    "importance": 0.014491
+  },
+  {
+    "feature": "numeric__mean_purchase_gap_days",
+    "importance": 0.006269
+  },
+  {
+    "feature": "numeric__median_purchase_gap_days",
+    "importance": 0.00522
+  },
+  {
+    "feature": "numeric__max_purchase_gap_days",
+    "importance": 0.005007
+  },
+  {
+    "feature": "numeric__total_orders",
+    "importance": 0.002652
+  },
+  {
+    "feature": "numeric__customer_lifetime_days",
+    "importance": 0.002341
+  },
+  {
+    "feature": "numeric__purchase_frequency",
+    "importance": 0.001994
+  },
+  {
+    "feature": "numeric__purchase_gap_count",
+    "importance": 0.001829
+  },
+  {
+    "feature": "numeric__repeat_customer",
+    "importance": 0.001773
+  },
+  {
+    "feature": "numeric__label_observation_days",
+    "importance": 0.0
+  },
+  {
+    "feature": "numeric__label_eligible",
+    "importance": 0.0
+  }
+]

@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+{% block title %}CIX — Customer Analytics{% endblock %}
+{% block breadcrumb %}Customer Analytics{% endblock %}
+
+{% block content %}
+<div class="px-gutter-lg py-space-lg max-w-[1720px] mx-auto space-y-space-xl relative">
+
+  <!-- Atmospheric Glow -->
+  <div class="fixed -top-40 right-1/4 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-3xl pointer-events-none"></div>
+
+  <!-- Header Section -->
+  <div class="flex flex-col xl:flex-row xl:items-end justify-between gap-space-md">
+    <div class="space-y-space-xs">
+      <div class="flex items-center gap-space-xs">
+        <span class="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_#4cd7f6]"></span>
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-primary">LONGITUDINAL TELEMETRY · Historical Cohort Dynamics</span>
+      </div>
+      <h1 class="font-headline-xl text-headline-xl text-on-surface font-semibold tracking-tight">Customer Analytics</h1>
+      <p class="font-body-md text-body-md text-on-surface-variant max-w-3xl">Explore customer behavior, revenue distributions, purchasing cadence, and recency dynamics.</p>
+    </div>
+    <div class="flex flex-wrap items-center gap-space-sm">
+      <button onclick="exportCSV('intelligence')" class="flex items-center gap-1.5 px-space-md py-2 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-bright transition-all shadow-sm">
+        <span class="material-symbols-outlined text-[18px] text-tertiary">download</span>
+        <span>Export CSV</span>
+      </button>
+      <button onclick="exportExcel('full')" class="flex items-center gap-1.5 px-space-lg py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-fixed-dim transition-all shadow-[0_0_20px_rgba(76,215,246,0.35)]">
+        <span class="material-symbols-outlined text-[18px]">bar_chart</span>
+        <span>Export Full Analytics</span>
+      </button>
+    </div>
+  </div>
+
+  {% if data_loaded %}
+  <!-- KPI Metric Row (6 Telemetry Glass Tiles) -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-space-md">
+    <div class="p-space-md rounded-xl bg-surface-container-low shadow-md flex flex-col justify-between border border-outline-variant/20">
+      <div class="flex items-center justify-between">
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Customers</span>
+        <span class="material-symbols-outlined text-primary text-[18px]">groups</span>
+      </div>
+      <div class="mt-space-sm mb-space-xs">
+        <div class="font-data-lg text-data-lg text-on-surface tracking-tight">{{ '{:,}'.format(summary.customers) }}</div>
+      </div>
+      <div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden mt-2">
+        <div class="h-full bg-primary rounded-full" style="width: 85%;"></div>
+      </div>
+    </div>
+
+    <div class="p-space-md rounded-xl bg-surface-container-low shadow-md flex flex-col justify-between border border-outline-variant/20">
+      <div class="flex items-center justify-between">
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Total Orders</span>
+        <span class="material-symbols-outlined text-secondary text-[18px]">receipt_long</span>
+      </div>
+      <div class="mt-space-sm mb-space-xs">
+        <div class="font-data-lg text-data-lg text-on-surface tracking-tight">{{ '{:,}'.format(summary.orders) }}</div>
+      </div>
+      <div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden mt-2">
+        <div class="h-full bg-secondary rounded-full" style="width: 70%;"></div>
+      </div>
+    </div>
+
+    <div class="p-space-md rounded-xl bg-surface-container-low shadow-md flex flex-col justify-between border border-outline-variant/20">
+      <div class="flex items-center justify-between">
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Total Revenue</span>
+        <span class="material-symbols-outlined text-tertiary text-[18px]">account_balance_wallet</span>
+      </div>
+      <div class="mt-space-sm mb-space-xs">
+        <div class="font-data-lg text-data-lg text-tertiary tracking-tight">${{ '{:,.0f}'.format(summary.revenue) }}</div>
+      </div>
+      <div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden mt-2">
+        <div class="h-full bg-tertiary rounded-full" style="width: 90%;"></div>
+      </div>
+    </div>
+
+    <div class="p-space-md rounded-xl bg-surface-container-low shadow-md flex flex-col justify-between border border-outline-variant/20">
+      <div class="flex items-center justify-between">
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Avg Order Value</span>
+        <span class="material-symbols-outlined text-primary text-[18px]">shopping_cart</span>
+      </div>
+      <div class="mt-space-sm mb-space-xs">
+        <div class="font-data-lg text-data-lg text-on-surface tracking-tight">
+          {% if summary.orders > 0 %}${{ '{:,.2f}'.format(summary.revenue / summary.orders) }}{% else %}—{% endif %}
+        </div>
+      </div>
+      <div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden mt-2">
+        <div class="h-full bg-primary rounded-full" style="width: 60%;"></div>
+      </div>
+    </div>
+
+    <div class="p-space-md rounded-xl bg-surface-container-low shadow-md flex flex-col justify-between border border-outline-variant/20">
+      <div class="flex items-center justify-between">
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Avg Revenue / Cust</span>
+        <span class="material-symbols-outlined text-secondary text-[18px]">person_check</span>
+      </div>
+      <div class="mt-space-sm mb-space-xs">
+        <div class="font-data-lg text-data-lg text-on-surface tracking-tight">
+          {% if summary.customers > 0 %}${{ '{:,.2f}'.format(summary.revenue / summary.customers) }}{% else %}—{% endif %}
+        </div>
+      </div>
+      <div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden mt-2">
+        <div class="h-full bg-secondary rounded-full" style="width: 75%;"></div>
+      </div>
+    </div>
+
+    <div class="p-space-md rounded-xl bg-surface-container-low shadow-md flex flex-col justify-between border border-outline-variant/20">
+      <div class="flex items-center justify-between">
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Data Source</span>
+        <span class="material-symbols-outlined text-tertiary text-[18px]">database</span>
+      </div>
+      <div class="mt-space-sm mb-space-xs">
+        <div class="font-data-md text-data-md text-on-surface truncate">{{ source }}</div>
+      </div>
+      <div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden mt-2">
+        <div class="h-full bg-tertiary rounded-full" style="width: 100%;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Multi-Chart Grid (6 Visualizations) -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg">
+    <!-- Chart 1: Segments -->
+    <div class="rounded-xl bg-surface-container-low p-space-lg shadow-lg border border-outline-variant/20">
+      <h3 class="font-headline-md text-headline-md text-on-surface mb-1">RFM Segment Breakdown</h3>
+      <p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Customer count per RFM segment</p>
+      <div class="chart-container" style="height:230px;">
+        <canvas id="analyticsSegChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Chart 2: Tiers -->
+    <div class="rounded-xl bg-surface-container-low p-space-lg shadow-lg border border-outline-variant/20">
+      <h3 class="font-headline-md text-headline-md text-on-surface mb-1">CLV Value Tiers</h3>
+      <p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Lifetime value tier distribution</p>
+      <div class="chart-container" style="height:230px;">
+        <canvas id="analyticsTierChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Chart 3: Purchase Behavior -->
+    <div class="rounded-xl bg-surface-container-low p-space-lg shadow-lg border border-outline-variant/20">
+      <h3 class="font-headline-md text-headline-md text-on-surface mb-1">Repeat vs Single Purchase</h3>
+      <p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Customer repeat purchase ratio</p>
+      <div class="chart-container" style="height:230px;">
+        <canvas id="analyticsPurchaseChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Chart 4: Recency -->
+    <div class="rounded-xl bg-surface-container-low p-space-lg shadow-lg border border-outline-variant/20">
+      <h3 class="font-headline-md text-headline-md text-on-surface mb-1">Recency Days Histogram</h3>
+      <p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Days since last purchase distribution</p>
+      <div class="chart-container" style="height:230px;">
+        <canvas id="analyticsRecencyChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Chart 5: Orders Distribution -->
+    <div class="rounded-xl bg-surface-container-low p-space-lg shadow-lg border border-outline-variant/20">
+      <h3 class="font-headline-md text-headline-md text-on-surface mb-1">Order Frequency Distribution</h3>
+      <p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Completed order count per customer</p>
+      <div class="chart-container" style="height:230px;">
+        <canvas id="analyticsOrdersChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Chart 6: Revenue Distribution -->
+    <div class="rounded-xl bg-surface-container-low p-space-lg shadow-lg border border-outline-variant/20">
+      <h3 class="font-headline-md text-headline-md text-on-surface mb-1">Revenue Bracket Distribution</h3>
+      <p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Customer spending power brackets</p>
+      <div class="chart-container" style="height:230px;">
+        <canvas id="analyticsRevChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  {% else %}
+  <div class="flex flex-col items-center justify-center py-24 text-center space-y-4">
+    <span class="material-symbols-outlined text-[48px] text-on-surface-variant">bar_chart</span>
+    <h2 class="font-headline-lg text-headline-lg text-on-surface">No Analytics Data</h2>
+    <p class="text-on-surface-variant">Upload a customer dataset to generate multidimensional analytics charts.</p>
+    <a href="/upload" class="px-6 py-3 rounded-xl bg-primary text-on-primary font-semibold hover:bg-primary-fixed-dim transition-all">Upload Dataset</a>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+{% if data_loaded %}
+<script>
+(function() {
+  const chartData = {{ chart_data | default('{}') | safe }};
+  if (!chartData) return;
+
+  if (chartData.segments && chartData.segments.labels.length) {
+    createDonutChart('analyticsSegChart', chartData.segments.labels, chartData.segments.data);
+  }
+  if (chartData.revenue_tiers && chartData.revenue_tiers.labels.length) {
+    createDonutChart('analyticsTierChart', chartData.revenue_tiers.labels, chartData.revenue_tiers.data);
+  }
+  if (chartData.purchase_status && chartData.purchase_status.labels.length) {
+    createDonutChart('analyticsPurchaseChart', chartData.purchase_status.labels, chartData.purchase_status.data);
+  }
+  if (chartData.recency && chartData.recency.labels.length) {
+    createBarChart('analyticsRecencyChart', chartData.recency.labels, [{
+      label: 'Customers',
+      data: chartData.recency.data,
+      backgroundColor: CIX_COLORS.primary + '88',
+      borderColor: CIX_COLORS.primary,
+    }]);
+  }
+  if (chartData.orders_dist && chartData.orders_dist.labels.length) {
+    createBarChart('analyticsOrdersChart', chartData.orders_dist.labels, [{
+      label: 'Customers',
+      data: chartData.orders_dist.data,
+      backgroundColor: CIX_COLORS.secondary + '88',
+      borderColor: CIX_COLORS.secondary,
+    }]);
+  }
+  if (chartData.revenue_dist && chartData.revenue_dist.labels.length) {
+    createBarChart('analyticsRevChart', chartData.revenue_dist.labels, [{
+      label: 'Customers',
+      data: chartData.revenue_dist.data,
+      backgroundColor: CIX_COLORS.tertiary + '88',
+      borderColor: CIX_COLORS.tertiary,
+    }]);
+  }
+})();
+</script>
+{% endif %}
+{% endblock %}

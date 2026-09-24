@@ -1,0 +1,515 @@
+{
+    "analysis_date": "2018-08-30",
+    "dataset": {
+        "customers": 93358,
+        "completed_orders": 96478,
+        "historical_revenue": 15422461.77
+    },
+    "core_kpis": {
+        "total_customers": 93358,
+        "repeat_customers": 2801,
+        "single_purchase_customers": 90557,
+        "repeat_customer_rate_pct": 3.0,
+        "single_purchase_rate_pct": 97.0,
+        "total_completed_orders": 96478,
+        "average_order_value": 159.85470024254235,
+        "average_customer_value": 165.19700261359498,
+        "median_customer_value": 107.78,
+        "total_historical_revenue": 15422461.77
+    },
+    "customer_type": {
+        "repeat_customers": 2801,
+        "single_purchase_customers": 90557,
+        "repeat_customer_rate_pct": 3.0,
+        "single_purchase_rate_pct": 97.0,
+        "summary": [
+            {
+                "customer_type": "Repeat Customer",
+                "customers": 2801,
+                "revenue": 864357.21,
+                "average_customer_value": 308.5887932881114,
+                "average_orders": 2.1138878971795787,
+                "customer_share_pct": 3.0002784978255748,
+                "revenue_share_pct": 5.6045346254730894
+            },
+            {
+                "customer_type": "Single Purchase Customer",
+                "customers": 90557,
+                "revenue": 14558104.56,
+                "average_customer_value": 160.761780536016,
+                "average_orders": 1.0,
+                "customer_share_pct": 96.99972150217442,
+                "revenue_share_pct": 94.39546537452692
+            }
+        ]
+    },
+    "rfm": {
+        "segments": [
+            {
+                "rfm_segment": "At Risk High Value",
+                "customers": 14488,
+                "revenue": 4495360.54,
+                "average_customer_value": 310.28164964108225,
+                "average_recency": 393.447956929873,
+                "average_frequency": 1.0561844284925455,
+                "average_monetary": 310.28164964108225,
+                "customer_share_pct": 15.518755757406971,
+                "revenue_share_pct": 29.148138650240924
+            },
+            {
+                "rfm_segment": "Potential Loyalists",
+                "customers": 22504,
+                "revenue": 3581238.23,
+                "average_customer_value": 159.13785238179878,
+                "average_recency": 177.2077852826164,
+                "average_frequency": 1.0292392463562035,
+                "average_monetary": 159.13785238179878,
+                "customer_share_pct": 24.10505794897063,
+                "revenue_share_pct": 23.22092467083483
+            },
+            {
+                "rfm_segment": "Champions",
+                "customers": 6493,
+                "revenue": 2026656.84,
+                "average_customer_value": 312.12949946095796,
+                "average_recency": 91.11181272139227,
+                "average_frequency": 1.1803480671492377,
+                "average_monetary": 312.12949946095796,
+                "customer_share_pct": 6.954947620985882,
+                "revenue_share_pct": 13.14094254357163
+            },
+            {
+                "rfm_segment": "Loyal Customers",
+                "customers": 15956,
+                "revenue": 1867116.53,
+                "average_customer_value": 117.01657871647029,
+                "average_recency": 90.07044372023063,
+                "average_frequency": 1.014038606166959,
+                "average_monetary": 117.01657871647029,
+                "customer_share_pct": 17.091197326420872,
+                "revenue_share_pct": 12.106475333477192
+            },
+            {
+                "rfm_segment": "New / Promising",
+                "customers": 7479,
+                "revenue": 1222790.71,
+                "average_customer_value": 163.4965516780318,
+                "average_recency": 91.18652226233453,
+                "average_frequency": 1.0,
+                "average_monetary": 163.4965516780318,
+                "customer_share_pct": 8.011097067203668,
+                "revenue_share_pct": 7.928635053442573
+            },
+            {
+                "rfm_segment": "Needs Attention",
+                "customers": 12774,
+                "revenue": 1076455.87,
+                "average_customer_value": 84.26928683262878,
+                "average_recency": 345.018396743385,
+                "average_frequency": 1.006654141224362,
+                "average_monetary": 84.26928683262878,
+                "customer_share_pct": 13.68281239958011,
+                "revenue_share_pct": 6.979792759765098
+            },
+            {
+                "rfm_segment": "At Risk Valuable",
+                "customers": 7350,
+                "revenue": 800362.32,
+                "average_customer_value": 108.89283265306122,
+                "average_recency": 394.8281632653061,
+                "average_frequency": 1.022857142857143,
+                "average_monetary": 108.89283265306122,
+                "customer_share_pct": 7.872919299899313,
+                "revenue_share_pct": 5.189588613906481
+            },
+            {
+                "rfm_segment": "Hibernating",
+                "customers": 6314,
+                "revenue": 352480.73,
+                "average_customer_value": 55.82526607538802,
+                "average_recency": 396.83576179917645,
+                "average_frequency": 1.0,
+                "average_monetary": 55.82526607538802,
+                "customer_share_pct": 6.763212579532551,
+                "revenue_share_pct": 2.2855023747612764
+            }
+        ],
+        "top_revenue_segment": "At Risk High Value",
+        "top_revenue_segment_value": 4495360.54
+    },
+    "clv": {
+        "very_high_customers": 18672,
+        "very_high_revenue": 8254874.14,
+        "very_high_revenue_share_pct": 53.53,
+        "top_revenue_clv_tier": "Very High",
+        "top_revenue_clv_value": 8254874.14,
+        "tiers": [
+            {
+                "clv_value_tier": "Very High",
+                "customers": 18672,
+                "revenue": 8254874.14,
+                "average_customer_value": 442.0990863324764,
+                "median_customer_value": 318.09000000000003,
+                "customer_share_pct": 20.00042845819319,
+                "revenue_share_pct": 53.52500958087965
+            },
+            {
+                "clv_value_tier": "High",
+                "customers": 18671,
+                "revenue": 3083808.84,
+                "average_customer_value": 165.16570296181243,
+                "median_customer_value": 163.06,
+                "customer_share_pct": 19.999357312710213,
+                "revenue_share_pct": 19.995568061635076
+            },
+            {
+                "clv_value_tier": "Medium",
+                "customers": 18672,
+                "revenue": 2025990.35,
+                "average_customer_value": 108.50419612253643,
+                "median_customer_value": 107.78,
+                "customer_share_pct": 20.00042845819319,
+                "revenue_share_pct": 13.136620989659292
+            },
+            {
+                "clv_value_tier": "Below Average",
+                "customers": 18671,
+                "revenue": 1316651.05,
+                "average_customer_value": 70.51850731080285,
+                "median_customer_value": 69.9,
+                "customer_share_pct": 19.999357312710213,
+                "revenue_share_pct": 8.537230110442998
+            },
+            {
+                "clv_value_tier": "Low",
+                "customers": 18672,
+                "revenue": 741137.39,
+                "average_customer_value": 39.69244805055698,
+                "median_customer_value": 40.1,
+                "customer_share_pct": 20.00042845819319,
+                "revenue_share_pct": 4.805571257382991
+            }
+        ]
+    },
+    "retention": {
+        "retention_summary": [
+            {
+                "retention_status": "High Priority Retention",
+                "customers": 14488,
+                "revenue": 4495360.54,
+                "average_customer_value": 310.28164964108225,
+                "customer_share_pct": 15.518755757406971,
+                "revenue_share_pct": 29.148138650240924
+            },
+            {
+                "retention_status": "Convert to Loyal",
+                "customers": 22504,
+                "revenue": 3581238.23,
+                "average_customer_value": 159.13785238179878,
+                "customer_share_pct": 24.10505794897063,
+                "revenue_share_pct": 23.22092467083483
+            },
+            {
+                "retention_status": "Protect & Retain",
+                "customers": 6493,
+                "revenue": 2026656.84,
+                "average_customer_value": 312.12949946095796,
+                "customer_share_pct": 6.954947620985882,
+                "revenue_share_pct": 13.14094254357163
+            },
+            {
+                "retention_status": "Strengthen Loyalty",
+                "customers": 15956,
+                "revenue": 1867116.53,
+                "average_customer_value": 117.01657871647029,
+                "customer_share_pct": 17.091197326420872,
+                "revenue_share_pct": 12.106475333477192
+            },
+            {
+                "retention_status": "Encourage Second Purchase",
+                "customers": 7479,
+                "revenue": 1222790.71,
+                "average_customer_value": 163.4965516780318,
+                "customer_share_pct": 8.011097067203668,
+                "revenue_share_pct": 7.928635053442573
+            },
+            {
+                "retention_status": "Re-engage",
+                "customers": 12774,
+                "revenue": 1076455.87,
+                "average_customer_value": 84.26928683262878,
+                "customer_share_pct": 13.68281239958011,
+                "revenue_share_pct": 6.979792759765098
+            },
+            {
+                "retention_status": "Priority Retention",
+                "customers": 7350,
+                "revenue": 800362.32,
+                "average_customer_value": 108.89283265306122,
+                "customer_share_pct": 7.872919299899313,
+                "revenue_share_pct": 5.189588613906481
+            },
+            {
+                "retention_status": "Win-back / Low Engagement",
+                "customers": 6314,
+                "revenue": 352480.73,
+                "average_customer_value": 55.82526607538802,
+                "customer_share_pct": 6.763212579532551,
+                "revenue_share_pct": 2.2855023747612764
+            }
+        ],
+        "high_priority_retention_customers": 14488,
+        "high_priority_retention_revenue": 4495360.54,
+        "immediate_business_priority_customers": 7467
+    },
+    "recommendations": {
+        "business_priority": [
+            {
+                "business_priority": "High",
+                "customers": 24944
+            },
+            {
+                "business_priority": "Immediate",
+                "customers": 7467
+            },
+            {
+                "business_priority": "Low",
+                "customers": 40090
+            },
+            {
+                "business_priority": "Medium",
+                "customers": 20857
+            }
+        ],
+        "recommendation_priority": [
+            {
+                "recommendation_priority": "Critical",
+                "customers": 14488
+            },
+            {
+                "recommendation_priority": "High",
+                "customers": 51699
+            },
+            {
+                "recommendation_priority": "Low",
+                "customers": 6314
+            },
+            {
+                "recommendation_priority": "Medium",
+                "customers": 20857
+            }
+        ]
+    },
+    "top_customers": [
+        {
+            "customer_unique_id": "0a0a92112bd4c708ca5fde585afaa872",
+            "customer_city": "rio de janeiro",
+            "customer_state": "RJ",
+            "rfm_segment": "At Risk High Value",
+            "clv_value_tier": "Very High",
+            "historical_clv": 13664.08,
+            "customer_type": "Single Purchase Customer",
+            "retention_status": "High Priority Retention"
+        },
+        {
+            "customer_unique_id": "da122df9eeddfedc1dc1f5349a1a690c",
+            "customer_city": "araruama",
+            "customer_state": "RJ",
+            "rfm_segment": "At Risk High Value",
+            "clv_value_tier": "Very High",
+            "historical_clv": 7571.63,
+            "customer_type": "Repeat Customer",
+            "retention_status": "High Priority Retention"
+        },
+        {
+            "customer_unique_id": "763c8b1c9c68a0229c42c9fc6f662b93",
+            "customer_city": "vila velha",
+            "customer_state": "ES",
+            "rfm_segment": "Loyal Customers",
+            "clv_value_tier": "Very High",
+            "historical_clv": 7274.88,
+            "customer_type": "Single Purchase Customer",
+            "retention_status": "Strengthen Loyalty"
+        },
+        {
+            "customer_unique_id": "dc4802a71eae9be1dd28f5d788ceb526",
+            "customer_city": "campo grande",
+            "customer_state": "MS",
+            "rfm_segment": "At Risk High Value",
+            "clv_value_tier": "Very High",
+            "historical_clv": 6929.31,
+            "customer_type": "Single Purchase Customer",
+            "retention_status": "High Priority Retention"
+        },
+        {
+            "customer_unique_id": "459bef486812aa25204be022145caa62",
+            "customer_city": "vitoria",
+            "customer_state": "ES",
+            "rfm_segment": "Potential Loyalists",
+            "clv_value_tier": "Very High",
+            "historical_clv": 6922.21,
+            "customer_type": "Single Purchase Customer",
+            "retention_status": "Convert to Loyal"
+        },
+        {
+            "customer_unique_id": "ff4159b92c40ebe40454e3e6a7c35ed6",
+            "customer_city": "marilia",
+            "customer_state": "SP",
+            "rfm_segment": "At Risk High Value",
+            "clv_value_tier": "Very High",
+            "historical_clv": 6726.66,
+            "customer_type": "Single Purchase Customer",
+            "retention_status": "High Priority Retention"
+        },
+        {
+            "customer_unique_id": "4007669dec559734d6f53e029e360987",
+            "customer_city": "divinopolis",
+            "customer_state": "MG",
+            "rfm_segment": "At Risk High Value",
+            "clv_value_tier": "Very High",
+            "historical_clv": 6081.54,
+            "customer_type": "Single Purchase Customer",
+            "retention_status": "High Priority Retention"
+        },
+        {
+            "customer_unique_id": "eebb5dda148d3893cdaf5b5ca3040ccb",
+            "customer_city": "maua",
+            "customer_state": "SP",
+            "rfm_segment": "At Risk High Value",
+            "clv_value_tier": "Very High",
+            "historical_clv": 4764.34,
+            "customer_type": "Single Purchase Customer",
+            "retention_status": "High Priority Retention"
+        },
+        {
+            "customer_unique_id": "48e1ac109decbb87765a3eade6854098",
+            "customer_city": "joao pessoa",
+            "customer_state": "PB",
+            "rfm_segment": "Potential Loyalists",
+            "clv_value_tier": "Very High",
+            "historical_clv": 4681.78,
+            "customer_type": "Single Purchase Customer",
+            "retention_status": "Convert to Loyal"
+        },
+        {
+            "customer_unique_id": "c8460e4251689ba205045f3ea17884a1",
+            "customer_city": "porto alegre",
+            "customer_state": "RS",
+            "rfm_segment": "Champions",
+            "clv_value_tier": "Very High",
+            "historical_clv": 4655.91,
+            "customer_type": "Repeat Customer",
+            "retention_status": "Protect & Retain"
+        },
+        {
+            "customer_unique_id": "edde2314c6c30e864a128ac95d6b2112",
+            "customer_city": "sao paulo",
+            "customer_state": "SP",
+            "rfm_segment": "Champions",
+            "clv_value_tier": "Very High",
+            "historical_clv": 4513.32,
+            "customer_type": "Single Purchase Customer",
+            "retention_status": "Protect & Retain"
+        },
+        {
+            "customer_unique_id": "a229eba70ec1c2abef51f04987deb7a5",
+            "customer_city": "niteroi",
+            "customer_state": "RJ",
+            "rfm_segment": "Champions",
+            "clv_value_tier": "Very High",
+            "historical_clv": 4445.5,
+            "customer_type": "Single Purchase Customer",
+            "retention_status": "Protect & Retain"
+        },
+        {
+            "customer_unique_id": "edf81e1f3070b9dac83ec83dacdbb9bc",
+            "customer_city": "brasilia",
+            "customer_state": "DF",
+            "rfm_segment": "At Risk High Value",
+            "clv_value_tier": "Very High",
+            "historical_clv": 4194.76,
+            "customer_type": "Single Purchase Customer",
+            "retention_status": "High Priority Retention"
+        },
+        {
+            "customer_unique_id": "fa562ef24d41361e476e748681810e1e",
+            "customer_city": "bom jesus do galho",
+            "customer_state": "MG",
+            "rfm_segment": "Champions",
+            "clv_value_tier": "Very High",
+            "historical_clv": 4175.26,
+            "customer_type": "Single Purchase Customer",
+            "retention_status": "Protect & Retain"
+        },
+        {
+            "customer_unique_id": "ca27f3dac28fb1063faddd424c9d95fa",
+            "customer_city": "nova lima",
+            "customer_state": "MG",
+            "rfm_segment": "Champions",
+            "clv_value_tier": "Very High",
+            "historical_clv": 4163.51,
+            "customer_type": "Single Purchase Customer",
+            "retention_status": "Protect & Retain"
+        },
+        {
+            "customer_unique_id": "5e713be0853d8986528d7869a0811d2b",
+            "customer_city": "belem",
+            "customer_state": "PA",
+            "rfm_segment": "At Risk High Value",
+            "clv_value_tier": "Very High",
+            "historical_clv": 4042.74,
+            "customer_type": "Single Purchase Customer",
+            "retention_status": "High Priority Retention"
+        },
+        {
+            "customer_unique_id": "58483a1c055dfb600f57c5b867174542",
+            "customer_city": "jundiai",
+            "customer_state": "SP",
+            "rfm_segment": "Potential Loyalists",
+            "clv_value_tier": "Very High",
+            "historical_clv": 4034.44,
+            "customer_type": "Single Purchase Customer",
+            "retention_status": "Convert to Loyal"
+        },
+        {
+            "customer_unique_id": "011875f0176909c5cf0b14a9138bb691",
+            "customer_city": "sao paulo",
+            "customer_state": "SP",
+            "rfm_segment": "At Risk High Value",
+            "clv_value_tier": "Very High",
+            "historical_clv": 4016.91,
+            "customer_type": "Single Purchase Customer",
+            "retention_status": "High Priority Retention"
+        },
+        {
+            "customer_unique_id": "f0767ae738c3d90e7b737d7b8b8bb4d1",
+            "customer_city": "rio de janeiro",
+            "customer_state": "RJ",
+            "rfm_segment": "Champions",
+            "clv_value_tier": "Very High",
+            "historical_clv": 3979.55,
+            "customer_type": "Single Purchase Customer",
+            "retention_status": "Protect & Retain"
+        },
+        {
+            "customer_unique_id": "bc5e25094a7d51b6aee35236572e64f4",
+            "customer_city": "para de minas",
+            "customer_state": "MG",
+            "rfm_segment": "Potential Loyalists",
+            "clv_value_tier": "Very High",
+            "historical_clv": 3826.8,
+            "customer_type": "Single Purchase Customer",
+            "retention_status": "Convert to Loyal"
+        }
+    ],
+    "data_quality": {
+        "missing_cells": 362228,
+        "customers_missing_clv": 0
+    },
+    "output_files": {
+        "analytics": "D:\\Data scientist\\E-Commerce Customer Intelligence & Churn Prediction\\reports\\customer_analytics.json",
+        "segment_summary": "D:\\Data scientist\\E-Commerce Customer Intelligence & Churn Prediction\\data\\processed\\customer_segment_summary.csv",
+        "clv_summary": "D:\\Data scientist\\E-Commerce Customer Intelligence & Churn Prediction\\data\\processed\\customer_clv_summary.csv",
+        "priority_summary": "D:\\Data scientist\\E-Commerce Customer Intelligence & Churn Prediction\\data\\processed\\customer_priority_summary.csv"
+    }
+}

@@ -1,0 +1,54 @@
+{
+    "analysis_date": "2018-08-30",
+    "customers": 93358,
+    "columns": 42,
+    "repeat_customers": 2801,
+    "single_purchase_customers": 90557,
+    "historical_revenue": 15422461.77,
+    "average_customer_value": 165.19700261359498,
+    "median_customer_value": 107.78,
+    "rfm_segments": {
+        "Potential Loyalists": 22504,
+        "Loyal Customers": 15956,
+        "At Risk High Value": 14488,
+        "Needs Attention": 12774,
+        "New / Promising": 7479,
+        "At Risk Valuable": 7350,
+        "Champions": 6493,
+        "Hibernating": 6314
+    },
+    "clv_value_tiers": {
+        "Very High": 18672,
+        "Medium": 18672,
+        "Low": 18672,
+        "High": 18671,
+        "Below Average": 18671
+    },
+    "customer_types": {
+        "Single Purchase Customer": 90557,
+        "Repeat Customer": 2801
+    },
+    "value_priorities": {
+        "Critical Value": 18672,
+        "Medium Value": 18672,
+        "Low Value": 18672,
+        "High Value": 18671,
+        "Developing Value": 18671
+    },
+    "retention_status": {
+        "Convert to Loyal": 22504,
+        "Strengthen Loyalty": 15956,
+        "High Priority Retention": 14488,
+        "Re-engage": 12774,
+        "Encourage Second Purchase": 7479,
+        "Priority Retention": 7350,
+        "Protect & Retain": 6493,
+        "Win-back / Low Engagement": 6314
+    },
+    "data_quality": {
+        "valid": 93358,
+        "review": 0
+    },
+    "output_file": "D:\\Data scientist\\E-Commerce Customer Intelligence & Churn Prediction\\data\\processed\\customer_intelligence_master.csv",
+    "report_file": "D:\\Data scientist\\E-Commerce Customer Intelligence & Churn Prediction\\reports\\customer_intelligence_summary.json"
+}

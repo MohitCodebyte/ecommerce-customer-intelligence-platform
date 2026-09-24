@@ -1,0 +1,260 @@
+{% extends "base.html" %}
+{% block title %}CIX — Customer Explorer{% endblock %}
+{% block breadcrumb %}Customer Explorer{% endblock %}
+
+{% block content %}
+<div class="px-gutter-lg py-space-lg max-w-[1720px] mx-auto space-y-space-xl relative">
+
+  <!-- Ambient Glow -->
+  <div class="absolute -top-32 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+
+  <!-- Breadcrumb & Status Ribbon -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+    <div class="flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+      <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container-high text-primary font-semibold">
+        <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+        OPERATIONAL DATA EXPLORER
+      </span>
+      <span class="text-outline-variant">•</span>
+      <span class="font-data-sm text-data-sm text-on-surface-variant">In-Memory Master Customer Index</span>
+    </div>
+    <div class="flex items-center gap-space-sm">
+      <div class="flex items-center gap-1.5 px-space-md py-1 rounded-full bg-surface-container-low text-tertiary font-data-sm text-data-sm shadow-sm">
+        <span class="material-symbols-outlined text-[14px]">bolt</span>
+        <span>In-Memory Latency: 12ms</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Title & Controls Header -->
+  <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md">
+    <div>
+      <h1 class="font-display-lg text-display-lg text-on-surface tracking-tight leading-tight">Customer Explorer</h1>
+      <p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mt-0.5">
+        Search, filter, investigate, and export multidimensional customer intelligence and model signals.
+      </p>
+    </div>
+    <div class="flex items-center gap-space-sm self-start lg:self-auto">
+      <button onclick="clearExplorerFilters()" class="flex items-center gap-1.5 px-space-md py-2 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors font-label-md text-label-md shadow-sm">
+        <span class="material-symbols-outlined text-[18px] text-error">clear_all</span>
+        <span>Clear Filters</span>
+      </button>
+      <button onclick="exportCSV('intelligence')" class="flex items-center gap-1.5 px-space-md py-2 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors font-label-md text-label-md shadow-sm">
+        <span class="material-symbols-outlined text-[18px] text-tertiary">file_download</span>
+        <span>Export CSV</span>
+      </button>
+      <button onclick="exportExcel('full')" class="flex items-center gap-1.5 px-space-lg py-2 rounded-lg bg-primary text-on-primary hover:bg-primary-fixed transition-all font-label-md text-label-md font-semibold shadow-md">
+        <span class="material-symbols-outlined text-[18px]">table_chart</span>
+        <span>Export Excel Report</span>
+      </button>
+    </div>
+  </div>
+
+  {% if data_loaded %}
+  <!-- Search Surface -->
+  <div class="p-space-md rounded-xl bg-surface-container-low shadow-md flex flex-col gap-space-sm relative border border-outline-variant/20">
+    <div class="relative flex items-center">
+      <span class="material-symbols-outlined absolute left-space-md text-primary text-[22px]">manage_search</span>
+      <input id="explorer-search" type="text" placeholder="Search by Customer ID (e.g. CUST-1029), segment, city, status..."
+             class="w-full h-12 pl-12 pr-32 rounded-lg bg-surface-container-lowest text-on-surface placeholder:text-outline font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary transition-all"/>
+      <div class="absolute right-space-sm flex items-center gap-space-xs">
+        <button onclick="clearExplorerFilters()" class="px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant font-data-sm text-data-sm hover:text-on-surface transition-colors">
+          Clear
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Behavioral Filters Row -->
+  <div class="rounded-xl bg-surface-container-low p-space-lg shadow-md border border-outline-variant/20 space-y-space-md">
+    <div class="flex items-center justify-between pb-2 border-b border-outline-variant/20">
+      <div class="flex items-center gap-space-sm">
+        <span class="material-symbols-outlined text-primary text-[20px]">filter_alt</span>
+        <span class="font-headline-md text-headline-md text-on-surface font-semibold">Precision Behavioral Filters</span>
+      </div>
+      <span class="text-xs text-on-surface-variant" id="explorer-match-count"></span>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+      <!-- Segment -->
+      <div class="flex flex-col gap-1.5">
+        <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Segment</label>
+        <select id="explorer-segment" onchange="runExplorerSearch()" class="w-full h-10 px-3 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary border border-outline-variant/30">
+          <option value="">All Segments</option>
+          {% for seg in filter_options.get('segments', []) %}
+          <option value="{{ seg }}">{{ seg }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Value Tier -->
+      <div class="flex flex-col gap-1.5">
+        <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Value Tier</label>
+        <select id="explorer-tier" onchange="runExplorerSearch()" class="w-full h-10 px-3 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary border border-outline-variant/30">
+          <option value="">All Value Tiers</option>
+          {% for tier in filter_options.get('tiers', []) %}
+          <option value="{{ tier }}">{{ tier }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Retention Status -->
+      <div class="flex flex-col gap-1.5">
+        <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Retention Status</label>
+        <select id="explorer-status" onchange="runExplorerSearch()" class="w-full h-10 px-3 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary border border-outline-variant/30">
+          <option value="">All Retention Statuses</option>
+          {% for st in filter_options.get('statuses', []) %}
+          <option value="{{ st }}">{{ st }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Priority -->
+      <div class="flex flex-col gap-1.5">
+        <label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Business Priority</label>
+        <select id="explorer-priority" onchange="runExplorerSearch()" class="w-full h-10 px-3 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary border border-outline-variant/30">
+          <option value="">All Priorities</option>
+          {% for prio in filter_options.get('priorities', []) %}
+          <option value="{{ prio }}">{{ prio }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Multidimensional Table -->
+  <div class="rounded-xl overflow-hidden border border-outline-variant/20 shadow-lg">
+    <div class="overflow-x-auto">
+      <table class="cix-table w-full">
+        <thead>
+          <tr class="bg-surface-container-lowest/80 text-left font-label-sm text-label-sm text-on-surface-variant uppercase">
+            <th class="px-4 py-3">Customer ID</th>
+            <th class="px-4 py-3">Segment</th>
+            <th class="px-4 py-3">Value Tier</th>
+            <th class="px-4 py-3">Orders</th>
+            <th class="px-4 py-3">CLV Revenue</th>
+            <th class="px-4 py-3">Recency</th>
+            <th class="px-4 py-3">Retention</th>
+            <th class="px-4 py-3">Priority</th>
+            <th class="px-4 py-3">Propensity</th>
+            <th class="px-4 py-3">Recommended Action</th>
+            <th class="px-4 py-3 text-center">Action</th>
+          </tr>
+        </thead>
+        <tbody id="explorer-tbody" class="divide-y divide-outline-variant/15 font-body-sm">
+          <tr>
+            <td colspan="11" class="px-4 py-8 text-center text-on-surface-variant">Loading Explorer customer graph...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="flex items-center justify-between">
+    <span id="explorer-pagination-info" class="text-xs text-on-surface-variant"></span>
+    <div id="explorer-pagination-controls" class="flex items-center gap-1"></div>
+  </div>
+
+  {% else %}
+  <div class="flex flex-col items-center justify-center py-24 text-center space-y-4">
+    <span class="material-symbols-outlined text-[48px] text-on-surface-variant">manage_search</span>
+    <h2 class="font-headline-lg text-headline-lg text-on-surface">No Customer Data Loaded</h2>
+    <p class="text-on-surface-variant">Upload a customer dataset to enable the operational customer explorer.</p>
+    <a href="/upload" class="px-6 py-3 rounded-xl bg-primary text-on-primary font-semibold hover:bg-primary-fixed-dim transition-all">Upload Dataset</a>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+{% if data_loaded %}
+<script>
+let expPage = 1;
+let expDebounce;
+
+function clearExplorerFilters() {
+  document.getElementById('explorer-search').value = '';
+  document.getElementById('explorer-segment').value = '';
+  document.getElementById('explorer-tier').value = '';
+  document.getElementById('explorer-status').value = '';
+  document.getElementById('explorer-priority').value = '';
+  expPage = 1;
+  loadExplorerData();
+}
+
+function runExplorerSearch() {
+  expPage = 1;
+  loadExplorerData();
+}
+
+async function loadExplorerData() {
+  const tbody = document.getElementById('explorer-tbody');
+  tbody.innerHTML = `<tr><td colspan="11" class="px-4 py-8 text-center text-on-surface-variant"><span class="material-symbols-outlined animate-spin-slow text-xl align-middle mr-2">sync</span>Loading Explorer records...</td></tr>`;
+
+  const q = document.getElementById('explorer-search').value.trim();
+  const segment = document.getElementById('explorer-segment').value;
+  const tier = document.getElementById('explorer-tier').value;
+  const status = document.getElementById('explorer-status').value;
+  const priority = document.getElementById('explorer-priority').value;
+
+  const url = `/api/customers?q=${encodeURIComponent(q)}&segment=${encodeURIComponent(segment)}&tier=${encodeURIComponent(tier)}&status=${encodeURIComponent(status)}&priority=${encodeURIComponent(priority)}&page=${expPage}&per_page=50`;
+
+  try {
+    const resp = await fetch(url);
+    const data = await resp.json();
+
+    document.getElementById('explorer-match-count').textContent = `${data.total.toLocaleString()} records match active filters`;
+
+    if (!data.customers.length) {
+      tbody.innerHTML = `<tr><td colspan="11" class="px-4 py-8 text-center text-on-surface-variant">No customers match the current filter criteria.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = data.customers.map(c => {
+      const probBar = c.probability != null
+        ? `<div class="flex items-center gap-1.5"><span class="font-mono text-xs font-bold ${c.probability >= 0.4965 ? 'text-primary' : 'text-on-surface-variant'}">${(c.probability*100).toFixed(0)}%</span></div>`
+        : '<span class="text-on-surface-variant text-xs">—</span>';
+
+      const segClass = CIXTable.badgeClass(c.segment);
+      const prioClass = CIXTable.badgeClass(c.priority);
+
+      return `<tr onclick="window.location='/customer/${encodeURIComponent(c.id)}'" class="cursor-pointer hover:bg-surface-container/40 transition-colors">
+        <td class="px-4 py-3 font-mono text-xs text-primary font-bold truncate max-w-[130px]">${c.id}</td>
+        <td class="px-4 py-3"><span class="inline-block px-2 py-0.5 rounded-full text-[11px] font-semibold ${segClass}">${c.segment || '—'}</span></td>
+        <td class="px-4 py-3 text-xs text-on-surface-variant">${c.tier || '—'}</td>
+        <td class="px-4 py-3 font-mono text-sm text-on-surface">${c.orders ?? '—'}</td>
+        <td class="px-4 py-3 font-mono text-sm text-tertiary">${c.revenue != null ? '$'+Number(c.revenue).toFixed(2) : '—'}</td>
+        <td class="px-4 py-3 font-mono text-xs text-on-surface-variant">${c.recency ?? '—'} d</td>
+        <td class="px-4 py-3 text-xs text-on-surface-variant">${c.retention || '—'}</td>
+        <td class="px-4 py-3"><span class="inline-block px-2 py-0.5 rounded-full text-[11px] font-semibold ${prioClass}">${c.priority || '—'}</span></td>
+        <td class="px-4 py-3">${probBar}</td>
+        <td class="px-4 py-3 text-xs text-on-surface-variant max-w-[180px] truncate" title="${c.action || ''}">${c.action || '—'}</td>
+        <td class="px-4 py-3 text-center">
+          <a href="/customer/${encodeURIComponent(c.id)}" onclick="event.stopPropagation()" class="px-2.5 py-1 rounded bg-primary/10 text-primary hover:bg-primary/20 text-xs font-semibold">View Customer</a>
+        </td>
+      </tr>`;
+    }).join('');
+
+    document.getElementById('explorer-pagination-info').textContent = `Page ${data.page} of ${data.pages}`;
+    CIXTable.renderPagination(document.getElementById('explorer-pagination-controls'), data.page, data.pages, p => {
+      expPage = p;
+      loadExplorerData();
+    });
+  } catch (e) {
+    tbody.innerHTML = `<tr><td colspan="11" class="px-4 py-6 text-center text-error">Failed to query customer explorer.</td></tr>`;
+  }
+}
+
+document.getElementById('explorer-search').addEventListener('input', () => {
+  clearTimeout(expDebounce);
+  expDebounce = setTimeout(() => { expPage = 1; loadExplorerData(); }, 350);
+});
+
+(function() {
+  loadExplorerData();
+})();
+</script>
+{% endif %}
+{% endblock %}

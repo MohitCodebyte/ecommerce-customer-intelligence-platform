@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% block title %}CIX — Data Processing{% endblock %}
+{% block breadcrumb %}Data Processing{% endblock %}
+
+{% block content %}
+<div class="px-gutter-lg py-space-lg max-w-[1280px] mx-auto space-y-space-lg">
+
+  <!-- Header -->
+  <div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-lg shadow-xl">
+    <div class="absolute -right-20 -top-20 w-96 h-96 bg-primary/8 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute left-1/3 -bottom-24 w-80 h-80 bg-secondary-container/15 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="relative z-10 flex flex-col xl:flex-row xl:items-center justify-between gap-space-md">
+      <div class="space-y-space-xs">
+        <div class="flex items-center gap-space-sm">
+          <span class="inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-tertiary/15 text-tertiary font-label-sm text-label-sm">
+            <span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>
+            PIPELINE COMPLETE
+          </span>
+          <span class="font-data-sm text-data-sm text-on-surface-variant">In-Memory Engine · 7 Micro-Stages</span>
+        </div>
+        <h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">Data Processing</h1>
+        <p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+          Automated in-memory validation, feature engineering, and retention propensity pipeline across customer transactions.
+        </p>
+      </div>
+      <div class="flex items-center flex-wrap gap-space-sm">
+        <a href="/upload" class="group flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-all shadow-sm text-sm">
+          <span class="material-symbols-outlined text-[18px] text-on-surface-variant group-hover:text-primary transition-colors">upload_file</span>
+          New Upload
+        </a>
+        <a href="/dashboard" class="group flex items-center gap-space-xs px-space-lg py-2 rounded-lg bg-primary-container text-on-primary-container font-semibold hover:bg-primary transition-all shadow-[0_0_20px_rgba(6,182,212,0.35)] text-sm">
+          <span class="material-symbols-outlined text-[19px]">dashboard</span>
+          View Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dataset Info Bar -->
+  {% if info %}
+  <div class="flex flex-wrap items-center gap-4 p-4 rounded-xl bg-surface-container/60 border border-outline-variant/30">
+    <div class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-primary text-[18px]">description</span>
+      <span class="text-sm text-on-surface font-medium font-mono">{{ info.get('filename', 'dataset') }}</span>
+    </div>
+    {% for label, val, color in [
+      ('Rows', info.get('rows', 0) | int, 'primary'),
+      ('Columns', info.get('columns', 0) | int, 'secondary'),
+      ('Missing Values', info.get('missing_cells', 0) | int, 'warning' if info.get('missing_cells', 0) > 0 else 'tertiary'),
+      ('Duplicates', info.get('duplicate_rows', 0) | int, 'warning' if info.get('duplicate_rows', 0) > 0 else 'tertiary'),
+    ] %}
+    <div class="flex items-center gap-1.5 text-sm">
+      <span class="text-on-surface-variant">{{ label }}:</span>
+      <span class="font-mono font-bold text-{{ color }}">{{ '{:,}'.format(val) }}</span>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- Pipeline Flowchart -->
+  <div class="rounded-xl bg-surface-container-lowest p-space-lg shadow-xl relative overflow-hidden">
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md pb-space-lg border-b border-outline-variant/20 mb-space-lg">
+      <div class="flex items-center gap-space-md">
+        <div class="relative w-12 h-12 flex items-center justify-center rounded-xl bg-surface-container shadow-md">
+          <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 100 100">
+            <polygon points="50,12 88,32 88,68 50,88 12,68 12,32" opacity="0.9"/>
+            <line x1="50" y1="50" x2="50" y2="12"/>
+            <line x1="50" y1="50" x2="88" y2="68"/>
+            <line x1="50" y1="50" x2="12" y2="68"/>
+            <line x1="50" y1="50" x2="12" y2="32" stroke="#c0c1ff" stroke-dasharray="4 4"/>
+            <line x1="50" y1="50" x2="88" y2="32" stroke="#4edea3" stroke-dasharray="4 4"/>
+            <circle cx="50" cy="50" r="8" fill="#4cd7f6" stroke="none"/>
+            <circle cx="50" cy="12" r="5" fill="#4cd7f6" stroke="none"/>
+            <circle cx="12" cy="32" r="5" fill="#1bbd85" stroke="none"/>
+            <circle cx="88" cy="32" r="5" fill="#c0c1ff" stroke="none"/>
+          </svg>
+        </div>
+        <div>
+          <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary font-semibold">Active In-Memory Graph</span>
+          <h2 class="font-headline-md text-headline-md text-on-surface">End-to-End Execution Sequence</h2>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container text-sm">
+        <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+        <span class="text-on-surface-variant font-data-sm text-data-sm">All {{ stages|length }} Stages Synced</span>
+      </div>
+    </div>
+
+    <!-- Stages -->
+    <div class="overflow-x-auto pb-4">
+      <div class="flex items-start gap-2 min-w-max">
+        {% for stage in stages %}
+        <div class="flex flex-col items-center text-center w-40 group">
+          <!-- Connector line -->
+          {% if not loop.last %}
+          <div class="relative w-full flex items-center" style="height:56px;">
+            <div class="w-14 h-14 rounded-xl {% if stage.status == 'complete' %}bg-tertiary/15 border-2 border-tertiary/40{% elif stage.status == 'running' %}bg-primary/15 border-2 border-primary/50 animate-pulse{% else %}bg-surface-container-high border border-outline-variant/30{% endif %} flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-105 mx-auto relative z-10">
+              <span class="material-symbols-outlined text-[22px] {% if stage.status == 'complete' %}text-tertiary{% elif stage.status == 'running' %}text-primary{% else %}text-on-surface-variant{% endif %}">
+                {% if stage.status == 'complete' %}check_circle{% elif stage.status == 'running' %}autorenew{% else %}radio_button_unchecked{% endif %}
+              </span>
+            </div>
+            <div class="absolute top-1/2 left-14 right-0 h-0.5 {% if stage.status == 'complete' %}bg-gradient-to-r from-tertiary/60 to-primary/60{% else %}bg-outline-variant/30{% endif %} -translate-y-1/2"></div>
+          </div>
+          {% else %}
+          <div class="w-14 h-14 rounded-xl {% if stage.status == 'complete' %}bg-tertiary/15 border-2 border-tertiary/40{% elif stage.status == 'running' %}bg-primary/15 border-2 border-primary/50 animate-pulse{% else %}bg-surface-container-high border border-outline-variant/30{% endif %} flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-105 mx-auto">
+            <span class="material-symbols-outlined text-[22px] {% if stage.status == 'complete' %}text-tertiary{% elif stage.status == 'running' %}text-primary{% else %}text-on-surface-variant{% endif %}">
+              {% if stage.status == 'complete' %}check_circle{% elif stage.status == 'running' %}autorenew{% else %}radio_button_unchecked{% endif %}
+            </span>
+          </div>
+          {% endif %}
+          <span class="mt-2 font-label-md text-label-md font-semibold text-on-surface text-[11px] leading-tight">{{ loop.index }}. {{ stage.name.split(' ')[0] }}<br>{{ stage.name.split(' ')[1:] | join(' ') }}</span>
+          <span class="font-data-sm text-data-sm {% if stage.status == 'complete' %}text-tertiary{% elif stage.status == 'running' %}text-primary{% else %}text-on-surface-variant{% endif %} text-[11px] font-bold mt-0.5">{{ stage.duration }}</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage Details Table -->
+  <div class="rounded-xl bg-surface-container-low/80 backdrop-blur-md border border-outline-variant/20 overflow-hidden">
+    <div class="p-space-md border-b border-outline-variant/20">
+      <h3 class="font-headline-md text-headline-md text-on-surface">Stage Execution Log</h3>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead>
+          <tr class="bg-surface-container-lowest/50">
+            <th class="text-left px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">#</th>
+            <th class="text-left px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Stage</th>
+            <th class="text-left px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Status</th>
+            <th class="text-left px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Duration</th>
+            <th class="text-left px-4 py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Details</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-outline-variant/20">
+          {% for stage in stages %}
+          <tr class="hover:bg-surface-container/50 transition-colors">
+            <td class="px-4 py-3 font-data-sm text-data-sm text-on-surface-variant">{{ loop.index }}</td>
+            <td class="px-4 py-3 font-label-md text-label-md text-on-surface">{{ stage.name }}</td>
+            <td class="px-4 py-3">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold
+                {% if stage.status == 'complete' %}bg-tertiary/15 text-tertiary border border-tertiary/30
+                {% elif stage.status == 'running' %}bg-primary/15 text-primary border border-primary/30
+                {% else %}bg-surface-container-high text-on-surface-variant border border-outline-variant/30{% endif %}">
+                <span class="w-1.5 h-1.5 rounded-full {% if stage.status == 'complete' %}bg-tertiary{% elif stage.status == 'running' %}bg-primary{% else %}bg-on-surface-variant{% endif %}"></span>
+                {{ stage.status | title }}
+              </span>
+            </td>
+            <td class="px-4 py-3 font-data-sm text-data-sm text-on-surface-variant">{{ stage.duration }}</td>
+            <td class="px-4 py-3 font-body-sm text-body-sm text-on-surface-variant">{{ stage.details }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="flex flex-wrap items-center gap-3 pt-2">
+    <a href="/dashboard" class="flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-on-primary font-semibold hover:bg-primary-fixed-dim transition-all shadow-[0_0_20px_rgba(76,215,246,0.3)] active:scale-95">
+      <span class="material-symbols-outlined text-[18px]">dashboard</span> View Dashboard
+    </a>
+    <a href="/customers" class="flex items-center gap-2 px-5 py-3 rounded-xl bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-all text-sm">
+      <span class="material-symbols-outlined text-[18px]">group</span> Customer Intelligence
+    </a>
+    <a href="/predictions" class="flex items-center gap-2 px-5 py-3 rounded-xl bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-all text-sm">
+      <span class="material-symbols-outlined text-[18px]">trending_up</span> View Predictions
+    </a>
+  </div>
+
+</div>
+{% endblock %}

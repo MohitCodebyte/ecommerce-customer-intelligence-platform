@@ -1,0 +1,51 @@
+{
+  "model": "SMOTE + StandardScaler + Logistic Regression",
+  "target": "repeat_purchase",
+  "train_rows": 115063,
+  "test_rows": 55907,
+  "train_positive": 1670,
+  "train_negative": 113393,
+  "test_positive": 655,
+  "test_negative": 55252,
+  "best_cv_recall": 0.5221556886227544,
+  "test_accuracy": 0.6754610335020659,
+  "test_precision": 0.01663810734619424,
+  "test_recall": 0.4595419847328244,
+  "test_f1": 0.03211351755041075,
+  "test_roc_auc": 0.5954344093378127,
+  "test_pr_auc": 0.02922702875410506,
+  "confusion_matrix": [
+    [
+      37462,
+      17790
+    ],
+    [
+      354,
+      301
+    ]
+  ],
+  "best_params": {
+    "smote__sampling_strategy": 0.3,
+    "smote__k_neighbors": 7,
+    "model__solver": "lbfgs",
+    "model__class_weight": "balanced",
+    "model__C": 1
+  },
+  "features": [
+    "total_orders",
+    "total_revenue",
+    "average_order_value",
+    "recency_days",
+    "customer_lifetime_days",
+    "repeat_customer",
+    "purchase_frequency",
+    "mean_purchase_gap_days",
+    "median_purchase_gap_days",
+    "max_purchase_gap_days",
+    "purchase_gap_count",
+    "observation_window_days"
+  ],
+  "smote_applied_only_inside_training_pipeline": true,
+  "test_set_untouched": true,
+  "split_method": "Time-based split"
+}

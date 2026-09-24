@@ -1,0 +1,314 @@
+{% extends "base.html" %}
+{% block title %}CIX — Repeat Purchase Predictions{% endblock %}
+{% block breadcrumb %}Repeat Purchase Predictions{% endblock %}
+
+{% block content %}
+<div class="px-gutter-lg py-space-lg max-w-[1720px] mx-auto space-y-space-xl relative">
+
+  <!-- Glow effects -->
+  <div class="fixed -top-40 left-1/3 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+
+  <!-- Header Section -->
+  <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md">
+    <div class="flex flex-col gap-space-xs">
+      <div class="flex items-center gap-space-sm font-data-sm text-data-sm text-primary tracking-wider uppercase">
+        <span class="flex h-2 w-2 rounded-full bg-primary animate-pulse"></span>
+        <span>PREDICTIVE RETENTION TELEMETRY</span>
+        <span class="text-outline-variant">•</span>
+        <span class="font-data-sm text-data-sm text-on-surface-variant font-medium">Model: {{ model_info.type }}</span>
+      </div>
+      <h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight font-bold">
+        Repeat Purchase Predictions
+      </h1>
+      <p class="font-body-md text-body-md text-on-surface-variant max-w-3xl">
+        Identify customers with model-generated repeat-purchase propensity signals and calibrate decision-support thresholds.
+      </p>
+    </div>
+    <div class="flex flex-wrap items-center gap-space-sm">
+      <button onclick="exportCSV('intelligence')" class="flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-all shadow-sm" type="button">
+        <span class="material-symbols-outlined text-[18px] text-on-surface-variant">file_download</span>
+        <span class="font-label-md text-label-md">Export Scored Records</span>
+      </button>
+      <a href="/customers?priority=High" class="flex items-center gap-space-xs px-space-lg py-2 rounded-lg bg-primary text-on-primary font-semibold hover:bg-primary-fixed transition-all shadow-[0_0_20px_rgba(76,215,246,0.35)]">
+        <span class="material-symbols-outlined text-[18px]">group_add</span>
+        <span class="font-label-md text-label-md tracking-wide">View High Priority Target List</span>
+      </a>
+    </div>
+  </div>
+
+  {% if data_loaded %}
+  <!-- Top KPI Cards (5 items) -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-space-md">
+    <!-- KPI 1 -->
+    <div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-md flex flex-col justify-between shadow-md border border-outline-variant/20">
+      <div class="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
+      <div class="flex items-center justify-between">
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Customers Scored</span>
+        <span class="material-symbols-outlined text-[18px] text-primary">database</span>
+      </div>
+      <div class="my-space-sm">
+        <div class="font-data-lg text-data-lg text-on-surface tracking-tight">{{ '{:,}'.format(kpis.customers_scored) }}</div>
+      </div>
+      <div class="flex items-center gap-space-xs">
+        <span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+        <span class="font-data-sm text-data-sm text-tertiary">100% in-memory scored</span>
+      </div>
+    </div>
+
+    <!-- KPI 2 -->
+    <div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-md flex flex-col justify-between shadow-md border border-outline-variant/20">
+      <div class="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+      <div class="flex items-center justify-between">
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-primary">High Propensity Signal</span>
+        <span class="material-symbols-outlined text-[18px] text-primary">electric_bolt</span>
+      </div>
+      <div class="my-space-sm">
+        <div class="font-data-lg text-data-lg text-primary tracking-tight">{{ '{:,}'.format(kpis.high_propensity) }}</div>
+      </div>
+      <div class="flex items-center justify-between font-data-sm text-data-sm">
+        <span class="text-on-surface-variant">Propensity ≥ {{ kpis.threshold }}</span>
+        <span class="text-primary font-medium">{{ kpis.opportunity_pct }}% of base</span>
+      </div>
+    </div>
+
+    <!-- KPI 3 -->
+    <div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-md flex flex-col justify-between shadow-md border border-outline-variant/20">
+      <div class="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-secondary to-transparent"></div>
+      <div class="flex items-center justify-between">
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Model Threshold</span>
+        <span class="material-symbols-outlined text-[18px] text-secondary">tune</span>
+      </div>
+      <div class="my-space-sm">
+        <div class="font-data-lg text-data-lg text-on-surface tracking-tight">{{ kpis.threshold }}</div>
+      </div>
+      <div class="flex items-center justify-between font-data-sm text-data-sm">
+        <span class="text-on-surface-variant">Selected Threshold</span>
+        <span class="text-secondary font-medium">Precision/Recall Optimal</span>
+      </div>
+    </div>
+
+    <!-- KPI 4 -->
+    <div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-md flex flex-col justify-between shadow-md border border-outline-variant/20">
+      <div class="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-tertiary to-transparent"></div>
+      <div class="flex items-center justify-between">
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Avg Model Probability</span>
+        <span class="material-symbols-outlined text-[18px] text-tertiary">analytics</span>
+      </div>
+      <div class="my-space-sm">
+        <div class="font-data-lg text-data-lg text-on-surface tracking-tight">{{ (kpis.avg_probability * 100) | round(1) }}%</div>
+      </div>
+      <div class="flex items-center gap-space-xs font-data-sm text-data-sm text-tertiary font-medium">
+        <span class="material-symbols-outlined text-[16px]">check_circle</span>
+        <span>XGBoost Ensemble Score</span>
+      </div>
+    </div>
+
+    <!-- KPI 5 -->
+    <div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-md flex flex-col justify-between shadow-md border border-outline-variant/20">
+      <div class="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-outline to-transparent"></div>
+      <div class="flex items-center justify-between">
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Features Utilized</span>
+        <span class="material-symbols-outlined text-[18px] text-outline">memory</span>
+      </div>
+      <div class="my-space-sm">
+        <div class="font-data-lg text-data-lg text-on-surface tracking-tight">{{ model_info.features }} Features</div>
+      </div>
+      <div class="flex items-center justify-between font-data-sm text-data-sm">
+        <span class="text-on-surface-variant">ROC-AUC: {{ model_info.roc_auc }}</span>
+        <span class="text-tertiary font-medium">PR-AUC: {{ model_info.pr_auc }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Visualizations & Model Telemetry Row -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md">
+    <!-- Chart: Propensity Distribution -->
+    <div class="lg:col-span-8 rounded-xl bg-surface-container-low p-space-lg shadow-md border border-outline-variant/20 flex flex-col justify-between">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <span class="font-label-sm text-label-sm uppercase tracking-wider text-primary">Probability Histogram</span>
+          <h3 class="font-headline-md text-headline-md text-on-surface font-semibold">Repeat Purchase Propensity Distribution</h3>
+        </div>
+        <div class="px-2.5 py-1 rounded bg-surface-container-high text-primary font-data-sm text-data-sm font-semibold">
+          Threshold Cutoff: {{ kpis.threshold }}
+        </div>
+      </div>
+      <div class="chart-container" style="height:240px;">
+        <canvas id="propensityHistChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Model Telemetry Box -->
+    <div class="lg:col-span-4 rounded-xl bg-surface-container-low p-space-lg shadow-md border border-outline-variant/20 flex flex-col justify-between">
+      <div>
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">ML Production Telemetry</span>
+        <h3 class="font-headline-md text-headline-md text-on-surface font-semibold mb-3">Model Benchmark Metrics</h3>
+        <div class="space-y-3 font-body-sm text-body-sm">
+          <div class="flex items-center justify-between p-2 rounded bg-surface-container-lowest">
+            <span class="text-on-surface-variant">Architecture</span>
+            <span class="font-mono text-primary font-semibold text-xs">{{ model_info.type }}</span>
+          </div>
+          <div class="flex items-center justify-between p-2 rounded bg-surface-container-lowest">
+            <span class="text-on-surface-variant">ROC-AUC Score</span>
+            <span class="font-mono text-tertiary font-bold text-xs">{{ model_info.roc_auc }}</span>
+          </div>
+          <div class="flex items-center justify-between p-2 rounded bg-surface-container-lowest">
+            <span class="text-on-surface-variant">PR-AUC Score</span>
+            <span class="font-mono text-tertiary font-bold text-xs">{{ model_info.pr_auc }}</span>
+          </div>
+          <div class="flex items-center justify-between p-2 rounded bg-surface-container-lowest">
+            <span class="text-on-surface-variant">Precision</span>
+            <span class="font-mono text-on-surface font-semibold text-xs">{{ model_info.precision }}</span>
+          </div>
+          <div class="flex items-center justify-between p-2 rounded bg-surface-container-lowest">
+            <span class="text-on-surface-variant">Recall</span>
+            <span class="font-mono text-on-surface font-semibold text-xs">{{ model_info.recall }}</span>
+          </div>
+          <div class="flex items-center justify-between p-2 rounded bg-surface-container-lowest">
+            <span class="text-on-surface-variant">F1 Score</span>
+            <span class="font-mono text-secondary font-semibold text-xs">{{ model_info.f1 }}</span>
+          </div>
+        </div>
+      </div>
+      <p class="text-[11px] text-on-surface-variant italic mt-3">
+        Propensity model generates decision-support probabilities. Not a guaranteed purchase confirmation.
+      </p>
+    </div>
+  </div>
+
+  <!-- Table of Scored Customers -->
+  <div class="space-y-space-md">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+      <h2 class="font-headline-lg text-headline-lg text-on-surface font-semibold">Scored Customer List</h2>
+      <div class="flex items-center gap-2">
+        <button id="tab-all" onclick="setFilter('all')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-primary text-on-primary">All Scored</button>
+        <button id="tab-high" onclick="setFilter('high')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-surface-container-high text-on-surface-variant hover:text-on-surface">High Propensity</button>
+        <button id="tab-low" onclick="setFilter('low')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-surface-container-high text-on-surface-variant hover:text-on-surface">Lower Propensity</button>
+      </div>
+    </div>
+
+    <div class="rounded-xl overflow-hidden border border-outline-variant/20 shadow-lg">
+      <div class="overflow-x-auto">
+        <table class="cix-table w-full">
+          <thead>
+            <tr class="bg-surface-container-lowest/80 text-left font-label-sm text-label-sm text-on-surface-variant uppercase">
+              <th class="px-4 py-3">Customer ID</th>
+              <th class="px-4 py-3">Repeat Propensity</th>
+              <th class="px-4 py-3">Prediction Signal</th>
+              <th class="px-4 py-3">Total Orders</th>
+              <th class="px-4 py-3">Total Revenue</th>
+              <th class="px-4 py-3">Recency</th>
+              <th class="px-4 py-3 text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody id="pred-tbody" class="divide-y divide-outline-variant/15 font-body-sm">
+            <tr>
+              <td colspan="7" class="px-4 py-8 text-center text-on-surface-variant">Loading prediction table...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between">
+      <span id="pred-pagination-info" class="text-xs text-on-surface-variant"></span>
+      <div id="pred-pagination-controls" class="flex items-center gap-1"></div>
+    </div>
+  </div>
+
+  {% else %}
+  <div class="flex flex-col items-center justify-center py-24 text-center space-y-4">
+    <span class="material-symbols-outlined text-[48px] text-on-surface-variant">trending_up</span>
+    <h2 class="font-headline-lg text-headline-lg text-on-surface">No Dataset Loaded for Predictions</h2>
+    <p class="text-on-surface-variant">Upload a customer dataset to generate repeat purchase propensity signals.</p>
+    <a href="/upload" class="px-6 py-3 rounded-xl bg-primary text-on-primary font-semibold hover:bg-primary-fixed-dim transition-all">Upload Dataset</a>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+{% if data_loaded %}
+<script>
+let currentFilter = 'all';
+let currentPage = 1;
+
+async function loadPredTable() {
+  const tbody = document.getElementById('pred-tbody');
+  tbody.innerHTML = `<tr><td colspan="7" class="px-4 py-8 text-center text-on-surface-variant"><span class="material-symbols-outlined animate-spin-slow text-xl align-middle mr-2">sync</span>Loading...</td></tr>`;
+
+  try {
+    const resp = await fetch(`/api/predictions/customers?filter=${currentFilter}&page=${currentPage}&per_page=30`);
+    const data = await resp.json();
+
+    if (!data.customers.length) {
+      tbody.innerHTML = `<tr><td colspan="7" class="px-4 py-8 text-center text-on-surface-variant">No prediction records found for this filter.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = data.customers.map(c => `
+      <tr onclick="window.location='/customer/${encodeURIComponent(c.id)}'" class="cursor-pointer hover:bg-surface-container/40 transition-colors">
+        <td class="px-4 py-3 font-mono text-xs text-primary truncate max-w-[140px]">${c.id}</td>
+        <td class="px-4 py-3 font-mono text-sm">
+          <div class="flex items-center gap-2">
+            <span class="font-bold ${c.prediction === 1 ? 'text-primary' : 'text-on-surface-variant'}">${c.probability_pct}%</span>
+            <div class="w-16 h-2 rounded-full bg-surface-container-highest overflow-hidden">
+              <div class="h-full rounded-full ${c.prediction === 1 ? 'bg-primary' : 'bg-on-surface-variant'}" style="width:${c.probability_pct}%"></div>
+            </div>
+          </div>
+        </td>
+        <td class="px-4 py-3">
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold ${c.prediction === 1 ? 'bg-primary/15 text-primary border border-primary/30' : 'bg-surface-container-high text-on-surface-variant'}">
+            <span class="w-1.5 h-1.5 rounded-full ${c.prediction === 1 ? 'bg-primary' : 'bg-on-surface-variant'}"></span>
+            ${c.signal}
+          </span>
+        </td>
+        <td class="px-4 py-3 font-mono text-sm text-on-surface">${c.orders}</td>
+        <td class="px-4 py-3 font-mono text-sm text-tertiary">$${c.revenue.toLocaleString()}</td>
+        <td class="px-4 py-3 font-mono text-xs text-on-surface-variant">${c.recency} d</td>
+        <td class="px-4 py-3 text-center">
+          <a href="/customer/${encodeURIComponent(c.id)}" onclick="event.stopPropagation()" class="text-primary hover:underline text-xs">View Customer 360</a>
+        </td>
+      </tr>
+    `).join('');
+
+    document.getElementById('pred-pagination-info').textContent = `Page ${data.page} of ${data.pages} (${data.total.toLocaleString()} total)`;
+    CIXTable.renderPagination(document.getElementById('pred-pagination-controls'), data.page, data.pages, p => {
+      currentPage = p;
+      loadPredTable();
+    });
+  } catch (e) {
+    tbody.innerHTML = `<tr><td colspan="7" class="px-4 py-6 text-center text-error">Failed to load prediction table.</td></tr>`;
+  }
+}
+
+function setFilter(f) {
+  currentFilter = f;
+  currentPage = 1;
+  ['all','high','low'].forEach(id => {
+    const btn = document.getElementById(`tab-${id}`);
+    if (id === f) {
+      btn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-primary text-on-primary';
+    } else {
+      btn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-surface-container-high text-on-surface-variant hover:text-on-surface';
+    }
+  });
+  loadPredTable();
+}
+
+(function() {
+  const chartData = {{ chart_data | default('{}') | safe }};
+  if (chartData && chartData.propensity_hist) {
+    createBarChart('propensityHistChart', chartData.propensity_hist.labels, [{
+      label: 'Customer Count',
+      data: chartData.propensity_hist.data,
+      backgroundColor: CIX_COLORS.primary + '88',
+      borderColor: CIX_COLORS.primary,
+    }]);
+  }
+  loadPredTable();
+})();
+</script>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,5 @@
+{
+  "selected_threshold": 0.49649133284886676,
+  "target_recall": 0.4,
+  "threshold_source": "validation_set"
+}

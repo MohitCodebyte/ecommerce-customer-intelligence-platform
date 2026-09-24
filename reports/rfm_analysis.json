@@ -1,0 +1,74 @@
+{
+    "dataset": "Olist Brazilian E-Commerce Public Dataset",
+    "order_filter": "delivered",
+    "customer_identity": "customer_unique_id",
+    "analysis_date": "2018-08-30",
+    "total_customers": 93358,
+    "repeat_customers": 2801,
+    "segments": [
+        {
+            "customer_segment": "At Risk High Value",
+            "customers": 5962,
+            "avg_recency": 393.78,
+            "avg_frequency": 1.14,
+            "avg_monetary": 312.31,
+            "total_monetary": 1861967.07
+        },
+        {
+            "customer_segment": "At Risk Valuable",
+            "customers": 8526,
+            "avg_recency": 393.21,
+            "avg_frequency": 1.0,
+            "avg_monetary": 308.87,
+            "total_monetary": 2633393.47
+        },
+        {
+            "customer_segment": "Champions",
+            "customers": 6493,
+            "avg_recency": 91.11,
+            "avg_frequency": 1.18,
+            "avg_monetary": 312.13,
+            "total_monetary": 2026656.84
+        },
+        {
+            "customer_segment": "Hibernating",
+            "customers": 9256,
+            "avg_recency": 396.34,
+            "avg_frequency": 1.0,
+            "avg_monetary": 72.69,
+            "total_monetary": 672785.74
+        },
+        {
+            "customer_segment": "Loyal Customers",
+            "customers": 15956,
+            "avg_recency": 90.07,
+            "avg_frequency": 1.01,
+            "avg_monetary": 117.02,
+            "total_monetary": 1867116.53
+        },
+        {
+            "customer_segment": "Needs Attention",
+            "customers": 20845,
+            "avg_recency": 333.67,
+            "avg_frequency": 1.01,
+            "avg_monetary": 101.76,
+            "total_monetary": 2121264.75
+        },
+        {
+            "customer_segment": "New / Promising",
+            "customers": 14984,
+            "avg_recency": 90.88,
+            "avg_frequency": 1.0,
+            "avg_monetary": 163.43,
+            "total_monetary": 2448804.73
+        },
+        {
+            "customer_segment": "Potential Loyalists",
+            "customers": 11336,
+            "avg_recency": 220.45,
+            "avg_frequency": 1.06,
+            "avg_monetary": 157.95,
+            "total_monetary": 1790472.64
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+  "precision": {
+    "estimate": 0.07969639468690702,
+    "ci_lower": 0.056177150057754914,
+    "ci_upper": 0.10251913853532559,
+    "confidence": 0.95,
+    "iterations": 2000
+  },
+  "recall": {
+    "estimate": 0.06412213740458016,
+    "ci_lower": 0.04461538461538461,
+    "ci_upper": 0.08285995009357452,
+    "confidence": 0.95,
+    "iterations": 2000
+  },
+  "f1": {
+    "estimate": 0.07106598984771574,
+    "ci_lower": 0.05029127371311731,
+    "ci_upper": 0.09137414799361468,
+    "confidence": 0.95,
+    "iterations": 2000
+  },
+  "f2": {
+    "estimate": 0.0667302192564347,
+    "ci_lower": 0.04686478621439204,
+    "ci_upper": 0.08626087242087879,
+    "confidence": 0.95,
+    "iterations": 2000
+  },
+  "pr_auc": {
+    "estimate": 0.029813116497513864,
+    "ci_lower": 0.02227726193355914,
+    "ci_upper": 0.042190604040949875,
+    "confidence": 0.95,
+    "iterations": 2000
+  },
+  "roc_auc": {
+    "estimate": 0.6027834438517096,
+    "ci_lower": 0.5792978021291844,
+    "ci_upper": 0.6247116751655465,
+    "confidence": 0.95,
+    "iterations": 2000
+  }
+}

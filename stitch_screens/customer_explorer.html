@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-error":"#690005","tertiary-container":"#1bbd85","tertiary-fixed-dim":"#4edea3","surface-tint":"#4cd7f6","error":"#ffb4ab","on-primary":"#003640","on-secondary-fixed-variant":"#2f2ebe","surface-bright":"#363941","on-primary-fixed-variant":"#004e5c","primary":"#4cd7f6","on-tertiary":"#003824","background":"#10131a","secondary-fixed-dim":"#c0c1ff","outline-variant":"#3d494c","error-container":"#93000a","inverse-surface":"#e1e2ec","surface-container":"#1d1f27","primary-container":"#06b6d4","on-error-container":"#ffdad6","inverse-primary":"#00687a","surface":"#10131a","on-secondary-fixed":"#07006c","on-secondary-container":"#b0b2ff","secondary-fixed":"#e1e0ff","secondary-container":"#3131c0","on-background":"#e1e2ec","on-primary-container":"#00424f","on-tertiary-fixed":"#002113","surface-container-highest":"#32353d","on-secondary":"#1000a9","tertiary-fixed":"#6ffbbe","inverse-on-surface":"#2d3038","surface-dim":"#10131a","surface-variant":"#32353d","on-tertiary-container":"#00452e","outline":"#869397","surface-container-low":"#191b23","secondary":"#c0c1ff","tertiary":"#4edea3","on-surface":"#e1e2ec","surface-container-high":"#272a32","surface-container-lowest":"#0b0e15","on-surface-variant":"#bcc9cd","on-tertiary-fixed-variant":"#005236","primary-fixed":"#acedff","on-primary-fixed":"#001f26","primary-fixed-dim":"#4cd7f6"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"space-xs":"0.25rem","margin":"1.5rem","space-xl":"2rem","margin-mobile":"1rem","gutter-lg":"1.5rem","space-md":"0.75rem","gutter":"1rem","space-lg":"1.25rem","space-sm":"0.5rem"},fontFamily:{"data-lg":["JetBrains Mono"],"headline-xl":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"body-sm":["Inter"],"data-md":["JetBrains Mono"],"label-sm":["Inter"],"label-md":["Inter"],"headline-md":["Plus Jakarta Sans"],"body-md":["Inter"],"data-sm":["JetBrains Mono"],"body-lg":["Inter"],"display-lg":["Plus Jakarta Sans"]},fontSize:{"data-lg":["1.5rem",{lineHeight:"1.875rem",letterSpacing:"-0.02em",fontWeight:"600"}],"headline-xl":["1.75rem",{lineHeight:"2.25rem",letterSpacing:"-0.02em",fontWeight:"600"}],"headline-lg":["1.375rem",{lineHeight:"1.875rem",letterSpacing:"-0.015em",fontWeight:"600"}],"body-sm":["0.75rem",{lineHeight:"1.125rem",letterSpacing:"0.01em",fontWeight:"400"}],"data-md":["0.875rem",{lineHeight:"1.25rem",letterSpacing:"-0.01em",fontWeight:"500"}],"label-sm":["0.6875rem",{lineHeight:"1rem",letterSpacing:"0.04em",fontWeight:"600"}],"label-md":["0.8125rem",{lineHeight:"1.125rem",letterSpacing:"0.01em",fontWeight:"500"}],"headline-md":["1.125rem",{lineHeight:"1.5rem",letterSpacing:"-0.01em",fontWeight:"600"}],"body-md":["0.875rem",{lineHeight:"1.375rem",letterSpacing:"0em",fontWeight:"400"}],"data-sm":["0.75rem",{lineHeight:"1rem",letterSpacing:"0em",fontWeight:"500"}],"body-lg":["1rem",{lineHeight:"1.5rem",letterSpacing:"-0.005em",fontWeight:"400"}],"display-lg":["2.25rem",{lineHeight:"2.75rem",letterSpacing:"-0.03em",fontWeight:"700"}]}}}};</script></head><body class="bg-background font-body-md text-body-md text-on-surface antialiased min-h-screen selection:bg-primary-container selection:text-on-primary-container"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest/90 backdrop-blur-2xl z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col flex-1 min-h-0"><div class="h-20 px-space-lg flex items-center justify-between"><div class="flex items-center gap-space-md"><img alt="CIX Monogram Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VYWPKkXPK_foImwcPXgiOq99_ZJP5pdL08Yph9M0XC0xwgBGxB84VL3FvA_BmR0MRFCyKRcohRt2TavlDiiC9vC46M6h8OxpjyarHfIG-WPiD6rWSQTNXnVsc6287_fJbi9HQtL9py5uX4Mxbe7iC93ChFIGMu1CAZ1W07TdXu3FTW9JcO8ppttLQA2egAT-KEyNDUElw6jkvBmn7PyYpDHFzpTXRuS8SYfGYY7GQAfqHX_VLNU8CvQmg"/><div class="flex flex-col"><span class="font-headline-md text-headline-md text-on-surface tracking-tight leading-none">CIX</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mt-0.5">E-Commerce Intelligence</span></div></div><button aria-label="Collapse sidebar" class="p-space-xs rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">keyboard_double_arrow_left</span></button></div><div class="flex-1 overflow-y-auto px-space-md py-space-sm space-y-space-xs"><div class="px-space-md py-space-xs font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Intelligence Suite</div><nav class="space-y-space-xs" data-active-classes="bg-surface-container-high text-primary font-bold shadow-[inset_2px_0_0_0_#4cd7f6]"><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="overview" href="#"><span class="font-body-md text-body-md">Overview</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="data-upload" href="#"><span class="font-body-md text-body-md">Data Upload</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="data-processing" href="#"><span class="font-body-md text-body-md">Data Processing</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="customers" href="#"><span class="font-body-md text-body-md">Customers</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="customer-360" href="#"><span class="font-body-md text-body-md">Customer 360</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="segments" href="#"><span class="font-body-md text-body-md">Segments</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="predictions" href="#"><span class="font-body-md text-body-md">Predictions</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="recommendations" href="#"><span class="font-body-md text-body-md">Recommendations</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="analytics" href="#"><span class="font-body-md text-body-md">Analytics</span></a><a aria-current="page" class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-all bg-surface-container-high text-primary font-bold shadow-[inset_2px_0_0_0_#4cd7f6]" data-path="reports" href="#"><span class="font-body-md text-body-md">Reports</span></a></nav></div></div><div class="px-space-md py-space-md bg-surface-container-lowest/60"><div class="px-space-md py-space-xs font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">System Control</div><nav class="space-y-space-xs" data-active-classes="bg-surface-container-high text-primary font-bold shadow-[inset_2px_0_0_0_#4cd7f6]"><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="settings" href="#"><span class="font-body-md text-body-md">Settings</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="admin" href="#"><span class="font-body-md text-body-md">Admin</span></a></nav></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-20 bg-surface-container-lowest/80 backdrop-blur-2xl z-40 px-gutter-lg flex items-center justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-label-md text-label-md text-on-surface-variant"><span class="hover:text-on-surface cursor-pointer transition-colors">CIX Platform</span><span class="material-symbols-outlined text-[16px]">chevron_right</span><span class="text-primary font-medium">Intelligence Core</span></div></div><div class="flex-1 max-w-lg mx-space-xl"><div class="relative flex items-center"><span class="material-symbols-outlined absolute left-space-md text-on-surface-variant text-[20px]">search</span><input class="w-full h-10 pl-10 pr-24 rounded-lg bg-surface-container-low text-on-surface placeholder:text-outline font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Search customer graph, cohort, propensity model..." type="text"/><div class="absolute right-space-sm flex items-center gap-space-xs"><button aria-label="Filter search" class="p-1 text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[18px]">tune</span></button><kbd class="hidden sm:inline-flex items-center px-1.5 py-0.5 font-data-sm text-data-sm rounded bg-surface-container-high text-on-surface-variant border border-outline-variant/40">Cmd + K</kbd></div></div></div><div class="flex items-center gap-space-md"><div class="hidden xl:flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-surface-container-low border border-outline-variant/30"><span class="w-2 h-2 rounded-full bg-tertiary shadow-[0_0_8px_#4edea3]"></span><span class="font-data-sm text-data-sm text-on-surface-variant">Engine: <span class="text-tertiary">Online</span> · 482MB</span></div><button class="flex items-center gap-space-xs px-space-md py-1.5 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors border border-outline-variant/30" type="button"><span class="material-symbols-outlined text-[18px] text-primary">storefront</span><span class="font-label-md text-label-md">Store: Global E-Shop Q3</span><span class="material-symbols-outlined text-[16px]">arrow_drop_down</span></button><div class="relative"><button aria-label="Notifications" class="relative p-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_#4cd7f6]"></span></button></div><div class="h-8 w-px bg-outline-variant/40 mx-space-xs"></div><div class="flex items-center gap-space-md"><div class="relative"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-primary/40" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKRRmeapuooQljGkGihZSmwRnDZHg3fanoOda28WLQ0olML-lStMaKyfovYH2IQRu0JhSZGZXMiJHQt_YLGwH00fnCgFiqylj6u8EVeNSiKgXC_oGgWHdZ3bN93_OWGc2VypV1SR2rV2BGev-R6i_NW_wj8VWbwwdepBhHQsalQNo8_Lv_dE3d2jMYQt6WOUwBggpoOug9_eqCTitdToZDPP2fvbQE1T61gkBk_Z56o8_irQonlmSw"/><span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-tertiary ring-2 ring-surface-container-lowest"></span></div><div class="hidden md:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Marcus Vance</span><span class="font-label-sm text-label-sm text-on-surface-variant leading-tight">VP Customer Retention</span></div></div></div></header><main class="relative pt-20 min-h-screen bg-background"><div class="flex flex-col w-full">
+<div class="px-gutter-lg py-space-lg flex flex-col gap-space-lg">
+<!-- Breadcrumb & Top Indicator -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container-high text-primary font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+          OPERATIONAL DATA EXPLORER
+        </span>
+<span class="text-outline-variant">•</span>
+<span class="font-data-sm text-data-sm text-on-surface-variant">In-Memory Master Customer Index</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="flex items-center gap-1.5 px-space-md py-1 rounded-full bg-surface-container-low text-tertiary font-data-sm text-data-sm shadow-sm">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+<span>Latency: 11ms</span>
+</div>
+<div class="flex items-center gap-1.5 px-space-md py-1 rounded-full bg-surface-container-low text-on-surface-variant font-data-sm text-data-sm shadow-sm">
+<span>Synced: 42s ago</span>
+</div>
+</div>
+</div>
+<!-- Title & Controls Header -->
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md">
+<div>
+<h1 class="font-display-lg text-display-lg text-on-surface tracking-tight leading-tight">Customer Explorer</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mt-0.5">
+          Search, filter, investigate, and export multidimensional customer intelligence and model signals.
+        </p>
+</div>
+<div class="flex items-center gap-space-sm self-start lg:self-auto">
+<button class="flex items-center gap-1.5 px-space-md py-2 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors font-label-md text-label-md shadow-sm">
+<span class="material-symbols-outlined text-[18px] text-primary">tune</span>
+<span>Manage Columns</span>
+</button>
+<button class="flex items-center gap-1.5 px-space-md py-2 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors font-label-md text-label-md shadow-sm">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+<span>Refresh Graph</span>
+</button>
+<button class="flex items-center gap-1.5 px-space-lg py-2 rounded-lg bg-primary-container text-on-primary-container hover:bg-primary transition-all font-label-md text-label-md font-semibold shadow-md">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+<span>Export View</span>
+</button>
+</div>
+</div>
+<!-- Global Full-Width Search Surface -->
+<div class="p-space-md rounded-xl bg-surface-container-low shadow-md flex flex-col gap-space-sm relative">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-space-md text-primary text-[22px]">manage_search</span>
+<input class="w-full h-12 pl-12 pr-32 rounded-lg bg-surface-container-lowest text-on-surface placeholder:text-outline font-body-md text-body-md focus:outline-none focus:bg-surface-container transition-all" id="global-customer-search" placeholder="Search by Customer ID (e.g. CUST-72109), Segment name, Email hash, or Status..." type="text" value="CUST-72109"/>
+<div class="absolute right-space-sm flex items-center gap-space-xs">
+<button class="px-2 py-1 rounded bg-surface-container-high text-on-surface-variant font-data-sm text-data-sm hover:text-on-surface transition-colors">
+            Clear
+          </button>
+<kbd class="hidden sm:inline-flex items-center px-2 py-1 font-data-sm text-data-sm rounded bg-surface-container-highest text-primary font-semibold">
+            ↵ Enter
+          </kbd>
+</div>
+</div>
+<!-- Quick Search Token Hints -->
+<div class="flex flex-wrap items-center gap-space-xs pt-1 text-on-surface-variant font-label-sm text-label-sm">
+<span class="text-outline uppercase tracking-wider">Quick Suggestions:</span>
+<button class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors font-data-sm text-data-sm">
+          segment:champions
+        </button>
+<button class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors font-data-sm text-data-sm">
+          recency:&gt;60d
+        </button>
+<button class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors font-data-sm text-data-sm">
+          aov:&gt;$250
+        </button>
+<button class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors font-data-sm text-data-sm">
+          propensity:critical
+        </button>
+</div>
+</div>
+<!-- Advanced Filter Accordion Module -->
+<div class="rounded-xl bg-surface-container-low shadow-md overflow-hidden transition-all duration-300">
+<div class="px-space-lg py-space-md bg-surface-container-high flex items-center justify-between cursor-pointer select-none" id="accordion-trigger">
+<div class="flex items-center gap-space-md">
+<span class="material-symbols-outlined text-primary text-[20px]">filter_alt</span>
+<span class="font-headline-md text-headline-md text-on-surface">Precision Behavioral Filters</span>
+<span class="px-2 py-0.5 rounded-full bg-primary/10 text-primary font-data-sm text-data-sm font-semibold">3 Active</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Telemetry Controls</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px] transition-transform duration-300" id="accordion-chevron">expand_more</span>
+</div>
+</div>
+<div class="p-space-lg flex flex-col gap-space-lg" id="accordion-panel">
+<!-- 5 Dropdowns Row -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-space-md">
+<!-- Filter 1 -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Segment</label>
+<div class="relative">
+<select class="w-full h-10 px-3 pr-8 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md appearance-none focus:outline-none focus:bg-surface-container transition-all">
+<option selected="">All 8 Segments</option>
+<option>Champions</option>
+<option>Loyal Customers</option>
+<option>Potential Loyalists</option>
+<option>New / Promising</option>
+<option>At Risk High Value</option>
+<option>Needs Attention</option>
+<option>Hibernating</option>
+<option>Lost</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 text-on-surface-variant pointer-events-none text-[18px]">unfold_more</span>
+</div>
+</div>
+<!-- Filter 2 -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Value Tier</label>
+<div class="relative">
+<select class="w-full h-10 px-3 pr-8 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md appearance-none focus:outline-none focus:bg-surface-container transition-all">
+<option selected="">Tier 1 - High Value ($2.4k+)</option>
+<option>Tier 2 - Mid Value ($750 - $2.4k)</option>
+<option>Tier 3 - Growing Value (&lt;$750)</option>
+<option>All Tiers</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 text-on-surface-variant pointer-events-none text-[18px]">unfold_more</span>
+</div>
+</div>
+<!-- Filter 3 -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Purchase Status</label>
+<div class="relative">
+<select class="w-full h-10 px-3 pr-8 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md appearance-none focus:outline-none focus:bg-surface-container transition-all">
+<option selected="">At Risk (64d Inactive)</option>
+<option>Active &lt; 14d</option>
+<option>Dormant 90d+</option>
+<option>All States</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 text-on-surface-variant pointer-events-none text-[18px]">unfold_more</span>
+</div>
+</div>
+<!-- Filter 4 -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Retention Status</label>
+<div class="relative">
+<select class="w-full h-10 px-3 pr-8 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md appearance-none focus:outline-none focus:bg-surface-container transition-all">
+<option selected="">All Statuses</option>
+<option>Campaign Active</option>
+<option>Webhook Dispatched</option>
+<option>Uncontacted</option>
+<option>Opted Out</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 text-on-surface-variant pointer-events-none text-[18px]">unfold_more</span>
+</div>
+</div>
+<!-- Filter 5 -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Priority</label>
+<div class="relative">
+<select class="w-full h-10 px-3 pr-8 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md appearance-none focus:outline-none focus:bg-surface-container transition-all">
+<option selected="">Critical &amp; High</option>
+<option>Critical Only</option>
+<option>High &amp; Medium</option>
+<option>All Priorities</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 text-on-surface-variant pointer-events-none text-[18px]">unfold_more</span>
+</div>
+</div>
+</div>
+<!-- Metric Ranges & Sliders Row -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-lg pt-space-xs">
+<!-- Propensity Slider -->
+<div class="flex flex-col gap-2 p-space-md rounded-lg bg-surface-container-lowest">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Propensity Range</span>
+<span class="font-data-sm text-data-sm text-primary font-semibold">50% - 100%</span>
+</div>
+<div class="relative w-full py-1">
+<div class="h-1.5 rounded-full bg-surface-container-highest relative">
+<div class="absolute left-1/2 right-0 h-full bg-primary rounded-full"></div>
+<div class="absolute left-1/2 -top-1 w-3.5 h-3.5 rounded-full bg-primary shadow-[0_0_8px_#4cd7f6] cursor-pointer"></div>
+<div class="absolute right-0 -top-1 w-3.5 h-3.5 rounded-full bg-primary shadow-[0_0_8px_#4cd7f6] cursor-pointer"></div>
+</div>
+</div>
+<div class="flex justify-between font-data-sm text-data-sm text-outline">
+<span>0%</span>
+<span>Min: 50%</span>
+<span>100%</span>
+</div>
+</div>
+<!-- Revenue Range -->
+<div class="flex flex-col gap-2 p-space-md rounded-lg bg-surface-container-lowest">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Revenue Range</span>
+<span class="font-data-sm text-data-sm text-secondary font-semibold">$500 - $10,000+</span>
+</div>
+<div class="relative w-full py-1">
+<div class="h-1.5 rounded-full bg-surface-container-highest relative">
+<div class="absolute left-[10%] right-[15%] h-full bg-secondary rounded-full"></div>
+<div class="absolute left-[10%] -top-1 w-3.5 h-3.5 rounded-full bg-secondary shadow-[0_0_8px_#c0c1ff] cursor-pointer"></div>
+<div class="absolute right-[15%] -top-1 w-3.5 h-3.5 rounded-full bg-secondary shadow-[0_0_8px_#c0c1ff] cursor-pointer"></div>
+</div>
+</div>
+<div class="flex justify-between font-data-sm text-data-sm text-outline">
+<span>$0</span>
+<span>$500</span>
+<span>$10k+</span>
+</div>
+</div>
+<!-- Recency Range -->
+<div class="flex flex-col gap-2 p-space-md rounded-lg bg-surface-container-lowest">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Recency Range</span>
+<span class="font-data-sm text-data-sm text-tertiary font-semibold">0 - 180 Days</span>
+</div>
+<div class="relative w-full py-1">
+<div class="h-1.5 rounded-full bg-surface-container-highest relative">
+<div class="absolute left-0 right-[40%] h-full bg-tertiary rounded-full"></div>
+<div class="absolute left-0 -top-1 w-3.5 h-3.5 rounded-full bg-tertiary shadow-[0_0_8px_#4edea3] cursor-pointer"></div>
+<div class="absolute right-[40%] -top-1 w-3.5 h-3.5 rounded-full bg-tertiary shadow-[0_0_8px_#4edea3] cursor-pointer"></div>
+</div>
+</div>
+<div class="flex justify-between font-data-sm text-data-sm text-outline">
+<span>0d</span>
+<span>Max: 180d</span>
+<span>365d</span>
+</div>
+</div>
+<!-- Order Count -->
+<div class="flex flex-col gap-2 p-space-md rounded-lg bg-surface-container-lowest">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Order Count</span>
+<span class="font-data-sm text-data-sm text-on-surface font-semibold">2+ Orders</span>
+</div>
+<div class="flex items-center gap-space-xs mt-1">
+<button class="flex-1 py-1 rounded bg-surface-container-high text-on-surface-variant hover:text-on-surface font-data-sm text-data-sm">1</button>
+<button class="flex-1 py-1 rounded bg-primary-container text-on-primary-container font-data-sm text-data-sm font-semibold">2-5</button>
+<button class="flex-1 py-1 rounded bg-surface-container-high text-on-surface-variant hover:text-on-surface font-data-sm text-data-sm">6-10</button>
+<button class="flex-1 py-1 rounded bg-surface-container-high text-on-surface-variant hover:text-on-surface font-data-sm text-data-sm">11+</button>
+</div>
+</div>
+</div>
+<!-- Active Filter Pills Strip -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant mr-1">Active Criteria:</span>
+<span class="inline-flex items-center gap-1.5 px-space-md py-1 rounded-full bg-surface-container-highest text-on-surface font-data-sm text-data-sm shadow-sm">
+<span class="text-outline">Segment:</span>
+<span class="font-semibold text-primary">At Risk High Value</span>
+<button class="text-on-surface-variant hover:text-on-surface">✕</button>
+</span>
+<span class="inline-flex items-center gap-1.5 px-space-md py-1 rounded-full bg-surface-container-highest text-on-surface font-data-sm text-data-sm shadow-sm">
+<span class="text-outline">Value Tier:</span>
+<span class="font-semibold text-secondary">Tier 1</span>
+<button class="text-on-surface-variant hover:text-on-surface">✕</button>
+</span>
+<span class="inline-flex items-center gap-1.5 px-space-md py-1 rounded-full bg-surface-container-highest text-on-surface font-data-sm text-data-sm shadow-sm">
+<span class="text-outline">Propensity:</span>
+<span class="font-semibold text-tertiary">≥ 70%</span>
+<button class="text-on-surface-variant hover:text-on-surface">✕</button>
+</span>
+</div>
+<button class="font-label-sm text-label-sm text-primary hover:underline uppercase tracking-wider font-semibold">
+            Reset All Filters
+          </button>
+</div>
+</div>
+</div>
+<!-- Bulk Action Toolbar (Active State) -->
+<div class="px-space-lg py-space-md rounded-xl bg-surface-container-highest shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary font-bold">
+<span class="material-symbols-outlined text-[20px]">checklist</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-on-surface">3 Customers Selected</span>
+<span class="font-data-sm text-data-sm text-on-surface-variant">Combined Pipeline Value: <span class="text-primary font-semibold">$6,740.20</span></span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<button class="flex items-center gap-1.5 px-space-md py-2 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container transition-colors font-label-md text-label-md shadow-sm">
+<span class="material-symbols-outlined text-[18px] text-tertiary">csv</span>
+<span>Export CSV</span>
+</button>
+<button class="flex items-center gap-1.5 px-space-md py-2 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container transition-colors font-label-md text-label-md shadow-sm">
+<span class="material-symbols-outlined text-[18px] text-tertiary">table_view</span>
+<span>Export Excel</span>
+</button>
+<button class="flex items-center gap-1.5 px-space-md py-2 rounded-lg bg-secondary-container text-on-secondary-container hover:bg-opacity-80 transition-all font-label-md text-label-md font-semibold shadow-sm">
+<span class="material-symbols-outlined text-[18px]">group_add</span>
+<span>Create Retention List</span>
+</button>
+<button class="flex items-center gap-1.5 px-space-md py-2 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-low transition-colors font-label-md text-label-md shadow-sm">
+<span class="material-symbols-outlined text-[18px] text-primary">webhook</span>
+<span>Trigger Batch Webhook</span>
+</button>
+<button class="px-space-md py-2 rounded-lg text-outline hover:text-on-surface font-label-md text-label-md transition-colors">
+          Deselect All
+        </button>
+</div>
+</div>
+<!-- Main Workspace: Data Grid (Left/Center) + Dossier Panel (Right) -->
+<div class="grid grid-cols-1 2xl:grid-cols-12 gap-space-lg items-start">
+<!-- Table Container (Elastic Center) -->
+<div class="2xl:col-span-8 flex flex-col gap-space-md">
+<div class="rounded-xl bg-surface-container-low shadow-md overflow-hidden">
+<!-- Table Header Sub-bar -->
+<div class="px-space-lg py-space-sm bg-surface-container-high flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+              Telemetry Stream: 142,850 Total Cohort Nodes
+            </span>
+<div class="flex items-center gap-space-md font-data-sm text-data-sm text-on-surface-variant">
+<span>View Mode: <strong class="text-on-surface">Compact Density</strong></span>
+<span>Sort: <strong class="text-primary">Recency ASC</strong></span>
+</div>
+</div>
+<!-- Table Element -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="h-10 bg-surface-container-lowest font-label-sm text-label-sm text-outline uppercase tracking-wider">
+<th class="px-space-md py-2 w-10 text-center">
+<input checked="" class="rounded bg-surface-container-highest border-0 accent-primary cursor-pointer w-4 h-4" type="checkbox"/>
+</th>
+<th class="px-space-md py-2">Customer ID</th>
+<th class="px-space-md py-2">Segment</th>
+<th class="px-space-md py-2 text-right">Orders</th>
+<th class="px-space-md py-2 text-right">Revenue</th>
+<th class="px-space-md py-2 text-right">AOV</th>
+<th class="px-space-md py-2 text-right">Recency</th>
+<th class="px-space-md py-2 text-right">Frequency</th>
+<th class="px-space-md py-2 text-center">Tier</th>
+<th class="px-space-md py-2">Propensity</th>
+<th class="px-space-md py-2">Recommended Action</th>
+<th class="px-space-md py-2 text-center">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-highest font-body-md text-body-md">
+<!-- Row 1: Selected & Inspected -->
+<tr class="bg-surface-container/80 hover:bg-surface-container transition-colors group cursor-pointer">
+<td class="px-space-md py-3 text-center">
+<input checked="" class="rounded bg-surface-container-highest border-0 accent-primary cursor-pointer w-4 h-4" type="checkbox"/>
+</td>
+<td class="px-space-md py-3 font-data-md text-data-md font-semibold text-primary flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_#4cd7f6]"></span>
+<span>CUST-72109</span>
+</td>
+<td class="px-space-md py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-error-container/30 text-error font-data-sm text-data-sm font-semibold">
+                      At Risk High Value
+                    </span>
+</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-on-surface">9</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-on-surface font-semibold">$2,450.00</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-on-surface-variant">$272.22</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-error font-medium">64d ago</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-on-surface-variant">1.8x/mo</td>
+<td class="px-space-md py-3 text-center">
+<span class="px-2 py-0.5 rounded bg-surface-container-highest text-secondary font-data-sm text-data-sm font-semibold">T1</span>
+</td>
+<td class="px-space-md py-3">
+<div class="flex items-center gap-2">
+<div class="w-12 h-1.5 rounded-full bg-surface-container-highest overflow-hidden">
+<div class="h-full bg-error rounded-full w-[76%]"></div>
+</div>
+<span class="font-data-sm text-data-sm text-error font-semibold">76.4%</span>
+</div>
+</td>
+<td class="px-space-md py-3">
+<span class="font-label-md text-label-md text-on-surface truncate block max-w-[140px]">Deploy VIP Credit</span>
+</td>
+<td class="px-space-md py-3 text-center">
+<button class="px-2 py-1 rounded bg-primary-container text-on-primary-container hover:bg-primary font-label-sm text-label-sm font-semibold shadow-sm transition-all">
+                      Inspect
+                    </button>
+</td>
+</tr>
+<!-- Row 2: Selected -->
+<tr class="bg-surface-container/40 hover:bg-surface-container transition-colors group cursor-pointer">
+<td class="px-space-md py-3 text-center">
+<input checked="" class="rounded bg-surface-container-highest border-0 accent-primary cursor-pointer w-4 h-4" type="checkbox"/>
+</td>
+<td class="px-space-md py-3 font-data-md text-data-md font-semibold text-on-surface flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span>CUST-89412</span>
+</td>
+<td class="px-space-md py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-tertiary/10 text-tertiary font-data-sm text-data-sm font-semibold">
+                      Champions
+                    </span>
+</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-on-surface">14</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-on-surface font-semibold">$3,840.50</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-on-surface-variant">$274.32</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-tertiary font-medium">4d ago</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-on-surface-variant">3.2x/mo</td>
+<td class="px-space-md py-3 text-center">
+<span class="px-2 py-0.5 rounded bg-surface-container-highest text-secondary font-data-sm text-data-sm font-semibold">T1</span>
+</td>
+<td class="px-space-md py-3">
+<div class="flex items-center gap-2">
+<div class="w-12 h-1.5 rounded-full bg-surface-container-highest overflow-hidden">
+<div class="h-full bg-tertiary rounded-full w-[91%]"></div>
+</div>
+<span class="font-data-sm text-data-sm text-tertiary font-semibold">91.2%</span>
+</div>
+</td>
+<td class="px-space-md py-3">
+<span class="font-label-md text-label-md text-on-surface truncate block max-w-[140px]">Early Catalog Drop</span>
+</td>
+<td class="px-space-md py-3 text-center">
+<button class="px-2 py-1 rounded bg-surface-container-highest text-on-surface hover:text-primary font-label-sm text-label-sm font-medium transition-colors">
+                      Inspect
+                    </button>
+</td>
+</tr>
+<!-- Row 3: Selected -->
+<tr class="bg-surface-container/40 hover:bg-surface-container transition-colors group cursor-pointer">
+<td class="px-space-md py-3 text-center">
+<input checked="" class="rounded bg-surface-container-highest border-0 accent-primary cursor-pointer w-4 h-4" type="checkbox"/>
+</td>
+<td class="px-space-md py-3 font-data-md text-data-md font-semibold text-on-surface flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span>CUST-60341</span>
+</td>
+<td class="px-space-md py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary/15 text-secondary font-data-sm text-data-sm font-semibold">
+                      Potential Loyalists
+                    </span>
+</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-on-surface">4</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-on-surface font-semibold">$890.20</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-on-surface-variant">$222.55</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-on-surface font-medium">12d ago</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-on-surface-variant">1.1x/mo</td>
+<td class="px-space-md py-3 text-center">
+<span class="px-2 py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-data-sm text-data-sm font-semibold">T2</span>
+</td>
+<td class="px-space-md py-3">
+<div class="flex items-center gap-2">
+<div class="w-12 h-1.5 rounded-full bg-surface-container-highest overflow-hidden">
+<div class="h-full bg-primary rounded-full w-[82%]"></div>
+</div>
+<span class="font-data-sm text-data-sm text-primary font-semibold">82.5%</span>
+</div>
+</td>
+<td class="px-space-md py-3">
+<span class="font-label-md text-label-md text-on-surface truncate block max-w-[140px]">2nd Cat Cross-sell</span>
+</td>
+<td class="px-space-md py-3 text-center">
+<button class="px-2 py-1 rounded bg-surface-container-highest text-on-surface hover:text-primary font-label-sm text-label-sm font-medium transition-colors">
+                      Inspect
+                    </button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container transition-colors group cursor-pointer">
+<td class="px-space-md py-3 text-center">
+<input class="rounded bg-surface-container-highest border-0 accent-primary cursor-pointer w-4 h-4" type="checkbox"/>
+</td>
+<td class="px-space-md py-3 font-data-md text-data-md font-semibold text-on-surface flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+<span>CUST-51982</span>
+</td>
+<td class="px-space-md py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface font-data-sm text-data-sm">
+                      New / Promising
+                    </span>
+</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-on-surface">2</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-on-surface font-semibold">$420.00</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-on-surface-variant">$210.00</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-on-surface font-medium">8d ago</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-on-surface-variant">0.9x/mo</td>
+<td class="px-space-md py-3 text-center">
+<span class="px-2 py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-data-sm text-data-sm font-semibold">T2</span>
+</td>
+<td class="px-space-md py-3">
+<div class="flex items-center gap-2">
+<div class="w-12 h-1.5 rounded-full bg-surface-container-highest overflow-hidden">
+<div class="h-full bg-primary rounded-full w-[74%]"></div>
+</div>
+<span class="font-data-sm text-data-sm text-primary font-semibold">74.0%</span>
+</div>
+</td>
+<td class="px-space-md py-3">
+<span class="font-label-md text-label-md text-on-surface truncate block max-w-[140px]">Onboarding Follow-up</span>
+</td>
+<td class="px-space-md py-3 text-center">
+<button class="px-2 py-1 rounded bg-surface-container-highest text-on-surface hover:text-primary font-label-sm text-label-sm font-medium transition-colors">
+                      Inspect
+                    </button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-container transition-colors group cursor-pointer">
+<td class="px-space-md py-3 text-center">
+<input class="rounded bg-surface-container-highest border-0 accent-primary cursor-pointer w-4 h-4" type="checkbox"/>
+</td>
+<td class="px-space-md py-3 font-data-md text-data-md font-semibold text-on-surface flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+<span>CUST-44120</span>
+</td>
+<td class="px-space-md py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-container-highest text-outline font-data-sm text-data-sm">
+                      Needs Attention
+                    </span>
+</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-on-surface">3</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-on-surface font-semibold">$380.00</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-on-surface-variant">$126.66</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-outline font-medium">48d ago</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-on-surface-variant">0.6x/mo</td>
+<td class="px-space-md py-3 text-center">
+<span class="px-2 py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-data-sm text-data-sm font-semibold">T3</span>
+</td>
+<td class="px-space-md py-3">
+<div class="flex items-center gap-2">
+<div class="w-12 h-1.5 rounded-full bg-surface-container-highest overflow-hidden">
+<div class="h-full bg-outline rounded-full w-[58%]"></div>
+</div>
+<span class="font-data-sm text-data-sm text-outline font-semibold">58.2%</span>
+</div>
+</td>
+<td class="px-space-md py-3">
+<span class="font-label-md text-label-md text-on-surface truncate block max-w-[140px]">Discount Nudge</span>
+</td>
+<td class="px-space-md py-3 text-center">
+<button class="px-2 py-1 rounded bg-surface-container-highest text-on-surface hover:text-primary font-label-sm text-label-sm font-medium transition-colors">
+                      Inspect
+                    </button>
+</td>
+</tr>
+<!-- Row 6 -->
+<tr class="hover:bg-surface-container transition-colors group cursor-pointer">
+<td class="px-space-md py-3 text-center">
+<input class="rounded bg-surface-container-highest border-0 accent-primary cursor-pointer w-4 h-4" type="checkbox"/>
+</td>
+<td class="px-space-md py-3 font-data-md text-data-md font-semibold text-on-surface flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span>CUST-38761</span>
+</td>
+<td class="px-space-md py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-tertiary/10 text-tertiary font-data-sm text-data-sm font-semibold">
+                      Loyal Customers
+                    </span>
+</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-on-surface">7</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-on-surface font-semibold">$1,820.00</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-on-surface-variant">$260.00</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-on-surface font-medium">18d ago</td>
+<td class="px-space-md py-3 text-right font-data-md text-data-md text-on-surface-variant">1.4x/mo</td>
+<td class="px-space-md py-3 text-center">
+<span class="px-2 py-0.5 rounded bg-surface-container-highest text-secondary font-data-sm text-data-sm font-semibold">T1</span>
+</td>
+<td class="px-space-md py-3">
+<div class="flex items-center gap-2">
+<div class="w-12 h-1.5 rounded-full bg-surface-container-highest overflow-hidden">
+<div class="h-full bg-tertiary rounded-full w-[84%]"></div>
+</div>
+<span class="font-data-sm text-data-sm text-tertiary font-semibold">84.1%</span>
+</div>
+</td>
+<td class="px-space-md py-3">
+<span class="font-label-md text-label-md text-on-surface truncate block max-w-[140px]">Replenishment Prompt</span>
+</td>
+<td class="px-space-md py-3 text-center">
+<button class="px-2 py-1 rounded bg-surface-container-highest text-on-surface hover:text-primary font-label-sm text-label-sm font-medium transition-colors">
+                      Inspect
+                    </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Bar -->
+<div class="px-space-lg py-space-md bg-surface-container-high flex flex-col sm:flex-row items-center justify-between gap-space-md">
+<span class="font-data-sm text-data-sm text-on-surface-variant">
+              Showing <strong class="text-on-surface">1 - 10</strong> of <strong class="text-on-surface">142,850</strong> records
+            </span>
+<div class="flex items-center gap-1 font-data-sm text-data-sm">
+<button class="px-2.5 py-1.5 rounded bg-surface-container-highest text-on-surface-variant hover:text-on-surface transition-colors flex items-center">
+<span class="material-symbols-outlined text-[16px]">chevron_left</span>
+</button>
+<button class="px-3 py-1 rounded bg-primary-container text-on-primary-container font-semibold">1</button>
+<button class="px-3 py-1 rounded bg-surface-container-highest text-on-surface hover:bg-surface-container transition-colors">2</button>
+<button class="px-3 py-1 rounded bg-surface-container-highest text-on-surface hover:bg-surface-container transition-colors">3</button>
+<span class="px-1 text-outline">...</span>
+<button class="px-3 py-1 rounded bg-surface-container-highest text-on-surface hover:bg-surface-container transition-colors">14,285</button>
+<button class="px-2.5 py-1.5 rounded bg-surface-container-highest text-on-surface hover:text-primary transition-colors flex items-center">
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Telemetry Summary Cards Strip -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<div class="p-space-md rounded-xl bg-surface-container-low shadow-sm flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Filtered Volume</span>
+<span class="font-data-lg text-data-lg text-on-surface font-semibold">18,410</span>
+<span class="font-data-sm text-data-sm text-tertiary">12.8% of Total Base</span>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">group</span>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low shadow-sm flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Filtered Gross LTV</span>
+<span class="font-data-lg text-data-lg text-primary font-semibold">$38.4M</span>
+<span class="font-data-sm text-data-sm text-on-surface-variant">Avg: $2,085 / User</span>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low shadow-sm flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">At Risk Inactivity Alert</span>
+<span class="font-data-lg text-data-lg text-error font-semibold">64.2 Days</span>
+<span class="font-data-sm text-data-sm text-error">+18d vs Cohort Baseline</span>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[20px]">warning</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Side Inspection Drawer / Floating Quick Dossier -->
+<div class="2xl:col-span-4 flex flex-col gap-space-md">
+<div class="p-space-lg rounded-xl bg-surface-container-low shadow-xl flex flex-col gap-space-lg relative overflow-hidden">
+<!-- Accent Ambient Glow -->
+<div class="absolute -right-16 -top-16 w-48 h-48 rounded-full bg-primary/10 blur-3xl pointer-events-none"></div>
+<!-- Dossier Header -->
+<div class="flex items-start justify-between relative">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">
+<span class="material-symbols-outlined text-[16px]">account_box</span>
+<span>Quick Customer Dossier</span>
+</div>
+<h2 class="font-headline-xl text-headline-xl text-on-surface mt-1">CUST-72109</h2>
+<span class="font-data-sm text-data-sm text-outline">UUID: 8f3b2a-194c-e82d-419a-992a</span>
+</div>
+<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-error-container/40 text-error font-data-sm text-data-sm font-semibold">
+              ● Active Critical
+            </span>
+</div>
+<!-- Customer Identity Card Micro-Visual -->
+<div class="p-space-md rounded-lg bg-surface-container flex items-center gap-space-md">
+<img class="w-14 h-14 rounded-full object-cover flex-shrink-0" data-alt="Modern high tech studio portrait of a corporate executive against a midnight slate backdrop with subtle cyan rim lighting, clean obsidian color grade, professional photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCC-DoUEq2ZvsNPITyvJTWo_RRNmbrERfpz_CBfpbAOM17H4w0Pi6u8BeKP4tkLtEvGkmGIiM7lddDAiSxxxR9z_DUVaN2uAmIc69MqRHdxcbSrbChic338emmv1bxb0CxxVQAX6vowr1DOPNko8a_9clJHcTmdtXUyUK-fRRzbfsV-SOuQhA0vlckZoHRQ7F9kiBH9t7_WQDsUlRBcq_1JZpyxQXBVWJVdRODRndpAdc3JR9uA7ljj"/>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-md text-headline-md text-on-surface truncate">Eleanor Vance-Castillo</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">eleanor.vc***@cloud-mesh.internal</span>
+<span class="font-data-sm text-data-sm text-primary mt-0.5">Enterprise Direct Account • Verified</span>
+</div>
+</div>
+<!-- Primary Metric Badges Grid -->
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="p-space-md rounded-lg bg-surface-container-lowest flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-outline uppercase">Segment Tag</span>
+<span class="font-headline-md text-headline-md text-on-surface font-semibold">At Risk High Value</span>
+<span class="font-data-sm text-data-sm text-error">64d since last active</span>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container-lowest flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-outline uppercase">Value Tier</span>
+<span class="font-headline-md text-headline-md text-secondary font-semibold">Tier 1 ($2.4k+)</span>
+<span class="font-data-sm text-data-sm text-tertiary">Top 5% of Store</span>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container-lowest flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-outline uppercase">Total Orders</span>
+<span class="font-data-lg text-data-lg text-on-surface font-semibold">9 Orders</span>
+<span class="font-data-sm text-data-sm text-on-surface-variant">AOV: $272.22</span>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container-lowest flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-outline uppercase">Total Revenue</span>
+<span class="font-data-lg text-data-lg text-primary font-semibold">$2,450.00</span>
+<span class="font-data-sm text-data-sm text-tertiary">Frequency: 1.8x/mo</span>
+</div>
+</div>
+<!-- Repeat Propensity Score Gauge -->
+<div class="p-space-md rounded-lg bg-surface-container-lowest flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline uppercase">Predictive Repeat Propensity</span>
+<span class="font-data-lg text-data-lg text-on-surface font-bold">76.4%</span>
+</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-primary/10 text-primary font-data-sm text-data-sm font-semibold">
+                Model Confidence: High (94.2%)
+              </span>
+</div>
+<!-- In-line Mini Visual: Recency Drift Sparkline -->
+<div class="flex flex-col gap-1 pt-1">
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span>Engagement Trajectory</span>
+<span class="text-error">Critical Inactivity Drift</span>
+</div>
+<div class="w-full h-12 bg-surface-container rounded flex items-end px-2 py-1 gap-1">
+<div class="flex-1 bg-tertiary rounded-t h-[90%]"></div>
+<div class="flex-1 bg-tertiary rounded-t h-[82%]"></div>
+<div class="flex-1 bg-tertiary rounded-t h-[75%]"></div>
+<div class="flex-1 bg-tertiary rounded-t h-[68%]"></div>
+<div class="flex-1 bg-secondary rounded-t h-[52%]"></div>
+<div class="flex-1 bg-secondary rounded-t h-[44%]"></div>
+<div class="flex-1 bg-outline rounded-t h-[30%]"></div>
+<div class="flex-1 bg-error rounded-t h-[18%]"></div>
+</div>
+<div class="flex justify-between font-data-sm text-data-sm text-outline mt-0.5">
+<span>Jan (Active)</span>
+<span>Today (64d Silent)</span>
+</div>
+</div>
+</div>
+<!-- Recommended AI Action Banner -->
+<div class="p-space-md rounded-lg bg-surface-container flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs font-label-sm text-label-sm text-secondary uppercase font-semibold">
+<span class="material-symbols-outlined text-[18px]">psychology</span>
+<span>Next Best Action Recommendation</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface font-medium leading-snug">
+              High-Value VIP Replenishment with Exclusive Category Credit
+            </p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              System projected retention uplift of <strong class="text-tertiary">+34.8%</strong> if dispatched within the next 48 hours.
+            </p>
+</div>
+<!-- Quick Actions Direct Execution -->
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<button class="w-full py-2.5 rounded-lg bg-primary text-on-primary hover:bg-primary-container transition-all font-label-md text-label-md font-bold shadow-md flex items-center justify-center gap-space-xs">
+<span class="material-symbols-outlined text-[20px]">center_focus_strong</span>
+<span>Open Customer 360</span>
+</button>
+<button class="w-full py-2.5 rounded-lg bg-secondary-container text-on-secondary-container hover:bg-opacity-80 transition-all font-label-md text-label-md font-semibold flex items-center justify-center gap-space-xs">
+<span class="material-symbols-outlined text-[20px]">campaign</span>
+<span>Add to Retention Campaign</span>
+</button>
+<button class="w-full py-2 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors font-label-md text-label-md flex items-center justify-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Export Dossier JSON</span>
+</button>
+</div>
+</div>
+<!-- Recent Audit Log Micro-Module -->
+<div class="p-space-md rounded-xl bg-surface-container-low shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Node Event Log</span>
+<span class="font-data-sm text-data-sm text-primary">Live Wire</span>
+</div>
+<div class="space-y-2 font-data-sm text-data-sm">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="truncate">Churn Probability recalculated</span>
+<span class="text-outline">14:22:04</span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="truncate">Webhook retry: Klaviyo Segment #88</span>
+<span class="text-outline">11:05:12</span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="truncate">AOV updated post-return sync</span>
+<span class="text-outline">Yesterday</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Simple interactive toggle for Precision Filters Accordion
+  const accordionTrigger = document.getElementById('accordion-trigger');
+  const accordionPanel = document.getElementById('accordion-panel');
+  const accordionChevron = document.getElementById('accordion-chevron');
+
+  if (accordionTrigger && accordionPanel && accordionChevron) {
+    accordionTrigger.addEventListener('click', () => {
+      const isHidden = accordionPanel.classList.contains('hidden');
+      if (isHidden) {
+        accordionPanel.classList.remove('hidden');
+        accordionChevron.style.transform = 'rotate(0deg)';
+      } else {
+        accordionPanel.classList.add('hidden');
+        accordionChevron.style.transform = 'rotate(-90deg)';
+      }
+    });
+  }
+</script></main></div></body></html>

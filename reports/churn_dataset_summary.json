@@ -1,0 +1,30 @@
+{
+  "dataset_type": "historical_snapshot_churn_dataset",
+  "snapshot_date": "2018-03-02",
+  "future_observation_days": 180,
+  "customers": 55907,
+  "churned": 55252,
+  "non_churned": 655,
+  "churn_rate": 0.9882841146904681,
+  "feature_columns": [
+    "customer_unique_id",
+    "first_purchase_date",
+    "last_purchase_date",
+    "total_orders",
+    "recency_days",
+    "customer_lifetime_days",
+    "repeat_customer",
+    "purchase_frequency",
+    "mean_purchase_gap_days",
+    "median_purchase_gap_days",
+    "max_purchase_gap_days",
+    "purchase_gap_count"
+  ],
+  "target_column": "churn_label",
+  "future_purchase_count_used_only_for_label": true,
+  "leakage_columns_removed": [
+    "future_purchase_count",
+    "label_observation_days",
+    "label_eligible"
+  ]
+}
