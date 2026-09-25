@@ -2,53 +2,90 @@
 # CIX — Vercel Production Deployment
 # =========================================================
 
-# RAW Olist datasets — never needed by runtime
+# -------------------------
+# Olist raw datasets
+# -------------------------
 data/raw/
 
-# Training / experimentation datasets
+# -------------------------
+# Training / ML datasets
+# -------------------------
 data/processed/customer_purchase_behavior.csv
 data/processed/customer_rfm.csv
 data/processed/customer_clv.csv
+data/processed/customer_clv_summary.csv
 data/processed/customer_repeat_purchase_dataset.csv
 data/processed/repeat_purchase_train.csv
 data/processed/repeat_purchase_test.csv
 data/processed/customer_churn_dataset.csv
+data/processed/repeat_purchase_predictions.csv
 
-# DO NOT exclude these — app.py loads them at runtime
+# -------------------------
+# Keep these runtime files
+# -------------------------
 # data/processed/customer_intelligence_master.csv
 # data/processed/customer_recommendations.csv
-# data/processed/repeat_purchase_predictions.csv
 
-# Old / experimental ML artifacts
+# -------------------------
+# Old / experimental artifacts
+# -------------------------
 artifacts/
 
-# Re-include production artifacts
+# -------------------------
+# Keep production model
+# -------------------------
 !artifacts_production/
 !artifacts_production/models/
+!artifacts_production/models/*.joblib
+!artifacts_production/models/*.json
 !artifacts_production/reports/
 
+# -------------------------
 # Training reports
+# -------------------------
 reports/
 
+# -------------------------
 # Notebooks
+# -------------------------
 notebooks/
 
+# -------------------------
 # Tests
+# -------------------------
 tests/
 
+# -------------------------
 # Local uploads
+# -------------------------
 data/uploads/
 
-# Python development
+# -------------------------
+# Development environment
+# -------------------------
 .venv/
 venv/
-__pycache__/
+**/__pycache__/
 *.pyc
 .pytest_cache/
 .ipynb_checkpoints/
 
+# -------------------------
 # Development dependencies
+# -------------------------
 requirements-dev.txt
 
-# Local Vercel files
+# -------------------------
+# Vercel local files
+# -------------------------
 .vercel/
+
+# -------------------------
+# Stitch reference screens
+# -------------------------
+stitch_screens/
+
+# -------------------------
+# Documentation
+# -------------------------
+docs/
